@@ -5,18 +5,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class Registrar extends JFrame{
-    
+public class ZonasScroll extends JFrame{
     public JLabel fondo = new JLabel();
     
-    public Registrar(){
+    public ZonasScroll(){
         PanelFondo();
     }
     
     private void PanelFondo(){
         
         //Creamos la ventana.
-        setTitle("Registrar Usuario");
+        setTitle("Scroll");
         setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

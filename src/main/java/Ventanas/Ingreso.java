@@ -20,8 +20,8 @@ import javax.swing.JTextField;
 public class Ingreso extends JFrame{
     
     public JLabel fondo = new JLabel();
-    public Menu ventanaMenu = new Menu();
-    public Registrar ventanaRegistrar = new Registrar();
+    
+    public boolean activContra = false;
     
     public Ingreso(){
         PanelFondo();
@@ -34,6 +34,7 @@ public class Ingreso extends JFrame{
         setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
         
         //Establecemos imagen de fondo.
         fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
@@ -90,6 +91,7 @@ public class Ingreso extends JFrame{
         
         //Se crea un panel para poder redimensionar el campo de texto.
         JPanel campoTextoUsuario = new JPanel();
+        campoTextoUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoTextoUsuario.setOpaque(false);
         campoTextoUsuario.setLayout(null);
         campoTextoUsuario.setPreferredSize(new Dimension(600, 70));
@@ -115,6 +117,7 @@ public class Ingreso extends JFrame{
         
         //Se crea un panel para poder redimensionar el campo de texto.
         JPanel campoTextoContraseña = new JPanel();
+        campoTextoContraseña.setAlignmentX(Component.CENTER_ALIGNMENT);
         campoTextoContraseña.setOpaque(false);
         campoTextoContraseña.setLayout(null);
         campoTextoContraseña.setPreferredSize(new Dimension(600, 70));
@@ -128,11 +131,41 @@ public class Ingreso extends JFrame{
         textoContraseña.setBounds(80, 0, 400, 55);
         
         campoTextoContraseña.add(textoContraseña);
+        
+        //Creamos boton para ver y no ver contraseña.
+        JButton botonVerContra = new JButton();
+        botonVerContra.setBounds(490, 8, 40, 40);
+        botonVerContra.setOpaque(false);
+        botonVerContra.setFocusPainted(false);
+        botonVerContra.setBorderPainted(false);
+        
+        ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
+        ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
+        botonVerContra.setBackground(Color.decode("#000e3c"));
+        botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        campoTextoContraseña.add(botonVerContra);
+        
+        ActionListener irIngreso = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activContra == false){
+                    textoContraseña.setEchoChar((char) 0);
+                    botonVerContra.setIcon(new ImageIcon(logoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                    activContra = true;
+                }else{
+                    textoContraseña.setEchoChar('*');
+                    botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                    activContra = false;
+                }
+                
+            }
+        };
+        botonVerContra.addActionListener(irIngreso);
+        
         derecha.add(campoTextoContraseña);
         
         //Creamos un panel para añadir botones de izquierda a derecha.
         JPanel botonesDerecha = new JPanel();
-        botonesDerecha.setPreferredSize(new Dimension(600, 90));
         botonesDerecha.setOpaque(false);
         botonesDerecha.setLayout(new BoxLayout(botonesDerecha, BoxLayout.X_AXIS));
         
@@ -171,8 +204,9 @@ public class Ingreso extends JFrame{
         ActionListener irMenu = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Menu ventanaMenu = new Menu();
                 ventanaMenu.setVisible(true);
-                dispose();
+                setVisible(false);
             }
         };
         ingreso.addActionListener(irMenu);
@@ -180,6 +214,7 @@ public class Ingreso extends JFrame{
         ActionListener irRegistrar = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Registrar ventanaRegistrar = new Registrar();
                 ventanaRegistrar.setVisible(true);
                 dispose();
             }
