@@ -52,13 +52,14 @@ public class Menu extends JFrame{
         elementosSuperiores.setOpaque(false);
         fondo.add(elementosSuperiores);
         
+        elementosSuperiores.add(Box.createRigidArea(new Dimension(80,0)));
         //Creamos un titulo de bienvenida.
-        JLabel texto1 = new JLabel("AREA MANAGEMENT SECURITY");
-        texto1.setFont(new Font("Constantia Bold",1,50));
+        JLabel texto1 = new JLabel("<html><body><center><p>AREA MANAGEMENT SECURITY</p></html>"); //se puede utilizar html.
+        texto1.setFont(new Font("Constantia Bold",1,70));
         texto1.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal. //Centrar el texto
         elementosSuperiores.add(texto1);
         
-        elementosSuperiores.add(Box.createRigidArea(new Dimension(120, 0)));
+        elementosSuperiores.add(Box.createRigidArea(new Dimension(50, 200)));
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
@@ -83,10 +84,13 @@ public class Menu extends JFrame{
     }
     
     private void ParteInferior(){
+        //Separamos un poco los botones del titulo.
+        fondo.add(Box.createRigidArea(new Dimension(0,30)));
+        
         //Creamos un panel para colocar las opciones de ventanas.
         JPanel botonesPanel = new JPanel();
         botonesPanel.setOpaque(false);
-        botonesPanel.setLayout(new GridLayout(2,2,10,10));
+        botonesPanel.setLayout(new GridLayout(1,4,10,10));
         fondo.add(botonesPanel);
         
         //Creamos los botones para ir a las diferentes ventanas.
@@ -145,6 +149,8 @@ public class Menu extends JFrame{
         };
         opcion4.addActionListener(irConfig);
         botonesPanel.add(opcion4);
+        
+        fondo.add(Box.createRigidArea(new Dimension(0,70)));
     }
 
 }
