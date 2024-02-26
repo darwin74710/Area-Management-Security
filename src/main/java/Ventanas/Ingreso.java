@@ -67,7 +67,7 @@ public class Ingreso extends JFrame{
         //Creamos un titulo de bienvenida.
         JLabel texto1 = new JLabel("BIENVENIDO/A");
         texto1.setFont(new Font("Constantia Bold",1,70));
-        texto1.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal.
+        texto1.setForeground(Color.decode("#85add5")); //Le establecemos un color con formato hexadecimal.
         texto1.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
         derecha.add(texto1);
         

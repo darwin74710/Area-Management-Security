@@ -1,10 +1,8 @@
 package Ventanas;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +54,7 @@ public class Menu extends JFrame{
         //Creamos un titulo de bienvenida.
         JLabel texto1 = new JLabel("<html><body><center><p>AREA MANAGEMENT SECURITY</p></html>"); //se puede utilizar html.
         texto1.setFont(new Font("Constantia Bold",1,70));
-        texto1.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal. //Centrar el texto
+        texto1.setForeground(Color.decode("#85add5")); //Le establecemos un color con formato hexadecimal. //Centrar el texto
         elementosSuperiores.add(texto1);
         
         elementosSuperiores.add(Box.createRigidArea(new Dimension(50, 200)));
