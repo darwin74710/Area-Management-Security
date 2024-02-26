@@ -90,12 +90,15 @@ public class Menu extends JFrame{
         //Creamos un panel para colocar las opciones de ventanas.
         JPanel botonesPanel = new JPanel();
         botonesPanel.setOpaque(false);
-        botonesPanel.setLayout(new GridLayout(1,4,10,10));
+        botonesPanel.setLayout(null);
         fondo.add(botonesPanel);
         
         //Creamos los botones para ir a las diferentes ventanas.
         //SCROLL
-        JButton opcion1 = new JButton("ZONAS TIPO SCROLL");
+        JButton opcion1 = new JButton();
+        opcion1.setBounds(5, 10, 233, 241);
+        ImageIcon logoScroll = new ImageIcon("Imagenes/Iconos/botonScrolls.png");
+        opcion1.setIcon(new ImageIcon(logoScroll.getImage().getScaledInstance(opcion1.getWidth(), opcion1.getHeight(), Image.SCALE_DEFAULT)));
         
         ActionListener irScroll = new ActionListener() {
             @Override
@@ -109,7 +112,10 @@ public class Menu extends JFrame{
         botonesPanel.add(opcion1);
         
         //MAPA
-        JButton opcion2 = new JButton("ZONAS TIPO MAPA");
+        JButton opcion2 = new JButton();
+        opcion2.setBounds(245, 10, 233, 241);
+        ImageIcon logoArea = new ImageIcon("Imagenes/Iconos/botonAreas.png");
+        opcion2.setIcon(new ImageIcon(logoArea.getImage().getScaledInstance(opcion2.getWidth(), opcion2.getHeight(), Image.SCALE_DEFAULT)));
         
         ActionListener irMapa = new ActionListener() {
             @Override
@@ -123,7 +129,10 @@ public class Menu extends JFrame{
         botonesPanel.add(opcion2);
         
         //MANUAL
-        JButton opcion3 = new JButton("MANUAL");
+        JButton opcion3 = new JButton();
+        opcion3.setBounds(485, 10, 233, 241);
+        ImageIcon logoManual = new ImageIcon("Imagenes/Iconos/botonManual.png");
+        opcion3.setIcon(new ImageIcon(logoManual.getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
         
         ActionListener irManual = new ActionListener() {
             @Override
@@ -137,7 +146,10 @@ public class Menu extends JFrame{
         botonesPanel.add(opcion3);
         
         //CONFIGURACIONES
-        JButton opcion4 = new JButton("CONFIGURACIONES");
+        JButton opcion4 = new JButton();
+        opcion4.setBounds(725, 10, 233, 241);
+        ImageIcon logoConfig = new ImageIcon("Imagenes/Iconos/botonConfig.png");
+        opcion4.setIcon(new ImageIcon(logoConfig.getImage().getScaledInstance(opcion4.getWidth(), opcion4.getHeight(), Image.SCALE_DEFAULT)));
         
         ActionListener irConfig = new ActionListener() {
             @Override
@@ -149,8 +161,6 @@ public class Menu extends JFrame{
         };
         opcion4.addActionListener(irConfig);
         botonesPanel.add(opcion4);
-        
-        fondo.add(Box.createRigidArea(new Dimension(0,70)));
     }
 
 }
