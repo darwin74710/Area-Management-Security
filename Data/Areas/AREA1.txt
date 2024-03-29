@@ -1,0 +1,1 @@
+AREA1|Prioridad de seguridad: Alta\n\nRiesgos: Alta|#ff0000|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|0

@@ -1,0 +1,6 @@
+target/
+opencv/
+javafx-sdk-22/
+pom.xml
+nbactions.xml
+LICENSE

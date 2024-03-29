@@ -1,0 +1,1 @@
+SI_2|DSAD|#85add5|Imagenes/Iconos/areaEstandar.png|desActive
