@@ -15,143 +15,77 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Configuraciones extends JFrame{
     public JLabel fondo = new JLabel();
+    public JFrame ventanaAnterior = new JFrame();
     
     public Configuraciones(){
         PanelFondo();
     }
     
     private void PanelFondo(){
-        
         //Creamos la ventana.
         setTitle("Configuraciones");
         setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+
+        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo.setLayout(null);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
-        this.add(fondo);
-        fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
-        fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
-        this.add(fondo);
+        JScrollPane scrollFondo = new JScrollPane(fondo);
+        scrollFondo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollFondo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollFondo.setOpaque(true);
+        scrollFondo.setBorder(null);
+        this.add(scrollFondo);
         
-        ParteSuperior();
-        ParteInferior();
         
+        Elementos();
     }
-    private void ParteSuperior(){
-        //Creamos un panel para el titulo y el boton volver.
-        JPanel elementosSuperiores = new JPanel();
-        elementosSuperiores.setLayout(new BoxLayout(elementosSuperiores, BoxLayout.X_AXIS));
-        elementosSuperiores.setOpaque(false);
-        fondo.add(elementosSuperiores);
-        
-        elementosSuperiores.add(Box.createRigidArea(new Dimension(80,200)));
-        //Creamos un titulo de bienvenida.
-        JLabel texto1 = new JLabel("CONFIGURACIONES"); //se puede utilizar html.
-        texto1.setFont(new Font("Constantia Bold",1,70));
-        texto1.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal. //Centrar el texto
-        elementosSuperiores.add(texto1);
-        
-        elementosSuperiores.add(Box.createRigidArea(new Dimension(50, 0)));
+    private void Elementos(){
+        JPanel elementos = new JPanel();
+        elementos.setLayout(null);
+        elementos.setBounds(10,10,965,540);
+        elementos.setOpaque(false);
+        fondo.add(elementos);
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setOpaque(false);
+        botonVolver.setBounds(890, 20, 50, 50);
         botonVolver.setFocusPainted(false);
-        botonVolver.setBorderPainted(false);
-        
+
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
         botonVolver.setBackground(Color.decode("#000e3c"));
-        botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
-        elementosSuperiores.add(botonVolver);
+        botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        elementos.add(botonVolver);
         
-        ActionListener irMenu = new ActionListener() {
+        JLabel tituloRegistro = new JLabel("Configuraciones Usuario");
+        tituloRegistro.setForeground(Color.white);
+        tituloRegistro.setFont(new Font("Arial",1,40));
+        tituloRegistro.setBounds(10, 15, 500, 50);
+        elementos.add(tituloRegistro);
+        
+        // Metodo para volver al menu
+        ActionListener irCamaras = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Menu ventanaMenu = new Menu();
-                ventanaMenu.setVisible(true);
-                setVisible(false);
+                ventanaAnterior.setVisible(true);
+                dispose();
             }
         };
-        botonVolver.addActionListener(irMenu);
+        botonVolver.addActionListener(irCamaras);
+        
+        JPanel configUsuarui = new JPanel();
+        configUsuarui.setBackground(Color.decode("#000a45"));
+        configUsuarui.setLayout(null);
+        configUsuarui.setBounds(10, 80, 925, 470);
+        elementos.add(configUsuarui);
     }
-        
-        
-    private void ParteInferior(){
-       
-        JPanel elementosInferiores = new JPanel();
-        elementosInferiores.setBackground(Color.red);
-        elementosInferiores.setOpaque(false);
-        elementosInferiores.setLayout(new BoxLayout(elementosInferiores, BoxLayout.X_AXIS));
-        
-        fondo.add(elementosInferiores);
-
-        
-        
-        JPanel izquierdo = new JPanel();
-        izquierdo.setLayout(null);
-        izquierdo.setOpaque(false);
-        
-        JLabel texto1 = new JLabel("Configuración de usuario");
-        texto1.setBounds(0, 0, 190, 50);
-        texto1.setFont(new Font("Constantia Bold",1,20));
-        texto1.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal.
-        texto1.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
-        izquierdo.add(texto1);
-        
-        String [] opciones = {"Cambiar nombre de perfil", "Cambiar contraseña", "Permisos del usuario"
-                 ,"Cambiar correo enlazado", "Eliminar cuenta de usuario"};
-                
-        JComboBox ListaDesplegable = new JComboBox(opciones);
-        ListaDesplegable.setBounds(0, 100, 160, 50);
-        
- 
-        
-        izquierdo.add(ListaDesplegable);
-        
-        elementosInferiores.add(izquierdo);
-        
-        
-        elementosInferiores.add(Box.createRigidArea(new Dimension(10, 0)));
-        
-        
-        JPanel derecho = new JPanel();
-        derecho.setLayout(null);
-        derecho.setOpaque(false);
-        
-        JLabel texto2 = new JLabel("Configuración de aplicación");
-        
-        texto2.setFont(new Font("Constantia Bold",1,20));
-        texto2.setBounds(0, 0, 190, 50);
-        texto2.setForeground(Color.decode("#5c5f77")); //Le establecemos un color con formato hexadecimal.
-        texto2.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
-        derecho.add(texto2);
-        
-        String [] opciones2 = {"Color de fondo", "Tipo de letra", "Eliminar datos guardados"};
-                
-        JComboBox ListaDesplegable1 = new JComboBox(opciones2);
-        ListaDesplegable1.setBounds(0, 100, 160, 50);
-                
-                
-        derecho.add(ListaDesplegable1);
-        
-        
-        
-        elementosInferiores.add(derecho);
-        
-  
-        
-
-    }
-    
-
-    
-    
 }

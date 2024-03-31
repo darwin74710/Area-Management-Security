@@ -48,6 +48,7 @@ public class Registrar extends JFrame {
     JTextField terceraRespT;
     
     public static String ruta;
+    public JFrame ventanaAnterior = new JFrame();
 
     //variables para logica del boton ver contraseña
     ActionListener activar;
@@ -102,25 +103,25 @@ public class Registrar extends JFrame {
 
         titPanel.add(Box.createRigidArea(new Dimension(450, 70)));
 
+        //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setOpaque(false);
+        botonVolver.setBackground(Color.decode("#000a45"));
         botonVolver.setFocusPainted(false);
-        botonVolver.setBorderPainted(false);
-
+        botonVolver.setMaximumSize(new Dimension(50, 50));
+        botonVolver.setPreferredSize(new Dimension(50, 50));
+        
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
-        botonVolver.setBackground(Color.decode("#000e3c"));
-        botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         titPanel.add(botonVolver);
-
-        ActionListener irIngreso = new ActionListener() {
+        //Funciones botones.
+        ActionListener irMenu = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ingreso ventanaIngreso = new Ingreso();
-                ventanaIngreso.setVisible(true);
-                setVisible(false);
+                ventanaAnterior.setVisible(true);
+                dispose();
             }
         };
-        botonVolver.addActionListener(irIngreso);
+        botonVolver.addActionListener(irMenu);
     }//FIN METODO
 
     private void Formulario() {

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
@@ -52,9 +53,9 @@ public class Menu extends JFrame{
     private void ParteSuperior(){
         //Creamos un panel para el titulo y el boton volver.
         JPanel elementosSuperiores = new JPanel();
-        elementosSuperiores.setLayout(new BoxLayout(elementosSuperiores, BoxLayout.X_AXIS));
+        elementosSuperiores.setLayout(null);
         elementosSuperiores.setOpaque(false);
-        elementosSuperiores.setBounds(0,0,970,100);
+        elementosSuperiores.setBounds(320,0,660,100);
         fondo.add(elementosSuperiores);
         
         //Perfil con descripción.
@@ -71,25 +72,23 @@ public class Menu extends JFrame{
         fondoPerfil.add(imagenPerfil);
         
         
-        elementosSuperiores.add(Box.createRigidArea(new Dimension(410,0)));
         //Creamos un titulo de bienvenida.
         JLabel texto1 = new JLabel("<html><body><center><p>Bienvenida Hormiguita</p></html>"); //se puede utilizar html.
         texto1.setFont(new Font("Constantia Bold",1,35));
+        texto1.setHorizontalAlignment(SwingConstants.CENTER);
         texto1.setForeground(Color.white); //Le establecemos un color con formato hexadecimal. //Centrar el texto
+        texto1.setBounds(80,30, 440, 40);
         elementosSuperiores.add(texto1);
-        
-        elementosSuperiores.add(Box.createRigidArea(new Dimension(50, 70)));
-        
+
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
         botonVolver.setBackground(Color.decode("#000e3c"));
-        botonVolver.setMaximumSize(new Dimension(50,50));
-        botonVolver.setPreferredSize(new Dimension(50, 50));
+        botonVolver.setBounds(915, 30, 50, 50);
         botonVolver.setFocusPainted(false);
         
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
         botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
-        elementosSuperiores.add(botonVolver);
+        fondo.add(botonVolver);
         
         
         //Funciones botones.
@@ -102,6 +101,28 @@ public class Menu extends JFrame{
             }
         };
         botonVolver.addActionListener(irIngreso);
+        
+        JButton botonRegistrar = new JButton();
+        botonRegistrar.setBackground(Color.decode("#000e3c"));
+        botonRegistrar.setBounds(915, 90, 50, 50);
+        botonRegistrar.setFocusPainted(false);
+        
+        ImageIcon logoRegistrar = new ImageIcon("Imagenes/Iconos/registroUsuario.png");
+        botonRegistrar.setIcon(new ImageIcon(logoRegistrar.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        fondo.add(botonRegistrar);
+        
+        
+        //Funciones botones.
+        ActionListener irRegistro = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Registrar ventanaRegistrar = new Registrar();
+                ventanaRegistrar.ventanaAnterior = Menu.this;
+                ventanaRegistrar.setVisible(true);
+                setVisible(false);
+            }
+        };
+        botonRegistrar.addActionListener(irRegistro);
     }
     
     private void ParteInferior(){
@@ -180,6 +201,7 @@ public class Menu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Configuraciones ventanaConfig = new Configuraciones();
+                ventanaConfig.ventanaAnterior = Menu.this;
                 ventanaConfig.setVisible(true);
                 setVisible(false);
             }

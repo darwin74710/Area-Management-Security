@@ -162,6 +162,8 @@ public class Ingreso extends JFrame{
 
         ingreso.setFont(new Font("Arial", 1, 25));
         ingreso.setForeground(Color.white);
+        ingreso.setMaximumSize(new Dimension(200, 50));
+        ingreso.setPreferredSize(new Dimension(200, 50));
         botonesDerecha.add(ingreso);
 
         //funcionalidad del boton ingresar
@@ -169,35 +171,14 @@ public class Ingreso extends JFrame{
             btnIngresarActionPerformed(e);
         });
 
-        //Creamos un espacio entre los botones.
-        botonesDerecha.add(Box.createRigidArea(new Dimension(10, 0)));
-
-        JButton registrar = new JButton("REGISTRARSE");
-        registrar.setBackground(Color.decode("#000e3c"));
-        registrar.setFocusPainted(false);
-
-        registrar.setFont(new Font("Arial", 1, 25));
-        registrar.setForeground(Color.white);
-        botonesDerecha.add(registrar);
-
         //Separamos los botones de los bordes.
-        derecha.add(Box.createRigidArea(new Dimension(0, 30)));
+        derecha.add(Box.createRigidArea(new Dimension(0, 10)));
         derecha.add(botonesDerecha);
         derecha.add(Box.createRigidArea(new Dimension(0, 30)));
 
         fondo.add(derecha);
         //Agregamos un espacio al final.
         fondo.add(Box.createRigidArea(new Dimension(10, 0)));
-
-        ActionListener irRegistrar = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Registrar ventanaRegistrar = new Registrar();
-                ventanaRegistrar.setVisible(true);
-                dispose();
-            }
-        };
-        registrar.addActionListener(irRegistrar);
     }
 
     public void btnIngresarActionPerformed(ActionEvent e) {
