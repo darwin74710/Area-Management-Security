@@ -31,6 +31,15 @@ public class Menu extends JFrame{
         Deteccion();
     }
     
+    // TEMAS
+    public static String imagenFondo = "Imagenes/fondo.png";
+    public static String colorPanelClaro = "#011b5a";
+    public static String colorPanelMedio = "#000a45";
+    public static String colorPanelOscuro = "#121a2d";
+    public static String colorBotonClaro = "#85add5";
+    public static String colorBotonClaroSeleccion = "#415F7E";
+    public static String colorBotonOscuro = "#000e3c";
+    
     private void PanelFondo(){
         
         //Creamos la ventana.
@@ -41,7 +50,7 @@ public class Menu extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -60,7 +69,7 @@ public class Menu extends JFrame{
         
         //Perfil con descripción.
         JPanel fondoPerfil = new JPanel();
-        fondoPerfil.setBackground(Color.decode("#000a45"));
+        fondoPerfil.setBackground(Color.decode(colorPanelMedio));
         fondoPerfil.setBounds(0,0,320,600);
         fondoPerfil.setLayout(null);
         fondo.add(fondoPerfil);
@@ -82,7 +91,8 @@ public class Menu extends JFrame{
 
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(colorBotonOscuro));
+        
         botonVolver.setBounds(915, 30, 50, 50);
         botonVolver.setFocusPainted(false);
         
@@ -103,7 +113,7 @@ public class Menu extends JFrame{
         botonVolver.addActionListener(irIngreso);
         
         JButton botonRegistrar = new JButton();
-        botonRegistrar.setBackground(Color.decode("#000e3c"));
+        botonRegistrar.setBackground(Color.decode(colorBotonOscuro));
         botonRegistrar.setBounds(915, 90, 50, 50);
         botonRegistrar.setFocusPainted(false);
         

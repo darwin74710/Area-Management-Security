@@ -27,6 +27,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Registros extends JFrame{
+    Menu menu;
+    
     public JLabel fondo = new JLabel();
     public JFrame ventanaAnterior = new JFrame();
     
@@ -47,7 +49,7 @@ public class Registros extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -63,7 +65,7 @@ public class Registros extends JFrame{
         botonVolver.setFocusPainted(false);
 
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         fondo.add(botonVolver);
         
@@ -88,7 +90,7 @@ public class Registros extends JFrame{
         List<String> datos = guardado.CargarDatosRegistros(nombreRegistro);
         
         JPanel panelRegistros = new JPanel();
-        panelRegistros.setBackground(Color.decode("#000a45"));
+        panelRegistros.setBackground(Color.decode(menu.colorPanelMedio));
         panelRegistros.setLayout(null);
         panelRegistros.setBounds(10, 80, 960, 470);
         fondo.add(panelRegistros);
@@ -101,7 +103,7 @@ public class Registros extends JFrame{
 
         //DECORACION
         JPanel panelDescript = new JPanel();
-        panelDescript.setBackground(Color.decode("#011b5a"));
+        panelDescript.setBackground(Color.decode(menu.colorPanelClaro));
         panelDescript.setLayout(new BoxLayout(panelDescript, BoxLayout.X_AXIS));
         panelDescript.setBounds(10, 40, 400, 420);
         panelRegistros.add(panelDescript);
@@ -111,7 +113,7 @@ public class Registros extends JFrame{
         descripcion.setText(datos.get(1).replace("\\n", "\n"));
         descripcion.setMargin(new Insets(10, 10, 10, 10));
         descripcion.setForeground(Color.white);
-        descripcion.setBackground(Color.decode("#011b5a"));
+        descripcion.setBackground(Color.decode(menu.colorPanelClaro));
         descripcion.setEditable(false);
         JScrollPane scrollDescript = new JScrollPane();
         scrollDescript.setBorder(null);
@@ -129,7 +131,7 @@ public class Registros extends JFrame{
         // BOTON ATRAS
         JButton atras = new JButton();
         atras.setBounds(440, 410, 70, 40);
-        atras.setBackground(Color.decode("#000e3c"));
+        atras.setBackground(Color.decode(menu.colorBotonOscuro));
         atras.setFocusPainted(false); //Quitamos las lineas de focus.
         
         ImageIcon logoAtras = new ImageIcon("Imagenes/Iconos/flechaIzquierda.png"); 
@@ -150,7 +152,7 @@ public class Registros extends JFrame{
         // BOTON SIGUIENTE
         JButton siguiente = new JButton();
         siguiente.setBounds(870, 410, 70, 40);
-        siguiente.setBackground(Color.decode("#000e3c"));
+        siguiente.setBackground(Color.decode(menu.colorBotonOscuro));
         siguiente.setFocusPainted(false); //Quitamos las lineas de focus.
         
         ImageIcon logoSiguiente = new ImageIcon("Imagenes/Iconos/flechaDerecha.png"); 
@@ -170,7 +172,7 @@ public class Registros extends JFrame{
         
         // BOTON EDITAR DESCRIPCION
         JButton editarDescript = new JButton("EDITAR");
-        editarDescript.setBackground(Color.decode("#85add5"));
+        editarDescript.setBackground(Color.decode(menu.colorBotonClaro));
         editarDescript.setFocusPainted(false);
         editarDescript.setBounds(330, 10, 80, 20);
         editarDescript.addActionListener(new ActionListener() {
@@ -184,7 +186,7 @@ public class Registros extends JFrame{
                 
                 JPanel fondo = new JPanel();
                 fondo.setLayout(null);
-                fondo.setBackground(Color.decode("#000a45"));
+                fondo.setBackground(Color.decode(menu.colorPanelMedio));
                 
                 JTextArea descriptData = new JTextArea();
                 descriptData.setText(datos.get(1).replace("\\n", "\n"));
@@ -195,7 +197,7 @@ public class Registros extends JFrame{
                 
                 JButton botonEditar = new JButton("EDITAR");
                 botonEditar.setBounds(160,380,100,20);
-                botonEditar.setBackground(Color.decode("#85add5"));
+                botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
                 botonEditar.setFocusPainted(false);
                 botonEditar.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -209,7 +211,7 @@ public class Registros extends JFrame{
 
                 JButton botonCancelar = new JButton("CANCELAR");
                 botonCancelar.setBounds(270,380,100,20);
-                botonCancelar.setBackground(Color.decode("#85add5"));
+                botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
                 botonCancelar.setFocusPainted(false);
                 botonCancelar.addActionListener(ex -> ventanaAgregar.dispose());
                 fondo.add(botonCancelar);
@@ -223,7 +225,7 @@ public class Registros extends JFrame{
         
         // BOTON EDITAR IMAGEN
         JButton editarImagen = new JButton("EDITAR");
-        editarImagen.setBackground(Color.decode("#85add5"));
+        editarImagen.setBackground(Color.decode(menu.colorBotonClaro));
         editarImagen.setFocusPainted(false);
         editarImagen.setBounds(860, 10, 80, 20);
         editarImagen.addActionListener(new ActionListener() {

@@ -3,6 +3,7 @@ package Logica;
 import static Logica.botones.sistemaMapas;
 import Ventanas.Camaras;
 import Ventanas.Monitoreo;
+import Ventanas.Menu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,10 +15,12 @@ public class SistemMonitoreo extends JFrame {
     public Monitoreo ventanaMapa;
     private List<JButton> Areas;
     
+    Menu menu;
+    
     public JPanel panelAreas;
     public JPanel panelMapas = new JPanel();
     public static JButton botonSeleccionado;
-    private Color color = Color.decode("#85add5");
+    private Color color = Color.decode(menu.colorBotonClaro);
     String Ruta = "Imagenes/Iconos/areaEstandar.png";
     
     public JLabel imagen = new JLabel();
@@ -34,6 +37,8 @@ public class SistemMonitoreo extends JFrame {
     JTextField datoNombreMap = new JTextField();
     
     SaveAreas guardado = new SaveAreas();
+    
+    
 
     private static final int tamañoMinimo = 70;
     private static final int tamañoMaximo = 500;
@@ -53,7 +58,7 @@ public class SistemMonitoreo extends JFrame {
     
     public void controlPanel(JPanel configArea) {
         JButton botonAbrir = new JButton("ABRIR");
-        botonAbrir.setBackground(Color.decode("#85add5"));
+        botonAbrir.setBackground(Color.decode(menu.colorBotonClaro));
         botonAbrir.setFocusPainted(false);
         botonAbrir.setBounds(10,510,75,20);
         botonAbrir.addActionListener(new ActionListener() {
@@ -76,7 +81,7 @@ public class SistemMonitoreo extends JFrame {
         configArea.add(botonAbrir); 
         
         JButton botonAgregar = new JButton("CREAR");
-        botonAgregar.setBackground(Color.decode("#85add5"));
+        botonAgregar.setBackground(Color.decode(menu.colorBotonClaro));
         botonAgregar.setFocusPainted(false);
         botonAgregar.setBounds(90,510,75,20);
         
@@ -85,7 +90,7 @@ public class SistemMonitoreo extends JFrame {
         
         
         JButton botonEditar = new JButton("EDITAR");
-        botonEditar.setBackground(Color.decode("#85add5"));
+        botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
         botonEditar.setFocusPainted(false);
         botonEditar.setBounds(170,510,75,20);
         botonEditar.addActionListener(new ActionListener() {
@@ -97,7 +102,7 @@ public class SistemMonitoreo extends JFrame {
         
         // Agregar botón para eliminar el botón seleccionado
         JButton botonBorrar = new JButton("ELIMINAR");
-        botonBorrar.setBackground(Color.decode("#85add5"));
+        botonBorrar.setBackground(Color.decode(menu.colorBotonClaro));
         botonBorrar.setFocusPainted(false);
         botonBorrar.setBounds(250,510,90,20);
         botonBorrar.addActionListener(new ActionListener() {
@@ -111,7 +116,7 @@ public class SistemMonitoreo extends JFrame {
     public void AreasPanel() {
         panelAreas = new JPanel();
         panelAreas.setPreferredSize(new Dimension(1000,1000));
-        panelAreas.setBackground(Color.decode("#121a2d"));
+        panelAreas.setBackground(Color.decode(menu.colorPanelOscuro));
         panelAreas.setLayout(null);
     }
     
@@ -138,18 +143,18 @@ public class SistemMonitoreo extends JFrame {
         
         JComboBox<String> mapa = new JComboBox<>(modeloMapas);
         mapa.setOpaque(true);
-        mapa.setBackground(Color.decode("#85add5"));
+        mapa.setBackground(Color.decode(menu.colorBotonClaro));
         mapa.setBounds(50,5,150,20);
         panelMapas.add(mapa);
         
         JButton mapaGuardar = new JButton("GUARDAR");
-        mapaGuardar.setBackground(Color.decode("#85add5"));
+        mapaGuardar.setBackground(Color.decode(menu.colorBotonClaro));
         mapaGuardar.setFocusPainted(false); //Quitamos las lineas de focus.
         mapaGuardar.setBounds(410,5,90,20);
         panelMapas.add(mapaGuardar);
         
         JButton mapaEliminar = new JButton("ELIMINAR");
-        mapaEliminar.setBackground(Color.decode("#85add5"));
+        mapaEliminar.setBackground(Color.decode(menu.colorBotonClaro));
         mapaEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
         mapaEliminar.setBounds(510,5,90,20);
         panelMapas.add(mapaEliminar);
@@ -166,7 +171,7 @@ public class SistemMonitoreo extends JFrame {
                     // Crear un panel para el contenido
                     JPanel panelCrearMapa = new JPanel();
                     panelCrearMapa.setLayout(null);
-                    panelCrearMapa.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+                    panelCrearMapa.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
                     JLabel textoNombre = new JLabel("Nombre:");
                     textoNombre.setForeground(Color.white);
@@ -178,7 +183,7 @@ public class SistemMonitoreo extends JFrame {
 
                     JButton botonAgregar = new JButton("CREAR");
                     botonAgregar.setBounds(10,80,100,20);
-                    botonAgregar.setBackground(Color.decode("#85add5"));
+                    botonAgregar.setBackground(Color.decode(menu.colorBotonClaro));
                     botonAgregar.setFocusPainted(false); //Quitamos las lineas de focus.
                     panelCrearMapa.add(botonAgregar);
                     ActionListener agregar = new ActionListener() {
@@ -212,7 +217,7 @@ public class SistemMonitoreo extends JFrame {
 
                     JButton botonCancelar = new JButton("CANCELAR");
                     botonCancelar.setBounds(130,80,100,20);
-                    botonCancelar.setBackground(Color.decode("#85add5"));
+                    botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
                     botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
                     ActionListener cancelar = new ActionListener() {
                         @Override
@@ -250,7 +255,7 @@ public class SistemMonitoreo extends JFrame {
                 // Crear un panel para el contenido
                 JPanel panelEliminar = new JPanel();
                 panelEliminar.setLayout(null);
-                panelEliminar.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+                panelEliminar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
                 JLabel texto = new JLabel("Desea eliminar el mapa " + (String)mapa.getSelectedItem() + "?");
                 texto.setBounds(10,10,220,20);
@@ -259,7 +264,7 @@ public class SistemMonitoreo extends JFrame {
 
                 JButton botonEliminar = new JButton("ELIMINAR");
                 botonEliminar.setBounds(10,50,100,20);
-                botonEliminar.setBackground(Color.decode("#85add5"));
+                botonEliminar.setBackground(Color.decode(menu.colorBotonClaro));
                 botonEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
                 ActionListener eliminar = new ActionListener() {
                             @Override
@@ -280,7 +285,7 @@ public class SistemMonitoreo extends JFrame {
 
                 JButton botonCancelar = new JButton("CANCELAR");
                 botonCancelar.setBounds(130,50,100,20);
-                botonCancelar.setBackground(Color.decode("#85add5"));
+                botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
                 botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
                 ActionListener cancelar = new ActionListener() {
                     @Override
@@ -422,7 +427,7 @@ public class SistemMonitoreo extends JFrame {
         // Crear un panel para el contenido
         JPanel panelCrear = new JPanel();
         panelCrear.setLayout(null);
-        panelCrear.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+        panelCrear.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
         
         JLabel textoNombre = new JLabel("Nombre:");
         textoNombre.setForeground(Color.white);
@@ -457,7 +462,7 @@ public class SistemMonitoreo extends JFrame {
             }
         }
         
-        comboAreas.setBackground(Color.decode("#85add5"));
+        comboAreas.setBackground(Color.decode(menu.colorBotonClaro));
         comboAreas.setBounds(10,220,220,20);
         panelCrear.add(comboAreas);
 
@@ -484,14 +489,14 @@ public class SistemMonitoreo extends JFrame {
 
         // Selector de color para elegir el color del botón
         JButton BotonColor = new JButton();
-        BotonColor.setBackground(Color.decode("#85add5"));
+        BotonColor.setBackground(Color.decode(menu.colorBotonClaro));
         BotonColor.setBounds(10,330,220,20);
         BotonColor.setFocusPainted(false); //Quitamos las lineas de focus.
         BotonColor.addActionListener(e -> {
             color = JColorChooser.showDialog(SistemMonitoreo.this, "Selecciona un color", color);
             BotonColor.setBackground(color);
             if (color == null) { // Verifica si se seleccionó un color
-                color = Color.decode("#85add5");
+                color = Color.decode(menu.colorBotonClaro);
                 BotonColor.setBackground(color);
             }
         });
@@ -504,7 +509,7 @@ public class SistemMonitoreo extends JFrame {
         
         JButton botonImagen = new JButton("IMAGEN");
         botonImagen.setBounds(10,385,220,20);
-        botonImagen.setBackground(Color.decode("#85add5"));
+        botonImagen.setBackground(Color.decode(menu.colorBotonClaro));
         botonImagen.setFocusPainted(false);
         botonImagen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -536,8 +541,8 @@ public class SistemMonitoreo extends JFrame {
                         datoDescript.setText("");
                         datoDescript.setEditable(true);
                         datoDescript.setBackground(Color.white);
-                        BotonColor.setBackground(Color.decode("#85add5"));
-                        color = Color.decode(("#85add5"));
+                        BotonColor.setBackground(Color.decode(menu.colorBotonClaro));
+                        color = Color.decode((menu.colorBotonClaro));
                     }else{
                         String nombreSeleccionado = (String) comboAreas.getSelectedItem();
                         // Cargar los datos del archivo
@@ -559,7 +564,7 @@ public class SistemMonitoreo extends JFrame {
         // Botón para añadir el nuevo botón al panel principal
         JButton botonAgregar = new JButton("CREAR");
         botonAgregar.setBounds(10,430,100,20);
-        botonAgregar.setBackground(Color.decode("#85add5"));
+        botonAgregar.setBackground(Color.decode(menu.colorBotonClaro));
         botonAgregar.setFocusPainted(false); //Quitamos las lineas de focus.
         botonAgregar.addActionListener(e -> {
             // Obtener el ancho y el alto del nuevo botón desde los campos de texto
@@ -604,7 +609,7 @@ public class SistemMonitoreo extends JFrame {
                 //Reiniciamos los valores
                 datoNombre.setText("");
                 datoDescript.setText("");
-                color = Color.decode("#85add5");
+                color = Color.decode(menu.colorBotonClaro);
                 Ruta = "Imagenes/Iconos/areaEstandar.png";
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Por favor ingresele un tamaño al area.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -614,7 +619,7 @@ public class SistemMonitoreo extends JFrame {
         
         JButton botonCancelar = new JButton("CANCELAR");
         botonCancelar.setBounds(130,430,100,20);
-        botonCancelar.setBackground(Color.decode("#85add5"));
+        botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
         botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
         ActionListener cancelar = new ActionListener() {
             @Override
@@ -631,7 +636,7 @@ public class SistemMonitoreo extends JFrame {
         //Reiniciamos los valores
         datoNombre.setText("");
         datoDescript.setText("");
-        color = Color.decode("#85add5");
+        color = Color.decode(menu.colorBotonClaro);
         datoAncho.setText("");
         datoAlto.setText("");
         Ruta = "Imagenes/Iconos/areaEstandar.png";
@@ -652,7 +657,7 @@ public class SistemMonitoreo extends JFrame {
             // Panel para el contenido del diálogo
             JPanel panelEditar = new JPanel();
             panelEditar.setLayout(null);
-            panelEditar.setBackground(Color.decode("#000a45"));
+            panelEditar.setBackground(Color.decode(menu.colorPanelMedio));
 
             JLabel textoNombre = new JLabel("Nombre:");
             textoNombre.setForeground(Color.white);
@@ -701,7 +706,7 @@ public class SistemMonitoreo extends JFrame {
 
             JButton botonImagen = new JButton("IMAGEN");
             botonImagen.setBounds(10,275,220,20);
-            botonImagen.setBackground(Color.decode("#85add5"));
+            botonImagen.setBackground(Color.decode(menu.colorBotonClaro));
             botonImagen.setFocusPainted(false);
             Ruta = datosArchivo.get(3);
             
@@ -725,7 +730,7 @@ public class SistemMonitoreo extends JFrame {
             
             JButton botonEditar = new JButton("EDITAR");
             botonEditar.setBounds(10,305,100,20);
-            botonEditar.setBackground(Color.decode("#85add5"));
+            botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
             botonEditar.setFocusPainted(false);
             botonEditar.addActionListener(e -> {
                 try {
@@ -790,7 +795,7 @@ public class SistemMonitoreo extends JFrame {
             
             JButton botonCerrar = new JButton("CANCELAR");
             botonCerrar.setBounds(130,305,100,20);
-            botonCerrar.setBackground(Color.decode("#85add5"));
+            botonCerrar.setBackground(Color.decode(menu.colorBotonClaro));
             botonCerrar.setFocusPainted(false);
             botonCerrar.addActionListener(e -> ventanaEditar.dispose());
             panelEditar.add(botonCerrar);
@@ -812,7 +817,7 @@ public class SistemMonitoreo extends JFrame {
             // Crear un panel para el contenido
             JPanel panelEliminar = new JPanel();
             panelEliminar.setLayout(null);
-            panelEliminar.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+            panelEliminar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
 
             JLabel texto = new JLabel("Desea eliminar el archivo o el area de " + botonSeleccionado.getText() + "?");
@@ -822,7 +827,7 @@ public class SistemMonitoreo extends JFrame {
 
             JButton botonArchivo = new JButton("ARCHIVO");
             botonArchivo.setBounds(10,50,100,20);
-            botonArchivo.setBackground(Color.decode("#85add5"));
+            botonArchivo.setBackground(Color.decode(menu.colorBotonClaro));
             botonArchivo.setFocusPainted(false); //Quitamos las lineas de focus.
             botonArchivo.addActionListener(e -> {
                 try {
@@ -850,7 +855,7 @@ public class SistemMonitoreo extends JFrame {
         
             JButton botonArea = new JButton("AREA");
             botonArea.setBounds(130,50,100,20);
-            botonArea.setBackground(Color.decode("#85add5"));
+            botonArea.setBackground(Color.decode(menu.colorBotonClaro));
             botonArea.setFocusPainted(false); //Quitamos las lineas de focus.
             botonArea.addActionListener(e -> {
                 try {
@@ -874,7 +879,7 @@ public class SistemMonitoreo extends JFrame {
             
             JButton botonCancelar = new JButton("CANCELAR");
             botonCancelar.setBounds(250,50,100,20);
-            botonCancelar.setBackground(Color.decode("#85add5"));
+            botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
             botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
             ActionListener cancelar = new ActionListener() {
                 @Override

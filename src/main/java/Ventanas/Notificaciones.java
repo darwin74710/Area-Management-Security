@@ -34,6 +34,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Notificaciones extends JFrame{
+    Menu menu;
     public JLabel fondo = new JLabel();
     
     public JPanel panelNotifi = new JPanel();
@@ -56,7 +57,7 @@ public class Notificaciones extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -64,7 +65,7 @@ public class Notificaciones extends JFrame{
     
     private void Elementos(){
         JPanel elementos = new JPanel();
-        elementos.setBackground(Color.decode("#000a45"));
+        elementos.setBackground(Color.decode(menu.colorPanelMedio));
         elementos.setLayout(null);
         elementos.setBounds(10,10,965,540);
         elementos.setOpaque(true);
@@ -72,7 +73,7 @@ public class Notificaciones extends JFrame{
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setFocusPainted(false);
         botonVolver.setBounds(905, 10, 50, 50);
         
@@ -93,7 +94,7 @@ public class Notificaciones extends JFrame{
         botonVolver.addActionListener(irMenu);
         
         JButton botonEliminar = new JButton();
-        botonEliminar.setBackground(Color.decode("#000e3c"));
+        botonEliminar.setBackground(Color.decode(menu.colorBotonOscuro));
         botonEliminar.setFocusPainted(false);
         botonEliminar.addActionListener(e-> EliminarNotificaciones());
         botonEliminar.setBounds(845, 10, 50, 50);
@@ -103,7 +104,7 @@ public class Notificaciones extends JFrame{
         elementos.add(botonEliminar);
         
         
-        panelNotifi.setBackground(Color.decode("#000e3c"));
+        panelNotifi.setBackground(Color.decode(menu.colorBotonOscuro));
         panelNotifi.setLayout(new BoxLayout(panelNotifi, BoxLayout.Y_AXIS));
         notifiDetect();
 
@@ -135,16 +136,16 @@ public class Notificaciones extends JFrame{
                     JButton boton = new JButton(datosArchivo.get(0));
                     boton.setMaximumSize(new Dimension(583, 70));
                     boton.setPreferredSize(new Dimension(583, 70));
-                    boton.setBackground(Color.decode("#85add5"));
+                    boton.setBackground(Color.decode(menu.colorBotonClaro));
                     boton.setFocusPainted(false);
                     boton.addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
                         // Metodo para darle un color de selección
                         if (notifiSeleccionada != null){
-                            notifiSeleccionada.setBackground(Color.decode("#85add5"));
+                            notifiSeleccionada.setBackground(Color.decode(menu.colorBotonClaro));
                         }
                         notifiSeleccionada = boton;
-                        notifiSeleccionada.setBackground(Color.decode("#415F7E"));
+                        notifiSeleccionada.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
                         
                         ventanaDatos(datosArchivo);
                     }
@@ -183,12 +184,10 @@ public class Notificaciones extends JFrame{
         // Crear un panel para el contenido
         JPanel panelDatosNotifi = new JPanel();
         panelDatosNotifi.setLayout(null);
-        panelDatosNotifi.setBackground(Color.decode("#000e3c"));
+        panelDatosNotifi.setBackground(Color.decode(menu.colorBotonOscuro));
         
         JLabel titulo = new JLabel("<html><body><center><p>Se detectó un movimiento en la Cámara: " + datosArchivo.get(1) + "</p></html>");
         titulo.setForeground(Color.white);
-        titulo.setBackground(Color.decode("#000C50"));
-        titulo.setOpaque(true);
         titulo.setBounds(10, 10, 217, 40);
         panelDatosNotifi.add(titulo);
         
@@ -201,7 +200,7 @@ public class Notificaciones extends JFrame{
         JPanel panelAreas = new JPanel();
         panelAreas.setLayout(new BoxLayout(panelAreas, BoxLayout.Y_AXIS));
         
-        panelAreas.setBackground(Color.decode("#000C50"));
+        panelAreas.setBackground(Color.decode(menu.colorPanelClaro));
 
         JScrollPane scrollAreas = new JScrollPane(panelAreas);
         scrollAreas.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -216,7 +215,7 @@ public class Notificaciones extends JFrame{
                 int Index = i;
                 
                 JButton area = new JButton(datosArchivo.get(i + 2));
-                area.setBackground(Color.decode("#85add5"));
+                area.setBackground(Color.decode(menu.colorBotonClaro));
                 area.setFocusPainted(false);
                 area.setMaximumSize(new Dimension(200, 40));
                 area.setPreferredSize(new Dimension(200, 40));
@@ -225,10 +224,10 @@ public class Notificaciones extends JFrame{
                     public void mouseClicked(MouseEvent e) {
                         // Metodo para darle un color de selección
                         if (areaDataSeleccionada != null){
-                            areaDataSeleccionada.setBackground(Color.decode("#85add5"));
+                            areaDataSeleccionada.setBackground(Color.decode(menu.colorBotonClaro));
                         }
                         areaDataSeleccionada = area;
-                        areaDataSeleccionada.setBackground(Color.decode("#415F7E"));
+                        areaDataSeleccionada.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
                         
                         ventanaInfoArea(datosArchivo, Index, ventanaDatosNotifi);
                     }
@@ -241,7 +240,7 @@ public class Notificaciones extends JFrame{
         
         JButton elimianSeleccion = new JButton("ELIMINAR");
         elimianSeleccion.setBounds(130, 240, 97, 20);
-        elimianSeleccion.setBackground(Color.decode("#85add5"));
+        elimianSeleccion.setBackground(Color.decode(menu.colorBotonClaro));
         elimianSeleccion.setFocusPainted(false);
         elimianSeleccion.addActionListener(e-> EliminarSeleccion(ventanaDatosNotifi));
         panelDatosNotifi.add(elimianSeleccion);
@@ -263,7 +262,7 @@ public class Notificaciones extends JFrame{
         // Crear un panel para el contenido
         JPanel panelDatosAreas = new JPanel();
         panelDatosAreas.setLayout(null);
-        panelDatosAreas.setBackground(Color.decode("#000e3c"));
+        panelDatosAreas.setBackground(Color.decode(menu.colorPanelMedio));
         
         JLabel imagen = new JLabel();
         imagen.setIcon(new ImageIcon((new ImageIcon(datosArea.get(3))).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
@@ -279,7 +278,7 @@ public class Notificaciones extends JFrame{
         
         JPanel panelMapas = new JPanel();
         panelMapas.setForeground(Color.white);
-        panelMapas.setBackground(Color.decode("#121A2D"));
+        panelMapas.setBackground(Color.decode(menu.colorPanelOscuro));
         panelMapas.setLayout(new BoxLayout(panelMapas, BoxLayout.Y_AXIS));
         
         JScrollPane scrollMapas = new JScrollPane(panelMapas);
@@ -320,7 +319,7 @@ public class Notificaciones extends JFrame{
                                 if (!nombresAgregados.contains(nombreArchivo)) {
                                     JLabel mapa = new JLabel(nombreArchivo);
                                     mapa.setHorizontalAlignment(SwingConstants.CENTER);
-                                    mapa.setForeground(Color.decode("#85add5"));
+                                    mapa.setForeground(Color.decode(menu.colorBotonClaro));
                                     mapa.setPreferredSize(new Dimension(200, 20));
                                     mapa.setMaximumSize(new Dimension(200, 20));
                                     panelMapas.add(mapa);
@@ -339,7 +338,7 @@ public class Notificaciones extends JFrame{
         JTextArea descript = new JTextArea(datosArea.get(1).replace("\\n", "\n"));
         descript.setMargin(new Insets(10, 10, 10, 10));
         descript.setForeground(Color.white);
-        descript.setBackground(Color.decode("#011b5a"));
+        descript.setBackground(Color.decode(menu.colorPanelClaro));
         descript.setEditable(false);
         
         JScrollPane scrollDescript = new JScrollPane(descript);

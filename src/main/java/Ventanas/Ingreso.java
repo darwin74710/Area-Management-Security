@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Ingreso extends JFrame{
+    Menu menu;
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
 
@@ -42,7 +43,7 @@ public class Ingreso extends JFrame{
         setResizable(false);
 
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.X_AXIS)); //Le añadimos un layout a la imagen de fondo.
         this.add(fondo);
     }
@@ -98,8 +99,6 @@ public class Ingreso extends JFrame{
         campoTextoUsuario.setPreferredSize(new Dimension(600, 70));
         //Se crea el campo de texto.
         textoUsuario = new JTextField();
-        textoUsuario.setBackground(Color.decode("#373d61"));
-        textoUsuario.setForeground(Color.white);
         textoUsuario.setFont(new Font("Arial", 1, 40));
         textoUsuario.setBounds(80, 0, 400, 55);
 
@@ -128,8 +127,6 @@ public class Ingreso extends JFrame{
         textoContraseña = new JPasswordField(); //Campo de texto tipo contraseña.
         textoContraseña.setEchoChar((char) 0); //Desactivar la vista de contraseña.
         textoContraseña.setEchoChar('*'); //Activar la vista de contraseña.
-        textoContraseña.setBackground(Color.decode("#373d61"));
-        textoContraseña.setForeground(Color.white);
         textoContraseña.setFont(new Font("Arial", 1, 40));
         textoContraseña.setBounds(80, 0, 400, 55);
 
@@ -143,7 +140,7 @@ public class Ingreso extends JFrame{
 
         ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
         ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
-        botonVerContra.setBackground(Color.decode("#000e3c"));
+        botonVerContra.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         campoTextoContraseña.add(botonVerContra);
 
@@ -157,7 +154,7 @@ public class Ingreso extends JFrame{
 
         //Creamos los botones.
         JButton ingreso = new JButton("INGRESAR");
-        ingreso.setBackground(Color.decode("#000e3c"));
+        ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setFocusPainted(false); //Quitamos las lineas de focus.
 
         ingreso.setFont(new Font("Arial", 1, 25));

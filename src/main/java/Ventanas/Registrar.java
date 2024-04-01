@@ -26,7 +26,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Registrar extends JFrame {
-
+    Menu menu;
+    
     /* -- variables para los campos de texto de la informacion
     que se esta solicitando -- */
     JTextField nombreT;
@@ -75,7 +76,7 @@ public class Registrar extends JFrame {
         setResizable(false);
 
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
         fondo.setBorder(new EmptyBorder(10, 10, 10, 10));
         this.add(fondo);
@@ -105,7 +106,7 @@ public class Registrar extends JFrame {
 
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000a45"));
+        botonVolver.setBackground(Color.decode(menu.colorPanelMedio));
         botonVolver.setFocusPainted(false);
         botonVolver.setMaximumSize(new Dimension(50, 50));
         botonVolver.setPreferredSize(new Dimension(50, 50));
@@ -132,7 +133,7 @@ public class Registrar extends JFrame {
         fondo.add(ScrollForm);
 
         JPanel panForm = new JPanel();
-        panForm.setBackground(Color.decode("#121a2d"));
+        panForm.setBackground(Color.decode(menu.colorPanelOscuro));
         panForm.setLayout(null);
         panForm.setPreferredSize(new Dimension(700, 1000));
         ScrollForm.setViewportView(panForm);
@@ -215,7 +216,7 @@ public class Registrar extends JFrame {
 
         ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
         ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
-        verContra.setBackground(Color.decode("#000e3c"));
+        verContra.setBackground(Color.decode(menu.colorBotonOscuro));
         verContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         panForm.add(verContra);
 
@@ -290,7 +291,7 @@ public class Registrar extends JFrame {
 
         //2.11
         fotoPerfilT = new JButton("Cargar");
-        fotoPerfilT.setBackground(Color.decode("#85add5"));
+        fotoPerfilT.setBackground(Color.decode(menu.colorBotonClaro));
         fotoPerfilT.setBounds(20, 785, 140, 50);
         panForm.add(fotoPerfilT);
 
@@ -409,7 +410,7 @@ public class Registrar extends JFrame {
 
         //-- Se crea Botón para agregar los usuarios -- 
         JButton botonAgregar = new JButton("Crear");
-        botonAgregar.setBackground(Color.decode("#85add5"));
+        botonAgregar.setBackground(Color.decode(menu.colorBotonClaro));
         botonAgregar.setFocusPainted(false);
         botonAgregar.setBorderPainted(false);
         buttPanel.add(botonAgregar);
@@ -423,7 +424,7 @@ public class Registrar extends JFrame {
 
         //-- Se crea Boton para recuperar la contraseña --
         JButton botonRecuperar = new JButton("Recuperar");
-        botonRecuperar.setBackground(Color.decode("#85add5"));
+        botonRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
         botonRecuperar.setFocusPainted(false);
         botonRecuperar.setBorderPainted(false);
         buttPanel.add(botonRecuperar);
@@ -432,7 +433,7 @@ public class Registrar extends JFrame {
 
         //-- Se crea Botón para limpiar los campos de texto --
         JButton botonLimpiar = new JButton("Limpiar");
-        botonLimpiar.setBackground(Color.decode("#85add5"));
+        botonLimpiar.setBackground(Color.decode(menu.colorBotonClaro));
         botonLimpiar.setFocusPainted(false);
         botonLimpiar.setBorderPainted(false);
         buttPanel.add(botonLimpiar);

@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 public class Grabaciones extends JFrame{
+    Menu menu;
     
     public JLabel fondo = new JLabel();
     public JFrame ventanaAnterior;
@@ -46,7 +47,7 @@ public class Grabaciones extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -61,7 +62,7 @@ public class Grabaciones extends JFrame{
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000a45"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setFocusPainted(false);
         botonVolver.setBounds(905, 10, 50, 50);
         
@@ -80,19 +81,19 @@ public class Grabaciones extends JFrame{
         botonVolver.addActionListener(irMenu);
         
         JPanel panelGrab = new JPanel();
-        panelGrab.setBackground(Color.decode("#000a45"));
+        panelGrab.setBackground(Color.decode(menu.colorPanelMedio));
         panelGrab.setLayout(null);
         panelGrab.setBounds(10, 10, 965, 540);
         fondo.add(panelGrab);
         
-        panelVideo.setBackground(Color.decode("#121a2d"));
+        panelVideo.setBackground(Color.decode(menu.colorPanelOscuro));
         panelVideo.setBounds(10, 10, 680, 520);
         panelGrab.add(panelVideo);
         
         // PANEL PARA LA LISTA DE GRABACIONES
         JPanel panelConfig = new JPanel();
         panelConfig.setLayout(null);
-        panelConfig.setBackground(Color.decode("#011b5a"));
+        panelConfig.setBackground(Color.decode(menu.colorPanelClaro));
         panelConfig.setBounds(700, 70, 250, 455);
         panelGrab.add(panelConfig);
         
@@ -135,7 +136,7 @@ public class Grabaciones extends JFrame{
             });
         
         panelListaVideos.setLayout(new BoxLayout(panelListaVideos, BoxLayout.Y_AXIS));
-        panelListaVideos.setBackground(Color.decode("#000a45"));
+        panelListaVideos.setBackground(Color.decode(menu.colorPanelMedio));
         
         JScrollPane scrollDescript = new JScrollPane(panelListaVideos);
         scrollDescript.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -156,7 +157,7 @@ public class Grabaciones extends JFrame{
         if (archivos != null) {
             for (File archivo : archivos) {
                 JButton botonVideo = new JButton(archivo.getName());
-                botonVideo.setBackground(Color.decode("#85add5"));
+                botonVideo.setBackground(Color.decode(menu.colorBotonClaro));
                 botonVideo.setFocusPainted(false);
                 botonVideo.setPreferredSize(new Dimension(213, 50));
                 botonVideo.setMaximumSize(new Dimension(213, 50));
@@ -164,10 +165,10 @@ public class Grabaciones extends JFrame{
                     public void mouseClicked(MouseEvent e) {
                         // Metodo para darle un color de selección
                         if (videoSeleccionado != null) {
-                            videoSeleccionado.setBackground(Color.decode("#85add5"));
+                            videoSeleccionado.setBackground(Color.decode(menu.colorBotonClaro));
                         }
                         videoSeleccionado = botonVideo;
-                        videoSeleccionado.setBackground(Color.decode("#415F7E"));
+                        videoSeleccionado.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
                         
                         sistem.reproducirVideo(panelVideo, archivo.getName(), Index);
                     }

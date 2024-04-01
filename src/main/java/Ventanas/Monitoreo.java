@@ -19,6 +19,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Monitoreo extends JFrame{
+    Menu menu;
     // Instanciamos la clase SistemAreas para utilizar sus metodos
     public SistemMonitoreo SistemAreas = new SistemMonitoreo();
     
@@ -44,7 +45,7 @@ public class Monitoreo extends JFrame{
         setResizable(false);
         
         // Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -71,7 +72,7 @@ public class Monitoreo extends JFrame{
     private void PanelConfigArea(){
         // Creamos el panel de configuración
         configArea.setLayout(null);
-        configArea.setBackground(Color.decode("#000a45"));
+        configArea.setBackground(Color.decode(menu.colorPanelMedio));
         configArea.setBorder(new EmptyBorder(10,10,10,10));
         fondo.add(configArea);
         configArea.setBounds(623,10,350,540);
@@ -82,7 +83,7 @@ public class Monitoreo extends JFrame{
         botonVolver.setFocusPainted(false);
         
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         configArea.add(botonVolver);
         
@@ -103,7 +104,7 @@ public class Monitoreo extends JFrame{
         botonDeteccion.setBounds(290, 70, 50, 50);
         botonDeteccion.setFocusPainted(false);
         
-        botonDeteccion.setBackground(Color.decode("#000e3c"));
+        botonDeteccion.setBackground(Color.decode(menu.colorBotonOscuro));
         botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         botonDeteccion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -130,7 +131,7 @@ public class Monitoreo extends JFrame{
         botonGrabaciones.setBounds(290, 130, 50, 50);
         botonGrabaciones.setFocusPainted(false);
         
-        botonGrabaciones.setBackground(Color.decode("#000e3c"));
+        botonGrabaciones.setBackground(Color.decode(menu.colorBotonOscuro));
         botonGrabaciones.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/grabaciones.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         botonGrabaciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -158,7 +159,7 @@ public class Monitoreo extends JFrame{
         
         // Decoración
         JLabel marco1 = new JLabel();
-        marco1.setBackground(Color.decode("#011b5a"));
+        marco1.setBackground(Color.decode(menu.colorPanelClaro));
         marco1.setLayout(new BoxLayout(marco1, BoxLayout.X_AXIS));
         marco1.setBorder(new EmptyBorder(0, 10, 0, 10));
         marco1.setOpaque(true);
@@ -178,7 +179,7 @@ public class Monitoreo extends JFrame{
         
         // Decoración
         JLabel marco2 = new JLabel();
-        marco2.setBackground(Color.decode("#011b5a"));
+        marco2.setBackground(Color.decode(menu.colorPanelClaro));
         marco2.setLayout(new BoxLayout(marco2, BoxLayout.X_AXIS));
         marco2.setOpaque(true);
         marco2.setBounds(10, 320, 330, 170);
@@ -188,7 +189,7 @@ public class Monitoreo extends JFrame{
         JTextArea descripcion = new JTextArea();
         descripcion.setMargin(new Insets(10, 10, 10, 10));
         descripcion.setForeground(Color.white);
-        descripcion.setBackground(Color.decode("#011b5a"));
+        descripcion.setBackground(Color.decode(menu.colorPanelClaro));
         descripcion.setEditable(false);
         JScrollPane scrollDescript = new JScrollPane();
         scrollDescript.setBorder(null);

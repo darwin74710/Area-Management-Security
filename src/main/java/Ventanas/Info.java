@@ -17,6 +17,8 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Info extends JFrame{
+    Menu menu;
+    
     public JLabel fondo = new JLabel();
     
     public Info(){
@@ -34,7 +36,7 @@ public class Info extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
         fondo.setBorder(new EmptyBorder(10,10,10,10));
         this.add(fondo);
@@ -50,7 +52,7 @@ public class Info extends JFrame{
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setMaximumSize(new Dimension(50,50));
         botonVolver.setPreferredSize(new Dimension(50, 50));
         botonVolver.setFocusPainted(false);
@@ -76,7 +78,7 @@ public class Info extends JFrame{
         
         JPanel panelManuel = new JPanel();
         panelManuel.setPreferredSize(new Dimension(940,500));
-        panelManuel.setBackground(Color.decode("#121a2d"));
+        panelManuel.setBackground(Color.decode(menu.colorPanelOscuro));
         panelManuel.setLayout(null);
         
         scrollArea.setViewportView(panelManuel);
@@ -88,7 +90,7 @@ public class Info extends JFrame{
         JButton atras = new JButton();
         atras.setPreferredSize(new Dimension(70, 40));
         atras.setMaximumSize(new Dimension(70, 40));
-        atras.setBackground(Color.decode("#000e3c"));
+        atras.setBackground(Color.decode(menu.colorBotonOscuro));
         atras.setFocusPainted(false); //Quitamos las lineas de focus.
         
         ImageIcon logoAtras = new ImageIcon("Imagenes/Iconos/flechaIzquierda.png"); 
@@ -100,7 +102,7 @@ public class Info extends JFrame{
         JButton siguiente = new JButton();
         siguiente.setPreferredSize(new Dimension(70, 40));
         siguiente.setMaximumSize(new Dimension(70, 40));
-        siguiente.setBackground(Color.decode("#000e3c"));
+        siguiente.setBackground(Color.decode(menu.colorBotonOscuro));
         siguiente.setFocusPainted(false); //Quitamos las lineas de focus.
         
         ImageIcon logoSiguiente = new ImageIcon("Imagenes/Iconos/flechaDerecha.png"); 

@@ -33,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Camaras extends JFrame{
+    Menu menu;
     public JLabel fondo = new JLabel();
     public static String nombreArea = new String();
     public JFrame ventanaAnterior;
@@ -68,7 +69,7 @@ public class Camaras extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -89,7 +90,7 @@ public class Camaras extends JFrame{
         
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();
-        botonVolver.setBackground(Color.decode("#000a45"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setFocusPainted(false);
         botonVolver.setBounds(905, 10, 50, 50);
         
@@ -108,7 +109,7 @@ public class Camaras extends JFrame{
         botonVolver.addActionListener(irMenu);
         
         // PANEL DE LA CAMARA
-        panelPrincipal.setBackground(Color.decode("#121A2D"));
+        panelPrincipal.setBackground(Color.decode(menu.colorPanelOscuro));
         panelPrincipal.setLayout(null);
         panelPrincipal.setBounds(10,10,650,520);
         panelPrincipal.setOpaque(true);
@@ -118,14 +119,14 @@ public class Camaras extends JFrame{
         Camaras();
         
         // FONDO DE LOS REGISTROS (DECORATIVO)
-        fondoReg.setBackground(Color.decode("#000a45"));
+        fondoReg.setBackground(Color.decode(menu.colorPanelMedio));
         fondoReg.setLayout(null);
         fondoReg.setBounds(665,10,290,520);
         fondoReg.setOpaque(true);
         elementos.add(fondoReg);
         
         // PANEL PARA GUARDAR REGISTROS
-        panelRegistros.setBackground(Color.decode("#121A2D"));
+        panelRegistros.setBackground(Color.decode(menu.colorPanelOscuro));
         panelRegistros.setLayout(new BoxLayout(panelRegistros, BoxLayout.Y_AXIS));
         
         // SCROLL PARA EL PANEL DE REGISTROS
@@ -140,21 +141,21 @@ public class Camaras extends JFrame{
         
         //BOTONES DE REGISTRO
         JButton abrirRegistro = new JButton("ABRIR");
-        abrirRegistro.setBackground(Color.decode("#85add5"));
+        abrirRegistro.setBackground(Color.decode(menu.colorBotonClaro));
         abrirRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
         abrirRegistro.setBounds(10,485,80,20);
         abrirRegistro.addActionListener(e-> Abrir());
         fondoReg.add(abrirRegistro);
         
         JButton crearRegistro = new JButton("CREAR");
-        crearRegistro.setBackground(Color.decode("#85add5"));
+        crearRegistro.setBackground(Color.decode(menu.colorBotonClaro));
         crearRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
         crearRegistro.setBounds(100,485,80,20);
         crearRegistro.addActionListener(e-> Crear());
         fondoReg.add(crearRegistro);
         
         JButton eliminarRegistro = new JButton("ELIMINAR");
-        eliminarRegistro.setBackground(Color.decode("#85add5"));
+        eliminarRegistro.setBackground(Color.decode(menu.colorBotonClaro));
         eliminarRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
         eliminarRegistro.setBounds(190,485,90,20);
         eliminarRegistro.addActionListener(e-> Eliminar());
@@ -172,8 +173,8 @@ public class Camaras extends JFrame{
         if ("desActive".equals(datosArchivo.get(4))){
             // Boton para añadir la camara
             JButton botonCam = new JButton();
-            botonCam.setForeground(Color.decode("#000e3c"));
-            botonCam.setBackground(Color.decode("#000e3c"));
+            botonCam.setForeground(Color.decode(menu.colorBotonOscuro));
+            botonCam.setBackground(Color.decode(menu.colorBotonOscuro));
             botonCam.setIcon(new ImageIcon(add.getImage().getScaledInstance(650, 520, Image.SCALE_SMOOTH)));
             botonCam.setBounds(0, 0, 650, 520);
             botonCam.setFocusPainted(false);
@@ -194,7 +195,7 @@ public class Camaras extends JFrame{
             
             // Boton para editar la camara
             JButton editarCam = new JButton("EDITAR");
-            editarCam.setBackground(Color.decode("#85add5"));
+            editarCam.setBackground(Color.decode(menu.colorBotonClaro));
             editarCam.setFocusPainted(false);
             editarCam.setBounds(560, 0, 80, 20);
             editarCam.addActionListener(new ActionListener() {
@@ -234,13 +235,13 @@ public class Camaras extends JFrame{
         // Crear un panel para el contenido
         JPanel panelCrear = new JPanel();
         panelCrear.setLayout(null);
-        panelCrear.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+        panelCrear.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
         // DECORACION
         JPanel decorCrear = new JPanel();
         decorCrear.setBounds(10,10,390,320);
         decorCrear.setLayout(null);
-        decorCrear.setBackground(Color.decode("#011b5a"));
+        decorCrear.setBackground(Color.decode(menu.colorPanelClaro));
         panelCrear.add(decorCrear);
 
         JLabel tituloNombre = new JLabel("Nombre:");
@@ -329,7 +330,7 @@ public class Camaras extends JFrame{
         // BOTONES PARA REALIZAR OPERACIONES
         JButton botonCrear = new JButton("CREAR");
         botonCrear.setBounds(190,340,100,20);
-        botonCrear.setBackground(Color.decode("#85add5"));
+        botonCrear.setBackground(Color.decode(menu.colorBotonClaro));
         botonCrear.setFocusPainted(false); //Quitamos las lineas de focus.
         botonCrear.addActionListener(e -> {
             try {
@@ -347,7 +348,7 @@ public class Camaras extends JFrame{
                 guardadoRegistros.guardarRegistro(nombre, descripcion.getText(), ruta1, ruta2, ruta3);
 
                 JButton boton = new JButton(guardadoRegistros.nombreRegistro);
-                boton.setBackground(Color.decode("#85add5"));
+                boton.setBackground(Color.decode(menu.colorBotonClaro));
                 boton.setFocusPainted(false); //Quitamos las lineas de focus.
                 boton.setPreferredSize(new Dimension(253, 50));
                 boton.setMaximumSize(new Dimension(253, 50));
@@ -355,10 +356,10 @@ public class Camaras extends JFrame{
                     public void mouseClicked(MouseEvent e) {
                         // Metodo para darle un color de selección
                         if (registroSeleccionado != null){
-                            registroSeleccionado.setBackground(Color.decode("#85add5"));
+                            registroSeleccionado.setBackground(Color.decode(menu.colorBotonClaro));
                         }
                         registroSeleccionado = boton;
-                        registroSeleccionado.setBackground(Color.decode("#415F7E"));
+                        registroSeleccionado.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
 
                         nombreRegistro = registroSeleccionado.getText();
                 }
@@ -377,7 +378,7 @@ public class Camaras extends JFrame{
 
         JButton botonCancelar = new JButton("CANCELAR");
         botonCancelar.setBounds(300,340,100,20);
-        botonCancelar.setBackground(Color.decode("#85add5"));
+        botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
         botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
         ActionListener cancelar = new ActionListener() {
             @Override
@@ -403,7 +404,7 @@ public class Camaras extends JFrame{
             // Crear un panel para el contenido
             JPanel panelEliminar = new JPanel();
             panelEliminar.setLayout(null);
-            panelEliminar.setBackground(Color.decode("#000a45")); // Establecer el color de fondo del panel
+            panelEliminar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
 
             JLabel texto = new JLabel("Desea eliminar el Registro " + registroSeleccionado.getText() + "?");
@@ -415,7 +416,7 @@ public class Camaras extends JFrame{
         
             JButton botonEliminar = new JButton("ELIMINAR");
             botonEliminar.setBounds(10,50,100,20);
-            botonEliminar.setBackground(Color.decode("#85add5"));
+            botonEliminar.setBackground(Color.decode(menu.colorBotonClaro));
             botonEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
             botonEliminar.addActionListener(e -> {
                 try {
@@ -434,7 +435,7 @@ public class Camaras extends JFrame{
             
             JButton botonCancelar = new JButton("CANCELAR");
             botonCancelar.setBounds(170,50,100,20);
-            botonCancelar.setBackground(Color.decode("#85add5"));
+            botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
             botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
             ActionListener cancelar = new ActionListener() {
                 @Override
@@ -464,7 +465,7 @@ public class Camaras extends JFrame{
             for (File archivo : archivos) {
                 String nombreArchivo = archivo.getName();
                 JButton boton = new JButton(nombreArchivo.substring(0, nombreArchivo.lastIndexOf(".")));
-                boton.setBackground(Color.decode("#85add5"));
+                boton.setBackground(Color.decode(menu.colorBotonClaro));
                 boton.setFocusPainted(false);
                 boton.setPreferredSize(new Dimension(253, 50));
                 boton.setMaximumSize(new Dimension(253, 50));
@@ -472,10 +473,10 @@ public class Camaras extends JFrame{
                     public void mouseClicked(MouseEvent e) {
                         // Metodo para darle un color de selección
                         if (registroSeleccionado != null){
-                            registroSeleccionado.setBackground(Color.decode("#85add5"));
+                            registroSeleccionado.setBackground(Color.decode(menu.colorBotonClaro));
                         }
                         registroSeleccionado = boton;
-                        registroSeleccionado.setBackground(Color.decode("#415F7E"));
+                        registroSeleccionado.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
 
                         nombreRegistro = registroSeleccionado.getText();
                 }

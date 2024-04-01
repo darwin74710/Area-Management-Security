@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.SaveConfiguraciones;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,6 +8,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,10 +23,16 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Configuraciones extends JFrame{
+    Menu menu;
+    
     public JLabel fondo = new JLabel();
     JPanel elementos = new JPanel();
     
+    public String datoTema = "1";
+    
     public JFrame ventanaAnterior = new JFrame();
+    
+    public SaveConfiguraciones guardado = new SaveConfiguraciones();
     
     public Configuraciones(){
         PanelFondo();
@@ -38,7 +46,7 @@ public class Configuraciones extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        fondo = new JLabel(new ImageIcon("Imagenes/fondo.png"));
+        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
         fondo.setLayout(null);
         this.add(fondo);
         
@@ -48,7 +56,7 @@ public class Configuraciones extends JFrame{
         botonVolver.setFocusPainted(false);
 
         ImageIcon logoInicio = new ImageIcon("Imagenes/Iconos/casa.png");
-        botonVolver.setBackground(Color.decode("#000e3c"));
+        botonVolver.setBackground(Color.decode(menu.colorBotonOscuro));
         botonVolver.setIcon(new ImageIcon(logoInicio.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         fondo.add(botonVolver);
         // Metodo para volver al menu
@@ -64,7 +72,7 @@ public class Configuraciones extends JFrame{
         Elementos();
     }
     private void Elementos(){
-        elementos.setBackground(Color.decode("#011b5a"));
+        elementos.setBackground(Color.decode(menu.colorPanelClaro));
         elementos.setLayout(new BoxLayout(elementos, BoxLayout.Y_AXIS));
         
         //Establecemos imagen de fondo.
@@ -95,16 +103,18 @@ public class Configuraciones extends JFrame{
         elementos.add(fondoConfigUsuario);
         
         JPanel configUsuario = new JPanel();
-        configUsuario.setBackground(Color.decode("#121A2D"));
+        configUsuario.setBackground(Color.decode(menu.colorPanelOscuro));
         configUsuario.setLayout(null);
         configUsuario.setBounds(10, 10, 890, 440);
         fondoConfigUsuario.add(configUsuario);
         
         JPanel temasApp = new JPanel();
         temasApp.setLayout(null);
-        temasApp.setBackground(Color.decode("#000a45"));
+        temasApp.setBackground(Color.decode(menu.colorPanelMedio));
         temasApp.setBounds(10, 10, 430, 420);
         configUsuario.add(temasApp);
+        
+        CambioTema(temasApp);
         
         JLabel tituloTemas = new JLabel("TEMAS");
         tituloTemas.setForeground(Color.white);
@@ -115,7 +125,7 @@ public class Configuraciones extends JFrame{
         
         JPanel modificarPerfil = new JPanel();
         modificarPerfil.setLayout(null);
-        modificarPerfil.setBackground(Color.decode("#000a45"));
+        modificarPerfil.setBackground(Color.decode(menu.colorPanelMedio));
         modificarPerfil.setBounds(450, 10, 430, 420);
         configUsuario.add(modificarPerfil);
         
@@ -136,14 +146,14 @@ public class Configuraciones extends JFrame{
         elementos.add(fondoConfigAdmin);
         
         JPanel configAdmin = new JPanel();
-        configAdmin.setBackground(Color.decode("#121A2D"));
+        configAdmin.setBackground(Color.decode(menu.colorPanelOscuro));
         configAdmin.setLayout(null);
         configAdmin.setBounds(10, 10, 890, 440);
         fondoConfigAdmin.add(configAdmin);
         
         JPanel Propiedades = new JPanel();
         Propiedades.setLayout(null);
-        Propiedades.setBackground(Color.decode("#000a45"));
+        Propiedades.setBackground(Color.decode(menu.colorPanelMedio));
         Propiedades.setBounds(10, 10, 430, 420);
         configAdmin.add(Propiedades);
         
@@ -156,7 +166,7 @@ public class Configuraciones extends JFrame{
         
         JPanel editarUsuarios = new JPanel();
         editarUsuarios.setLayout(null);
-        editarUsuarios.setBackground(Color.decode("#000a45"));
+        editarUsuarios.setBackground(Color.decode(menu.colorPanelMedio));
         editarUsuarios.setBounds(450, 10, 430, 420);
         configAdmin.add(editarUsuarios);
         
@@ -166,5 +176,50 @@ public class Configuraciones extends JFrame{
         tituloEditar.setHorizontalAlignment(SwingConstants.CENTER);
         tituloEditar.setBounds(10, 10, 410, 25);
         editarUsuarios.add(tituloEditar);
+    }
+    
+    private void CambioTema(JPanel temasApp){
+        JButton tema1 = new JButton();
+        tema1.setBounds(35, 45, 170, 170);
+        tema1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                List<String> datos = guardado.CargarDatos();
+                
+                datoTema = "1";
+                guardado.GuardarConfiguraciones(datoTema);
+            }
+        });
+        temasApp.add(tema1);
+        
+        
+        JButton tema2 = new JButton();
+        tema2.setBounds(225, 45, 170, 170);
+        tema2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                datoTema = "2";
+                guardado.GuardarConfiguraciones(datoTema);
+            }
+        });
+        temasApp.add(tema2);
+        
+        JButton tema3 = new JButton();
+        tema3.setBounds(35, 235, 170, 170);
+        tema3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                datoTema = "3";
+                guardado.GuardarConfiguraciones(datoTema);
+            }
+        });
+        temasApp.add(tema3);
+        
+        JButton tema4 = new JButton();
+        tema4.setBounds(225, 235, 170, 170);
+        tema4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                datoTema = "4";
+                guardado.GuardarConfiguraciones(datoTema);
+            }
+        });
+        temasApp.add(tema4);
     }
 }

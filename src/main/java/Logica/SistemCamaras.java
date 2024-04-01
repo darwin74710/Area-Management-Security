@@ -2,6 +2,7 @@ package Logica;
 
 import static Logica.CameraManager.cargarCamaras;
 import static Logica.CameraManager.cerrarCamaras;
+import Ventanas.Menu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,8 @@ public class SistemCamaras extends JFrame{
     
     private JPanel panelPrin = new JPanel();
     
+    Menu menu;
+    
     // VALIDADOR DE CAMARAS
     int seleccion = 0;
     
@@ -35,11 +38,11 @@ public class SistemCamaras extends JFrame{
 
         JPanel fondo = new JPanel();
         fondo.setLayout(null);
-        fondo.setBackground(Color.decode("#000a45"));
+        fondo.setBackground(Color.decode(menu.colorPanelMedio));
         
         panelCam = new JPanel();
         panelCam.setLayout(null);
-        panelCam.setBackground(Color.decode("#011b5a"));
+        panelCam.setBackground(Color.decode(menu.colorPanelClaro));
         panelCam.setBounds(10,10,660,460);
         fondo.add(panelCam);
         
@@ -80,14 +83,14 @@ public class SistemCamaras extends JFrame{
 
         JButton botonAgregar = new JButton("AGREGAR");
         botonAgregar.setBounds(460,480,100,20);
-        botonAgregar.setBackground(Color.decode("#85add5"));
+        botonAgregar.setBackground(Color.decode(menu.colorBotonClaro));
         botonAgregar.setFocusPainted(false);
         botonAgregar.addActionListener(e -> guardar(ventanaAgregar));
         fondo.add(botonAgregar);
         
         JButton botonCancelar = new JButton("CANCELAR");
         botonCancelar.setBounds(570,480,100,20);
-        botonCancelar.setBackground(Color.decode("#85add5"));
+        botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
         botonCancelar.setFocusPainted(false);
         botonCancelar.addActionListener(e -> cancelar());
         fondo.add(botonCancelar);
@@ -108,7 +111,7 @@ public class SistemCamaras extends JFrame{
         
         // Boton para edicar la camara
         JButton editarCam = new JButton("EDITAR");
-        editarCam.setBackground(Color.decode("#85add5"));
+        editarCam.setBackground(Color.decode(menu.colorBotonClaro));
         editarCam.setFocusPainted(false);
         editarCam.setBounds(560, 0, 80, 20);
         editarCam.addActionListener(new ActionListener() {
