@@ -30,8 +30,6 @@ public class Configuraciones extends JFrame{
     
     public String datoTema = "1";
     
-    public JFrame ventanaAnterior = new JFrame();
-    
     public SaveConfiguraciones guardado = new SaveConfiguraciones();
     
     public Configuraciones(){
@@ -46,7 +44,8 @@ public class Configuraciones extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
+        fondo = new JLabel();
+        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
         this.add(fondo);
         
@@ -63,7 +62,10 @@ public class Configuraciones extends JFrame{
         ActionListener irMenu = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaAnterior.setVisible(true);
+                Menu ventanaMenu = new Menu();
+                ventanaMenu.RecargarColores();
+                ventanaMenu.notifiDetect();
+                ventanaMenu.setVisible(true);
                 dispose();
             }
         };

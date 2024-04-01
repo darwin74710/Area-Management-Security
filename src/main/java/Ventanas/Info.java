@@ -36,7 +36,8 @@ public class Info extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
+        fondo = new JLabel();
+        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
         fondo.setBorder(new EmptyBorder(10,10,10,10));
         this.add(fondo);
@@ -66,8 +67,10 @@ public class Info extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Menu ventanaMenu = new Menu();
+                ventanaMenu.RecargarColores();
+                ventanaMenu.notifiDetect();
                 ventanaMenu.setVisible(true);
-                setVisible(false);
+                dispose();
             }
         };
         botonVolver.addActionListener(irMenu);

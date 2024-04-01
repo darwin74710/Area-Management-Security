@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.SaveConfiguraciones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -26,13 +28,16 @@ public class Menu extends JFrame{
     JButton opcion3 = new JButton();
     public ImageIcon logoNotificaciones = new ImageIcon("Imagenes/Iconos/botonNotificaciones.png");
     
+    SaveConfiguraciones configVents = new SaveConfiguraciones();
+    
     public Menu(){
+        RecargarColores();
         PanelFondo();
         Deteccion();
     }
     
     // TEMAS
-    public static String imagenFondo = "Imagenes/fondo.png";
+    public static String imagenFondo = "Imagenes/fondoAzul.png";
     public static String colorPanelClaro = "#011b5a";
     public static String colorPanelMedio = "#000a45";
     public static String colorPanelOscuro = "#121a2d";
@@ -50,7 +55,8 @@ public class Menu extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon(imagenFondo));
+        fondo = new JLabel();
+        fondo.setIcon(new ImageIcon((new ImageIcon(imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
@@ -105,7 +111,9 @@ public class Menu extends JFrame{
         ActionListener irIngreso = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Ingreso ventanaIngreso = new Ingreso();
+                ventanaIngreso.ActualizarIngreso();
                 ventanaIngreso.setVisible(true);
                 setVisible(false);
             }
@@ -126,8 +134,8 @@ public class Menu extends JFrame{
         ActionListener irRegistro = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Registrar ventanaRegistrar = new Registrar();
-                ventanaRegistrar.ventanaAnterior = Menu.this;
                 ventanaRegistrar.setVisible(true);
                 setVisible(false);
             }
@@ -180,6 +188,7 @@ public class Menu extends JFrame{
         ActionListener irMonitoreo = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Monitoreo ventanaMapa = new Monitoreo();
                 ventanaMapa.setVisible(true);
                 setVisible(false);
@@ -190,6 +199,7 @@ public class Menu extends JFrame{
         ActionListener irInfo = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Info ventanaInfo = new Info();
                 ventanaInfo.setVisible(true);
                 setVisible(false);
@@ -200,6 +210,7 @@ public class Menu extends JFrame{
         ActionListener irNotificaciones = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Notificaciones ventanaNotificaciones = new Notificaciones();
                 ventanaNotificaciones.setVisible(true);
                 setVisible(false);
@@ -210,8 +221,8 @@ public class Menu extends JFrame{
         ActionListener irConfig = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RecargarColores();
                 Configuraciones ventanaConfig = new Configuraciones();
-                ventanaConfig.ventanaAnterior = Menu.this;
                 ventanaConfig.setVisible(true);
                 setVisible(false);
             }
@@ -242,6 +253,29 @@ public class Menu extends JFrame{
             opcion3.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/botonNotificacionesAnim.gif")).getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             opcion3.setIcon(new ImageIcon(logoNotificaciones.getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
+            
+        }
+    }
+    
+    public void RecargarColores(){
+        List<String> datos = configVents.CargarDatos();
+        
+        if (datos.get(0).equals("1")){
+            imagenFondo = "Imagenes/fondoAzul.png";
+            colorPanelClaro = "#011b5a";
+            colorPanelMedio = "#000a45";
+            colorPanelOscuro = "#121a2d";
+            colorBotonClaro = "#85add5";
+            colorBotonClaroSeleccion = "#415F7E";
+            colorBotonOscuro = "#000e3c";
+        }else if(datos.get(0).equals("2")){
+            imagenFondo = "Imagenes/fondoRojo.png";
+            colorPanelClaro = "#B60F0F";
+            colorPanelMedio = "#9E0707";
+            colorPanelOscuro = "#8D0C0C";
+            colorBotonClaro = "#E13737";
+            colorBotonClaroSeleccion = "#BA3333";
+            colorBotonOscuro = "#680C0C";
             
         }
     }

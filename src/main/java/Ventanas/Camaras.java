@@ -69,7 +69,8 @@ public class Camaras extends JFrame{
         setResizable(false);
         
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
+        fondo = new JLabel();
+        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);

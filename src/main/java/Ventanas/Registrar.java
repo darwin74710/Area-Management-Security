@@ -49,7 +49,6 @@ public class Registrar extends JFrame {
     JTextField terceraRespT;
     
     public static String ruta;
-    public JFrame ventanaAnterior = new JFrame();
 
     //variables para logica del boton ver contraseña
     ActionListener activar;
@@ -76,7 +75,8 @@ public class Registrar extends JFrame {
         setResizable(false);
 
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
+        fondo = new JLabel();
+        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
         fondo.setBorder(new EmptyBorder(10, 10, 10, 10));
         this.add(fondo);
@@ -118,7 +118,10 @@ public class Registrar extends JFrame {
         ActionListener irMenu = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaAnterior.setVisible(true);
+                Menu ventanaMenu = new Menu();
+                ventanaMenu.RecargarColores();
+                ventanaMenu.notifiDetect();
+                ventanaMenu.setVisible(true);
                 dispose();
             }
         };

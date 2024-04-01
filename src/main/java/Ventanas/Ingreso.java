@@ -21,16 +21,20 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Ingreso extends JFrame{
-    Menu menu;
+    Menu menu = new Menu();
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
 
     public JLabel fondo = new JLabel();
 
+    JButton botonVerContra = new JButton();
+    JButton ingreso = new JButton("INGRESAR");
+    
     public Ingreso() {
+        menu.RecargarColores();
         PanelFondo();
+        ActualizarIngreso();
         Distribucion();
-
         cargarCamaras();
     }
     
@@ -43,7 +47,7 @@ public class Ingreso extends JFrame{
         setResizable(false);
 
         //Establecemos imagen de fondo.
-        fondo = new JLabel(new ImageIcon(menu.imagenFondo));
+        fondo = new JLabel();
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.X_AXIS)); //Le añadimos un layout a la imagen de fondo.
         this.add(fondo);
     }
@@ -133,14 +137,13 @@ public class Ingreso extends JFrame{
         campoTextoContraseña.add(textoContraseña);
 
         //Creamos boton para ver y no ver contraseña.
-        JButton botonVerContra = new JButton();
         botonVerContra.setBounds(490, 8, 40, 40);
         botonVerContra.setOpaque(false);
         botonVerContra.setFocusPainted(false);
 
         ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
         ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
-        botonVerContra.setBackground(Color.decode(menu.colorBotonOscuro));
+        
         botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         campoTextoContraseña.add(botonVerContra);
 
@@ -153,8 +156,6 @@ public class Ingreso extends JFrame{
         botonesDerecha.setLayout(new BoxLayout(botonesDerecha, BoxLayout.X_AXIS));
 
         //Creamos los botones.
-        JButton ingreso = new JButton("INGRESAR");
-        ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setFocusPainted(false); //Quitamos las lineas de focus.
 
         ingreso.setFont(new Font("Arial", 1, 25));
@@ -210,4 +211,13 @@ public class Ingreso extends JFrame{
             textoUsuario.requestFocusInWindow();
         }
     }//Fin metodo btnIngresar
+    
+    public void ActualizarIngreso(){
+        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        botonVerContra.setBackground(Color.decode(menu.colorBotonOscuro));
+        ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
+        
+        fondo.revalidate();
+        fondo.repaint();
+    }
 }
