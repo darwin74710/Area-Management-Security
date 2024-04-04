@@ -2,9 +2,7 @@ package Ventanas;
 
 import Logica.SaveRegistros;
 import static Ventanas.Camaras.nombreRegistro;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
@@ -21,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -52,7 +49,7 @@ public class Registros extends JFrame{
         fondo = new JLabel();
         fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
-        fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
+        fondo.setBorder(new EmptyBorder(10,0,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
         
         Elementos();

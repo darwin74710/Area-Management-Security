@@ -78,7 +78,7 @@ public class Registrar extends JFrame {
         fondo = new JLabel();
         fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
-        fondo.setBorder(new EmptyBorder(10, 10, 10, 10));
+        fondo.setBorder(new EmptyBorder(10,0,10,10));
         this.add(fondo);
 
         //agregamos los constructores

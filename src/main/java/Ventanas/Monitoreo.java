@@ -48,7 +48,7 @@ public class Monitoreo extends JFrame{
         fondo = new JLabel();
         fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
-        fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
+        fondo.setBorder(new EmptyBorder(10,0,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
         
         PanelArea();

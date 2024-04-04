@@ -279,4 +279,9 @@ public class Menu extends JFrame{
             
         }
     }
+    
+    public void ReiniciarConfig(){
+        Configuraciones config = new Configuraciones();
+        config.setVisible(true);
+    }
 }

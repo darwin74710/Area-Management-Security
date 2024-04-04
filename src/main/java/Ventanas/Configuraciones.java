@@ -23,7 +23,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Configuraciones extends JFrame{
-    Menu menu;
+    Menu menu = new Menu();
     
     public JLabel fondo = new JLabel();
     JPanel elementos = new JPanel();
@@ -185,10 +185,16 @@ public class Configuraciones extends JFrame{
         tema1.setBounds(35, 45, 170, 170);
         tema1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                datoTema = "1";
                 List<String> datos = guardado.CargarDatos();
                 
-                datoTema = "1";
-                guardado.GuardarConfiguraciones(datoTema);
+                if (!datos.get(0).equals(datoTema)){
+                    guardado.GuardarConfiguraciones(datoTema);
+                    menu.RecargarColores();
+
+                    dispose();
+                    menu.ReiniciarConfig();
+                }
             }
         });
         temasApp.add(tema1);
@@ -199,7 +205,15 @@ public class Configuraciones extends JFrame{
         tema2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 datoTema = "2";
-                guardado.GuardarConfiguraciones(datoTema);
+                List<String> datos = guardado.CargarDatos();
+                
+                if (!datos.get(0).equals(datoTema)){
+                    guardado.GuardarConfiguraciones(datoTema);
+                    menu.RecargarColores();
+
+                    dispose();
+                    menu.ReiniciarConfig();
+                }
             }
         });
         temasApp.add(tema2);
@@ -209,7 +223,15 @@ public class Configuraciones extends JFrame{
         tema3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 datoTema = "3";
-                guardado.GuardarConfiguraciones(datoTema);
+                List<String> datos = guardado.CargarDatos();
+                
+                if (!datos.get(0).equals(datoTema)){
+                    guardado.GuardarConfiguraciones(datoTema);
+                    menu.RecargarColores();
+
+                    dispose();
+                    menu.ReiniciarConfig();
+                }
             }
         });
         temasApp.add(tema3);
@@ -219,7 +241,15 @@ public class Configuraciones extends JFrame{
         tema4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 datoTema = "4";
-                guardado.GuardarConfiguraciones(datoTema);
+                List<String> datos = guardado.CargarDatos();
+                
+                if (!datos.get(0).equals(datoTema)){
+                    guardado.GuardarConfiguraciones(datoTema);
+                    menu.RecargarColores();
+
+                    dispose();
+                    menu.ReiniciarConfig();
+                }  
             }
         });
         temasApp.add(tema4);

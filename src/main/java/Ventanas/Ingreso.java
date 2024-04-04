@@ -29,6 +29,7 @@ public class Ingreso extends JFrame{
 
     JButton botonVerContra = new JButton();
     JButton ingreso = new JButton("INGRESAR");
+    JButton recuperarContra = new JButton("RECUPERAR");
     
     public Ingreso() {
         menu.RecargarColores();
@@ -156,12 +157,11 @@ public class Ingreso extends JFrame{
         botonesDerecha.setLayout(new BoxLayout(botonesDerecha, BoxLayout.X_AXIS));
 
         //Creamos los botones.
+        ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setFocusPainted(false); //Quitamos las lineas de focus.
 
         ingreso.setFont(new Font("Arial", 1, 25));
         ingreso.setForeground(Color.white);
-        ingreso.setMaximumSize(new Dimension(200, 50));
-        ingreso.setPreferredSize(new Dimension(200, 50));
         botonesDerecha.add(ingreso);
 
         //funcionalidad del boton ingresar
@@ -169,8 +169,22 @@ public class Ingreso extends JFrame{
             btnIngresarActionPerformed(e);
         });
 
+        //Creamos un espacio entre los botones.
+        botonesDerecha.add(Box.createRigidArea(new Dimension(10, 0)));
+
+        recuperarContra.setBackground(Color.decode(menu.colorBotonOscuro));
+        recuperarContra.setFocusPainted(false);
+
+        recuperarContra.setFont(new Font("Arial", 1, 25));
+        recuperarContra.setForeground(Color.white);
+        botonesDerecha.add(recuperarContra);
+        
+        recuperarContra.addActionListener((ActionEvent e) -> {
+            btnRecuperarContra();
+        });
+
         //Separamos los botones de los bordes.
-        derecha.add(Box.createRigidArea(new Dimension(0, 10)));
+        derecha.add(Box.createRigidArea(new Dimension(0, 30)));
         derecha.add(botonesDerecha);
         derecha.add(Box.createRigidArea(new Dimension(0, 30)));
 
@@ -211,6 +225,10 @@ public class Ingreso extends JFrame{
             textoUsuario.requestFocusInWindow();
         }
     }//Fin metodo btnIngresar
+    
+    public void btnRecuperarContra(){
+        
+    }
     
     public void ActualizarIngreso(){
         fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
