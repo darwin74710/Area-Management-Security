@@ -182,6 +182,7 @@ public class Configuraciones extends JFrame{
     
     private void CambioTema(JPanel temasApp){
         JButton tema1 = new JButton();
+        tema1.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/temaAzul.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         tema1.setBounds(35, 45, 170, 170);
         tema1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,6 +203,7 @@ public class Configuraciones extends JFrame{
         
         JButton tema2 = new JButton();
         tema2.setBounds(225, 45, 170, 170);
+        tema2.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/temaRojo.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         tema2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 datoTema = "2";
@@ -220,6 +222,7 @@ public class Configuraciones extends JFrame{
         
         JButton tema3 = new JButton();
         tema3.setBounds(35, 235, 170, 170);
+        tema3.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/temaVerde.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         tema3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 datoTema = "3";
@@ -237,6 +240,7 @@ public class Configuraciones extends JFrame{
         temasApp.add(tema3);
         
         JButton tema4 = new JButton();
+        tema4.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/temaAmarillo.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
         tema4.setBounds(225, 235, 170, 170);
         tema4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

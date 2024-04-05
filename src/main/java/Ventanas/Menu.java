@@ -321,7 +321,7 @@ public class Menu extends JFrame{
             
             colorPanelClaro = "#0E8105";
             colorPanelMedio = "#074500";
-            colorPanelOscuro = "#024402";
+            colorPanelOscuro = "#043703";
             colorBotonClaro = "#2FB629";
             colorBotonClaroSeleccion = "#1C7421";
             colorBotonOscuro = "#12680C";
@@ -336,7 +336,7 @@ public class Menu extends JFrame{
             
             colorPanelClaro = "#818105";
             colorPanelMedio = "#444500";
-            colorPanelOscuro = "#434402";
+            colorPanelOscuro = "#323703";
             colorBotonClaro = "#B6B629";
             colorBotonClaroSeleccion = "#898921";
             colorBotonOscuro = "#64680C";
