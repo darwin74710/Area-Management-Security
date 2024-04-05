@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
@@ -130,6 +131,8 @@ public class Configuraciones extends JFrame{
         modificarPerfil.setBackground(Color.decode(menu.colorPanelMedio));
         modificarPerfil.setBounds(450, 10, 430, 420);
         configUsuario.add(modificarPerfil);
+        
+        ElementosModificarPerfil(modificarPerfil);
         
         JLabel tituloModificar = new JLabel("MODIFICAR PERFIL");
         tituloModificar.setForeground(Color.white);
@@ -257,5 +260,49 @@ public class Configuraciones extends JFrame{
             }
         });
         temasApp.add(tema4);
+    }
+    
+    private void ElementosModificarPerfil(JPanel modificarPerfil){
+        JLabel imagenUsuario = new JLabel();
+        imagenUsuario.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+        imagenUsuario.setBounds(20, 50, 180, 180);
+        modificarPerfil.add(imagenUsuario);
+        
+        JLabel tituloNombre = new JLabel("USUARIO:");
+        tituloNombre.setForeground(Color.white);
+        tituloNombre.setBounds(210, 50, 70, 20);
+        modificarPerfil.add(tituloNombre);
+        
+        JTextField textoNombre = new JTextField();
+        textoNombre.setBounds(210, 80, 200, 20);
+        modificarPerfil.add(textoNombre);
+        
+        JLabel tituloContrasena = new JLabel("CONTRASEÑA:");
+        tituloContrasena.setForeground(Color.white);
+        tituloContrasena.setBounds(210, 120, 100, 20);
+        modificarPerfil.add(tituloContrasena);
+        
+        JTextField textoContrasena = new JTextField();
+        textoContrasena.setBounds(210, 150, 200, 20);
+        modificarPerfil.add(textoContrasena);
+        
+        JButton cambioImagen = new JButton("CAMBIAR IMAGEN");
+        cambioImagen.setBackground(Color.decode(menu.colorBotonClaro));
+        cambioImagen.setFocusPainted(false);
+        cambioImagen.setBounds(210, 200, 200, 30);
+        modificarPerfil.add(cambioImagen);
+        
+        JPanel mensaje = new JPanel();
+        mensaje.setBorder(new EmptyBorder(10,10,10,10));
+        mensaje.setBackground(Color.decode(menu.colorPanelClaro));
+        mensaje.setBounds(20, 250, 390, 150);
+        modificarPerfil.add(mensaje);
+        
+        JLabel textoMensaje = new JLabel();
+        textoMensaje.setText("<html><p>Comúnicate con un administrador para que este realice<br>"
+                                    + "la modificación de otros datos a los cuales no tienes<br>"
+                                    + "acceso.      :)</p></html>");
+        textoMensaje.setForeground(Color.white);
+        mensaje.add(textoMensaje);
     }
 }
