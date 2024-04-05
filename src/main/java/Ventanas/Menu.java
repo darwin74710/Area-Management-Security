@@ -26,7 +26,6 @@ public class Menu extends JFrame{
     public JLabel fondo = new JLabel();
     
     JButton opcion3 = new JButton();
-    public ImageIcon logoNotificaciones = new ImageIcon("Imagenes/Iconos/botonNotificaciones.png");
     
     SaveConfiguraciones configVents = new SaveConfiguraciones();
     
@@ -38,6 +37,12 @@ public class Menu extends JFrame{
     
     // TEMAS
     public static String imagenFondo = "Imagenes/fondoAzul.png";
+    public static String imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoAzul.png";
+    public static String imagenInfo = "Imagenes/Iconos/botonManualAzul.png";
+    public static String imagenNotifi = "Imagenes/Iconos/botonNotificacionesAzul.png";
+    public static String gifNotifi = "Imagenes/Iconos/botonNotificacionesAnimAzul.gif";
+    public static String imagenConfig = "Imagenes/Iconos/botonConfigAzul.png";
+    
     public static String colorPanelClaro = "#011b5a";
     public static String colorPanelMedio = "#000a45";
     public static String colorPanelOscuro = "#121a2d";
@@ -158,7 +163,7 @@ public class Menu extends JFrame{
         //MONITOREO
         JButton opcion1 = new JButton();
         opcion1.setBounds(265, 10, 170, 176);
-        ImageIcon logoArea = new ImageIcon("Imagenes/Iconos/botonMonitoreo.png");
+        ImageIcon logoArea = new ImageIcon(imagenMonitoreo);
         opcion1.setIcon(new ImageIcon(logoArea.getImage().getScaledInstance(opcion1.getWidth(), opcion1.getHeight(), Image.SCALE_DEFAULT)));
         
         botonesPanel.add(opcion1);
@@ -166,7 +171,7 @@ public class Menu extends JFrame{
         //INFORMACIÓN
         JButton opcion2 = new JButton();
         opcion2.setBounds(505, 10, 170, 176);
-        ImageIcon logoManual = new ImageIcon("Imagenes/Iconos/botonManual.png");
+        ImageIcon logoManual = new ImageIcon(imagenInfo);
         opcion2.setIcon(new ImageIcon(logoManual.getImage().getScaledInstance(opcion2.getWidth(), opcion2.getHeight(), Image.SCALE_DEFAULT)));
         
         botonesPanel.add(opcion2);
@@ -179,7 +184,7 @@ public class Menu extends JFrame{
         //CONFIGURACIONES
         JButton opcion4 = new JButton();
         opcion4.setBounds(505, 230, 170, 176);
-        ImageIcon logoConfig = new ImageIcon("Imagenes/Iconos/botonConfig.png");
+        ImageIcon logoConfig = new ImageIcon(imagenConfig);
         opcion4.setIcon(new ImageIcon(logoConfig.getImage().getScaledInstance(opcion4.getWidth(), opcion4.getHeight(), Image.SCALE_DEFAULT)));
         
         botonesPanel.add(opcion4);
@@ -250,9 +255,9 @@ public class Menu extends JFrame{
         File[] listaDeArchivos = directorio.listFiles();
         
         if (listaDeArchivos != null && listaDeArchivos.length > 0) {
-            opcion3.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/botonNotificacionesAnim.gif")).getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
+            opcion3.setIcon(new ImageIcon((new ImageIcon(gifNotifi)).getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
         } else {
-            opcion3.setIcon(new ImageIcon(logoNotificaciones.getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
+            opcion3.setIcon(new ImageIcon((new ImageIcon(imagenNotifi)).getImage().getScaledInstance(opcion3.getWidth(), opcion3.getHeight(), Image.SCALE_DEFAULT)));
             
         }
     }
@@ -262,6 +267,12 @@ public class Menu extends JFrame{
         
         if (datos.get(0).equals("1")){
             imagenFondo = "Imagenes/fondoAzul.png";
+            imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoAzul.png";
+            imagenInfo = "Imagenes/Iconos/botonManualAzul.png";
+            imagenNotifi = "Imagenes/Iconos/botonNotificacionesAzul.png";
+            gifNotifi = "Imagenes/Iconos/botonNotificacionesAnimAzul.gif";
+            imagenConfig = "Imagenes/Iconos/botonConfigAzul.png";
+
             colorPanelClaro = "#011b5a";
             colorPanelMedio = "#000a45";
             colorPanelOscuro = "#121a2d";
@@ -270,12 +281,48 @@ public class Menu extends JFrame{
             colorBotonOscuro = "#000e3c";
         }else if(datos.get(0).equals("2")){
             imagenFondo = "Imagenes/fondoRojo.png";
-            colorPanelClaro = "#B60F0F";
-            colorPanelMedio = "#9E0707";
-            colorPanelOscuro = "#8D0C0C";
+            imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoRojo.png";
+            imagenInfo = "Imagenes/Iconos/botonManualRojo.png";
+            imagenNotifi = "Imagenes/Iconos/botonNotificacionesRojo.png";
+            gifNotifi = "Imagenes/Iconos/botonNotificacionesAnimRojo.gif";
+            imagenConfig = "Imagenes/Iconos/botonConfigRojo.png";
+            
+            colorPanelClaro = "#810505";
+            colorPanelMedio = "#590303";
+            colorPanelOscuro = "#440202";
             colorBotonClaro = "#E13737";
-            colorBotonClaroSeleccion = "#BA3333";
+            colorBotonClaroSeleccion = "#892121";
             colorBotonOscuro = "#680C0C";
+            
+        }else if(datos.get(0).equals("3")){
+            imagenFondo = "Imagenes/fondoVerde.png";
+            imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoVerde.png";
+            imagenInfo = "Imagenes/Iconos/botonManualVerde.png";
+            imagenNotifi = "Imagenes/Iconos/botonNotificacionesVerde.png";
+            gifNotifi = "Imagenes/Iconos/botonNotificacionesAnimVerde.gif";
+            imagenConfig = "Imagenes/Iconos/botonConfigVerde.png";
+            
+            colorPanelClaro = "#0E8105";
+            colorPanelMedio = "#074500";
+            colorPanelOscuro = "#024402";
+            colorBotonClaro = "#2FB629";
+            colorBotonClaroSeleccion = "#1C7421";
+            colorBotonOscuro = "#12680C";
+            
+        }else if(datos.get(0).equals("4")){
+            imagenFondo = "Imagenes/fondoAmarillo.png";
+            imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoAmarillo.png";
+            imagenInfo = "Imagenes/Iconos/botonManualAmarillo.png";
+            imagenNotifi = "Imagenes/Iconos/botonNotificacionesAmarillo.png";
+            gifNotifi = "Imagenes/Iconos/botonNotificacionesAnimAmarillo.gif";
+            imagenConfig = "Imagenes/Iconos/botonConfigAmarillo.png";
+            
+            colorPanelClaro = "#818105";
+            colorPanelMedio = "#444500";
+            colorPanelOscuro = "#434402";
+            colorBotonClaro = "#B6B629";
+            colorBotonClaroSeleccion = "#898921";
+            colorBotonOscuro = "#64680C";
             
         }
     }
