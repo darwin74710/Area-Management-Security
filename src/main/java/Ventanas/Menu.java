@@ -29,12 +29,13 @@ public class Menu extends JFrame{
     
     SaveConfiguraciones configVents = new SaveConfiguraciones();
     
-    public Menu(){
-        RecargarColores();
-        PanelFondo();
-        Deteccion();
-    }
+    JPanel elementosSuperiores = new JPanel();
+    JButton botonPerfil = new JButton();
+    JPanel botonesPanel = new JPanel();
+    JPanel fondoPerfil = new JPanel();
     
+    boolean verPerfil = false;
+
     // TEMAS
     public static String imagenFondo = "Imagenes/fondoAzul.png";
     public static String imagenMonitoreo = "Imagenes/Iconos/botonMonitoreoAzul.png";
@@ -50,6 +51,13 @@ public class Menu extends JFrame{
     public static String colorBotonClaroSeleccion = "#415F7E";
     public static String colorBotonOscuro = "#000e3c";
     
+    public Menu(){
+        RecargarColores();
+        PanelFondo();
+        VerPerfil();
+        Deteccion();
+    }
+    
     private void PanelFondo(){
         
         //Creamos la ventana.
@@ -63,7 +71,7 @@ public class Menu extends JFrame{
         fondo = new JLabel();
         fondo.setIcon(new ImageIcon((new ImageIcon(imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         fondo.setLayout(null);
-        fondo.setBorder(new EmptyBorder(10,10,10,10)); //Establecemos margenes en el fondo.
+        fondo.setBorder(new EmptyBorder(10,0,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);
         
         ParteSuperior();
@@ -72,24 +80,35 @@ public class Menu extends JFrame{
         
     private void ParteSuperior(){
         //Creamos un panel para el titulo y el boton volver.
-        JPanel elementosSuperiores = new JPanel();
         elementosSuperiores.setLayout(null);
         elementosSuperiores.setOpaque(false);
-        elementosSuperiores.setBounds(320,0,660,100);
         fondo.add(elementosSuperiores);
         
+        botonPerfil.setBounds(20, 30, 100, 100);
+        botonPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        botonPerfil.addActionListener((ActionEvent e) -> {
+            VerPerfil();
+        });
+        
         //Perfil con descripción.
-        JPanel fondoPerfil = new JPanel();
         fondoPerfil.setBackground(Color.decode(colorPanelMedio));
         fondoPerfil.setBounds(0,0,320,600);
         fondoPerfil.setLayout(null);
-        fondo.add(fondoPerfil);
         
         JLabel imagenPerfil = new JLabel();
         //Le establecemos una imagen de perfil con un tamaño preestablecido.
         imagenPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
         imagenPerfil.setBounds(55,10,200,200);
         fondoPerfil.add(imagenPerfil);
+        
+        JButton botonAtrasPerfil = new JButton("ATRAS");
+        botonAtrasPerfil.setBackground(Color.decode(colorBotonClaro));
+        botonAtrasPerfil.setFocusPainted(false);
+        botonAtrasPerfil.setBounds(230, 530, 75, 20);
+        botonAtrasPerfil.addActionListener((ActionEvent e) -> {
+            VerPerfil();
+        });
+        fondoPerfil.add(botonAtrasPerfil);
         
         
         //Creamos un titulo de bienvenida.
@@ -153,10 +172,8 @@ public class Menu extends JFrame{
         fondo.add(Box.createRigidArea(new Dimension(0,30)));
         
         //Creamos un panel para colocar las opciones de ventanas.
-        JPanel botonesPanel = new JPanel();
         botonesPanel.setOpaque(false);
         botonesPanel.setLayout(null);
-        botonesPanel.setBounds(150,100,970,500);
         fondo.add(botonesPanel);
         
         //Creamos los botones para ir a las diferentes ventanas.
@@ -330,5 +347,29 @@ public class Menu extends JFrame{
     public void ReiniciarConfig(){
         Configuraciones config = new Configuraciones();
         config.setVisible(true);
+    }
+    
+    private void VerPerfil(){
+        if (verPerfil == false){
+            elementosSuperiores.setBounds(200,0,660,100);
+            botonesPanel.setBounds(30,100,970,500);
+            fondo.remove(fondoPerfil);
+            fondo.add(botonPerfil);
+            
+            fondo.repaint();
+            fondo.revalidate();
+            
+            verPerfil = true;
+        }else{
+            elementosSuperiores.setBounds(320,0,660,100);
+            botonesPanel.setBounds(150,100,970,500);
+            fondo.add(fondoPerfil);
+            fondo.remove(botonPerfil);
+            
+            fondo.repaint();
+            fondo.revalidate();
+            
+            verPerfil = false;
+        }
     }
 }
