@@ -435,6 +435,8 @@ public class SistemMonitoreo extends JFrame {
         panelCrear.add(textoNombre);
         
         datoNombre.setBounds(10,35,220,20);
+        datoNombre.setEditable(true);
+        datoNombre.setBackground(Color.white);
         panelCrear.add(datoNombre);
         
         JLabel textoDescript = new JLabel("Descripción:");
@@ -443,6 +445,8 @@ public class SistemMonitoreo extends JFrame {
         panelCrear.add(textoDescript);
         
         JScrollPane scrollDescript = new JScrollPane(datoDescript);
+        datoDescript.setEditable(true);
+        datoDescript.setBackground(Color.white);
         scrollDescript.setBounds(10,95,220,90);
         panelCrear.add(scrollDescript);
         
@@ -665,6 +669,8 @@ public class SistemMonitoreo extends JFrame {
             panelEditar.add(textoNombre);
             
             datoNombre.setText(datosArchivo.get(0));
+            datoNombre.setEditable(true);
+            datoNombre.setBackground(Color.white);
             datoNombre.setBounds(10,35,220,20);
             panelEditar.add(datoNombre);
 
@@ -674,6 +680,8 @@ public class SistemMonitoreo extends JFrame {
             panelEditar.add(textoDescript);
             
             datoDescript.setText(datosArchivo.get(1).replace("\\n", "\n"));
+            datoDescript.setEditable(true);
+            datoDescript.setBackground(Color.white);
             JScrollPane scrollDescript = new JScrollPane(datoDescript);
             scrollDescript.setBounds(10,95,220,90);
             panelEditar.add(scrollDescript);

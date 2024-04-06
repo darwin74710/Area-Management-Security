@@ -412,6 +412,29 @@ public class Configuraciones extends JFrame{
         }
     
     private void ElementosUsuarios(JPanel editarUsuarios){
+        JPanel panelUsuarios = new JPanel();
+        panelUsuarios.setBackground(Color.decode(menu.colorPanelClaro));
         
+        JScrollPane scrollUsuarios = new JScrollPane(panelUsuarios);
+        scrollUsuarios.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollUsuarios.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollUsuarios.setOpaque(true);
+        scrollUsuarios.setBorder(null);
+        scrollUsuarios.setBounds(10, 50, 320, 360);
+        editarUsuarios.add(scrollUsuarios);
+        
+        JButton botonEditar = new JButton();
+        botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonEditar.setFocusPainted(false);
+        botonEditar.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/editar.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        botonEditar.setBounds(350, 50, 70, 70);
+        editarUsuarios.add(botonEditar);
+        
+        JButton botonEliminar = new JButton();
+        botonEliminar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonEliminar.setFocusPainted(false);
+        botonEliminar.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/basura.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+        botonEliminar.setBounds(350, 140, 70, 70);
+        editarUsuarios.add(botonEliminar);
     }
 }
