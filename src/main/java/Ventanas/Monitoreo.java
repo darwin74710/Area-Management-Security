@@ -107,7 +107,11 @@ public class Monitoreo extends JFrame{
         botonDeteccion.setFocusPainted(false);
         
         botonDeteccion.setBackground(Color.decode(menu.colorBotonOscuro));
-        botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+        if (Menu.deteccionManager == false){
+            botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+        }else{
+            botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/ver.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+        }
         botonDeteccion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (Menu.deteccionManager == false){
