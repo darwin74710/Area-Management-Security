@@ -24,17 +24,26 @@ public class CameraManager {
     private static volatile boolean deteccionActiva = false;
     private static Thread movimientoThread;
     
-    public static double sensibilidadCamara = 30;
-    public static int duracionVideo = 10000;
+    public static double sensibilidadCamara;
+    public static int duracionVideo;
+    private static long ultimoTiempoGrabacion = 0;
     
     static SaveAreas guardadoAreas = new SaveAreas();
     static SistemNotificaciones notifi = new SistemNotificaciones();
+    
+    static SaveConfiguraciones guardadoConfig = new SaveConfiguraciones();
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
     public static void cargarCamaras() {
+        List<String> datos = guardadoConfig.CargarDatos();
+        sensibilidadCamara = Integer.parseInt(datos.get(1));
+        duracionVideo = Integer.parseInt(datos.get(2));
+        System.out.println("Sensibilidad: " + sensibilidadCamara);
+        System.out.println("Duración: " + duracionVideo);
+        
         int i = 0;
         while (true) {
             VideoCapture camera = new VideoCapture(i);
@@ -151,8 +160,6 @@ public class CameraManager {
                                 framesAnteriores.add(i, frameMat.clone());
                             }
                             if (!enPausa[i] && hayMovimiento(framesAnteriores.get(i), frameMat)) {
-                                System.out.println("Movimiento detectado en la cámara " + i);
-                                notifi.guardarNotifi(i);
                                 enPausa[i] = true; // Activar pausa para esta cámara
                                 final int camaraIndex = i;
                                 new Thread(() -> {
@@ -168,16 +175,22 @@ public class CameraManager {
                                         String fechaFormateada = fechaHoraActual.format(formateador);
                                         String nombreArchivo = rutaGuardarVideos + "/Camara " + camaraIndex + "/Camara#" + camaraIndex + "  " + fechaFormateada + ".mp4";
 
-                                        // Cambiar el códec de compresión a H.264 para MP4
-                                        VideoWriter videoWriter = new VideoWriter(nombreArchivo, VideoWriter.fourcc('H', '2', '6', '4'), 10, new Size(frameMat.width(), frameMat.height()));
-                                        long startTime = System.currentTimeMillis();
-                                        while (System.currentTimeMillis() - startTime < duracionVideo) { // Grabar durante 10 segundos
-                                            if (camera.read(frameMat)) {
-                                                videoWriter.write(frameMat);
+                                        // Verificar si ha pasado al menos 1 minuto desde la última grabación
+                                        if (System.currentTimeMillis() - ultimoTiempoGrabacion >= 60000) {
+                                            System.out.println("Movimiento detectado en la cámara " + camaraIndex);
+                                            notifi.guardarNotifi(camaraIndex);
+                                            // Cambiar el códec de compresión a H.264 para MP4
+                                            VideoWriter videoWriter = new VideoWriter(nombreArchivo, VideoWriter.fourcc('H', '2', '6', '4'), 10, new Size(frameMat.width(), frameMat.height()));
+
+                                            long startTime = System.currentTimeMillis();
+                                            while (System.currentTimeMillis() - startTime < duracionVideo) { // Grabar durante 10 segundos
+                                                if (camera.read(frameMat)) {
+                                                    videoWriter.write(frameMat);
+                                                }
                                             }
+                                            videoWriter.release();
+                                            ultimoTiempoGrabacion = System.currentTimeMillis(); // Actualizar el último tiempo de grabación
                                         }
-                                        videoWriter.release();
-                                        Thread.sleep(1000);
                                         enPausa[camaraIndex] = false; // Desactivar pausa después de grabar el video
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -199,17 +212,26 @@ public class CameraManager {
         // Calcula la diferencia absoluta entre los fotogramas anterior y actual
         Mat diferencia = new Mat();
         Core.absdiff(frameAnterior, frameActual, diferencia);
+
         // Convierte la diferencia a escala de grises
         Mat diferenciaEscalaGrises = new Mat();
         Imgproc.cvtColor(diferencia, diferenciaEscalaGrises, Imgproc.COLOR_BGR2GRAY);
+
         // Aplica un umbral para detectar cambios significativos
         Mat umbral = new Mat();
         double umbralValor = sensibilidadCamara; // Ajusta este valor según tus necesidades
         Imgproc.threshold(diferenciaEscalaGrises, umbral, umbralValor, 255, Imgproc.THRESH_BINARY);
+
+        // Aplicar operaciones morfológicas para filtrar el ruido
+        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5)); // Tamaño del kernel
+        Imgproc.dilate(umbral, umbral, kernel); // Dilatar para unir regiones blancas cercanas
+        Imgproc.erode(umbral, umbral, kernel);  // Erosionar para eliminar pequeños puntos blancos
+
         // Cuenta los píxeles blancos en el umbral
         int pixelesBlancos = Core.countNonZero(umbral);
+
         // Si la cantidad de píxeles blancos supera un umbral, consideramos que hay movimiento
         int umbralMovimiento = 100; // Ajusta este valor según tus necesidades
         return pixelesBlancos > umbralMovimiento;
     }
-}
+    }

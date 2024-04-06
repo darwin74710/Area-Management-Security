@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.CameraManager;
 import Logica.SaveConfiguraciones;
 import java.awt.Color;
 import java.awt.Component;
@@ -35,6 +36,7 @@ public class Configuraciones extends JFrame{
     public String datoTema = "1";
     
     public SaveConfiguraciones guardado = new SaveConfiguraciones();
+    CameraManager camaras = new CameraManager();
     
     public Configuraciones(){
         PanelFondo();
@@ -200,7 +202,7 @@ public class Configuraciones extends JFrame{
                 List<String> datos = guardado.CargarDatos();
                 
                 if (!datos.get(0).equals(datoTema)){
-                    guardado.GuardarConfiguraciones(datoTema);
+                    guardado.GuardarConfiguraciones(datoTema, datos.get(1), datos.get(2));
                     menu.RecargarColores();
 
                     dispose();
@@ -220,7 +222,7 @@ public class Configuraciones extends JFrame{
                 List<String> datos = guardado.CargarDatos();
                 
                 if (!datos.get(0).equals(datoTema)){
-                    guardado.GuardarConfiguraciones(datoTema);
+                    guardado.GuardarConfiguraciones(datoTema, datos.get(1), datos.get(2));
                     menu.RecargarColores();
 
                     dispose();
@@ -239,7 +241,7 @@ public class Configuraciones extends JFrame{
                 List<String> datos = guardado.CargarDatos();
                 
                 if (!datos.get(0).equals(datoTema)){
-                    guardado.GuardarConfiguraciones(datoTema);
+                    guardado.GuardarConfiguraciones(datoTema, datos.get(1), datos.get(2));
                     menu.RecargarColores();
 
                     dispose();
@@ -258,7 +260,7 @@ public class Configuraciones extends JFrame{
                 List<String> datos = guardado.CargarDatos();
                 
                 if (!datos.get(0).equals(datoTema)){
-                    guardado.GuardarConfiguraciones(datoTema);
+                    guardado.GuardarConfiguraciones(datoTema, datos.get(1), datos.get(2));
                     menu.RecargarColores();
 
                     dispose();
@@ -299,6 +301,17 @@ public class Configuraciones extends JFrame{
         cambioImagen.setBounds(210, 200, 200, 30);
         modificarPerfil.add(cambioImagen);
         
+        JButton botonGuardar = new JButton("GUARDAR");
+        botonGuardar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonGuardar.setFocusPainted(false);
+        botonGuardar.setBounds(310,370,90,20);
+        botonGuardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Aquí se guarda la información para editar el perfil actual.
+            }
+        });
+        modificarPerfil.add(botonGuardar);
+        
         JPanel mensaje = new JPanel();
         mensaje.setBorder(new EmptyBorder(10,10,10,10));
         mensaje.setBackground(Color.decode(menu.colorPanelClaro));
@@ -315,46 +328,52 @@ public class Configuraciones extends JFrame{
     
     private void ElementosPropiedades(JPanel propiedades){
         // SENSIBILIDAD DE CAMARA
+        List<String> datos = guardado.CargarDatos();
+        
         JLabel tituloSensibilidad = new JLabel("SENSIBILIDAD:");
         tituloSensibilidad.setForeground(Color.white);
         tituloSensibilidad.setBounds(20, 50, 100, 20);
         propiedades.add(tituloSensibilidad);
         
-        // Primer valor es lo minimo, segundo valor es lo maximo, tercer valor es con el que inicia.
-        JSlider sensibilidadSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 30);
-        sensibilidadSlider.setMinorTickSpacing(1);
-        sensibilidadSlider.setPaintTicks(true);
+        // Crear el JSlider con el rango visual de 10 a 200
+        JSlider sensibilidadSlider = new JSlider(JSlider.HORIZONTAL, 10, 200, Integer.parseInt(datos.get(1)));
+        sensibilidadSlider.setMinorTickSpacing(10);
+        sensibilidadSlider.setPaintTicks(false);
         sensibilidadSlider.setPaintLabels(false);
         sensibilidadSlider.setSnapToTicks(true);
         sensibilidadSlider.setOpaque(false);
         sensibilidadSlider.setBounds(20, 70, 360, 40);
         propiedades.add(sensibilidadSlider);
-        
-        JLabel valorSensibilidad = new JLabel("30");
+
+        // Crear el JLabel con el valor inicial (10 a 200)
+        JLabel valorSensibilidad = new JLabel(datos.get(1));
         valorSensibilidad.setForeground(Color.white);
         valorSensibilidad.setBounds(390, 80, 70, 20);
         propiedades.add(valorSensibilidad);
-        
-        // Agrega un ChangeListener al slider para cambiar el texto del label según cambie.
+
+        // Agregar un ChangeListener al slider para cambiar el texto del label según cambie
         sensibilidadSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 // Cuando cambia el slider, actualiza el texto de valorSensibilidad.
-                int valor = sensibilidadSlider.getValue();
-                valorSensibilidad.setText(String.valueOf(valor));
+                // Invierte el valor para que vaya de 200 a 10 internamente
+                int valor = 210 - sensibilidadSlider.getValue(); // Rango de 200 a 10 (200 - 10 + 1)
+                // Invierte el valor para que se muestre correctamente en el JLabel
+                int valorMostrado = 210 - valor; // Rango de 10 a 200 (200 - 10 + 1)
+                valorSensibilidad.setText(String.valueOf(valorMostrado));
             }
         });
         
         JPanel mensaje1 = new JPanel();
-        mensaje1.setBorder(new EmptyBorder(10,10,10,10));
         mensaje1.setBackground(Color.decode(menu.colorPanelClaro));
         mensaje1.setBounds(20, 120, 390, 80);
         propiedades.add(mensaje1);
         
         JLabel textoMensaje1 = new JLabel();
         textoMensaje1.setText("<html><p>Desde este slider puedes establecer la sensibiliad de<br>"
-                                    + "la cámara, 10 es el valor recomendado pero puedes<br>"
-                                    + "modificarla a tu gusto.</p></html>");
+                                    + "la cámara, se necesita reiniciar el sistema de detección<br>"
+                                    + "de movimiento para efectuar los cambios guardados.<br>"
+                                    + "10 es muy sensible y 200 es poco sensible.</p></html>");
         textoMensaje1.setForeground(Color.white);
         mensaje1.add(textoMensaje1);
         
@@ -365,7 +384,7 @@ public class Configuraciones extends JFrame{
         propiedades.add(tituloDuracion);
         
         // Primer valor es lo minimo, segundo valor es lo maximo, tercer valor es con el que inicia.
-        JSlider duracionSlider = new JSlider(JSlider.HORIZONTAL, 5000, 60000, 10000);
+        JSlider duracionSlider = new JSlider(JSlider.HORIZONTAL, 5000, 60000, Integer.parseInt(datos.get(2)));
         duracionSlider.setMinorTickSpacing(1000);
         duracionSlider.setPaintTicks(true);
         duracionSlider.setPaintLabels(false);
@@ -374,7 +393,7 @@ public class Configuraciones extends JFrame{
         duracionSlider.setBounds(20, 240, 360, 40);
         propiedades.add(duracionSlider);
         
-        JLabel valorDuracion = new JLabel("10");
+        JLabel valorDuracion = new JLabel(String.valueOf(Integer.parseInt(datos.get(2)) / 1000));
         valorDuracion.setForeground(Color.white);
         valorDuracion.setBounds(390, 250, 70, 20);
         propiedades.add(valorDuracion);
@@ -398,7 +417,7 @@ public class Configuraciones extends JFrame{
         
         JLabel textoMensaje2 = new JLabel();
         textoMensaje2.setText("<html><p>Desde este slider puedes modificar la duración de las<br>"
-                                    + "grabaciones, donde el valor por defecto son 10 segundos,<br>"
+                                    + "grabaciones, es importante saber que la duración no es precisa,<br>"
                                     + "mínimo son 5 segundos y máximo son 60 segundos (1 minuto).</p></html>");
         textoMensaje2.setForeground(Color.white);
         mensaje2.add(textoMensaje2);
@@ -408,6 +427,13 @@ public class Configuraciones extends JFrame{
         botonGuardar.setBackground(Color.decode(menu.colorBotonClaro));
         botonGuardar.setFocusPainted(false);
         botonGuardar.setBounds(320,390,90,20);
+        botonGuardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                camaras.sensibilidadCamara = sensibilidadSlider.getValue();
+                camaras.duracionVideo = Integer.parseInt(valorDuracion.getText()) * 1000;
+                guardado.GuardarConfiguraciones(datos.get(0), valorSensibilidad.getText(), String.valueOf(Integer.parseInt(valorDuracion.getText()) * 1000));
+            }
+        });
         propiedades.add(botonGuardar);
         }
     

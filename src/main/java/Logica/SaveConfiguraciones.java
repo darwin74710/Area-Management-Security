@@ -33,7 +33,7 @@ public class SaveConfiguraciones {
         return datosArchivo;
     }
     
-    public void GuardarConfiguraciones(String tema){
+    public void GuardarConfiguraciones(String tema, String sensibilidad, String duracion){
         String carpeta = "Data";
         
         File directorio = new File (carpeta);
@@ -43,7 +43,7 @@ public class SaveConfiguraciones {
         
         String nombreArchivo = carpeta + "/configuraciones.txt";
         
-        String[] lista = {tema};
+        String[] lista = {tema, sensibilidad, duracion};
         
         try {
             FileWriter fileWriter = new FileWriter(nombreArchivo);
