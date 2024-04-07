@@ -2,6 +2,7 @@ package Ventanas;
 
 import static Logica.CameraManager.cargarCamaras;
 import Logica.botones;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class Ingreso extends JFrame{
+public class Ingreso extends JFrame {
+
     Menu menu = new Menu();
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
@@ -30,7 +33,7 @@ public class Ingreso extends JFrame{
     JButton botonVerContra = new JButton();
     JButton ingreso = new JButton("INGRESAR");
     JButton recuperarContra = new JButton("RECUPERAR");
-    
+
     public Ingreso() {
         menu.RecargarColores();
         PanelFondo();
@@ -38,7 +41,7 @@ public class Ingreso extends JFrame{
         Distribucion();
         cargarCamaras();
     }
-    
+
     private void PanelFondo() {
         //Creamos la ventana.
         setTitle("Ingreso de usuario");
@@ -52,7 +55,7 @@ public class Ingreso extends JFrame{
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.X_AXIS)); //Le añadimos un layout a la imagen de fondo.
         this.add(fondo);
     }
-    
+
     private void Distribucion() {
         //Agregamos un espacio en la distribución de izquierda a derecha.
         fondo.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -66,7 +69,7 @@ public class Ingreso extends JFrame{
 
         ladoDerecho();
     }
-    
+
     private void ladoDerecho() {
         //Creamos un panel para el lado derecho.
         JPanel derecha = new JPanel();
@@ -144,7 +147,7 @@ public class Ingreso extends JFrame{
 
         ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
         ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
-        
+
         botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         campoTextoContraseña.add(botonVerContra);
 
@@ -178,7 +181,8 @@ public class Ingreso extends JFrame{
         recuperarContra.setFont(new Font("Arial", 1, 25));
         recuperarContra.setForeground(Color.white);
         botonesDerecha.add(recuperarContra);
-        
+
+        // ----- Funcionalidad btnRecuperar -----
         recuperarContra.addActionListener((ActionEvent e) -> {
             btnRecuperarContra();
         });
@@ -210,7 +214,7 @@ public class Ingreso extends JFrame{
             textoContraseña.requestFocusInWindow();
             return;
         }*/
-       
+        
         if (usuario.equals("") && contraseña.equals("")) {
 
             Menu ventanaMenu = new Menu();
@@ -225,17 +229,133 @@ public class Ingreso extends JFrame{
             textoUsuario.requestFocusInWindow();
         }
     }//Fin metodo btnIngresar
-    
-    public void btnRecuperarContra(){
-        
+
+    public void btnRecuperarContra() {
+
+        JDialog ventRecuperar = new JDialog(this, "Recuperar contraseña", true);
+        ventRecuperar.setSize(380, 150);
+        ventRecuperar.setLocationRelativeTo(null);
+        ventRecuperar.setResizable(false);
+
+        // Crear un panel para el contenido
+        JPanel pnlRecuperar = new JPanel();
+        pnlRecuperar.setLayout(null);
+        pnlRecuperar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
+
+        JLabel texto = new JLabel("Ingrese su Cédula para recuperar la contraseña");
+        texto.setBounds(50, 10, 300, 20);
+        texto.setForeground(Color.white);
+        pnlRecuperar.add(texto);
+
+        JTextField txtRCedula = new JTextField();
+        txtRCedula.setBounds(110, 40, 150, 20);
+        pnlRecuperar.add(txtRCedula);
+
+        JButton botonAceptar = new JButton("ACEPTAR");
+        botonAceptar.setBounds(130, 80, 100, 20);
+        botonAceptar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonAceptar.setFocusPainted(false); //Quitamos las lineas de focus.
+        pnlRecuperar.add(botonAceptar);
+
+        //Funcionalidad btnAceptar
+        botonAceptar.addActionListener(e -> btnAceptarValidacion(ventRecuperar));
+
+        JButton botonCancelar = new JButton("CANCELAR");
+        botonCancelar.setBounds(250, 80, 100, 20);
+        botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
+        ActionListener cancelar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventRecuperar.dispose();
+            }
+        };
+        botonCancelar.addActionListener(cancelar);
+        pnlRecuperar.add(botonCancelar);
+
+        ventRecuperar.add(pnlRecuperar, BorderLayout.CENTER);
+        ventRecuperar.setLocationRelativeTo(this);
+        ventRecuperar.setVisible(true);
+
     }
-    
-    public void ActualizarIngreso(){
+
+    public void ActualizarIngreso() {
         fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
         botonVerContra.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
-        
+
         fondo.revalidate();
         fondo.repaint();
+    }
+
+    public void btnAceptarValidacion(JDialog ventRecuperar) {
+        ventRecuperar.dispose();
+
+        JDialog ventPreg = new JDialog(this, "Preguntas de validación", true);
+        ventPreg.setSize(400, 400);
+        ventPreg.setLocationRelativeTo(null);
+        ventPreg.setResizable(false);
+
+        JPanel pnlPreg = new JPanel();
+        pnlPreg.setLayout(null);
+        pnlPreg.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
+
+        JLabel texto = new JLabel("Ingrese las respuestas de las preguntas");
+        texto.setBounds(70, 10, 300, 20);
+        texto.setForeground(Color.white);
+        pnlPreg.add(texto);
+
+        JPanel pnlpreg2 = new JPanel();
+        pnlpreg2.setLayout(null);
+        pnlpreg2.setBackground(Color.decode(menu.colorPanelClaro));
+        pnlpreg2.setBounds(20, 40, 345, 280);
+        pnlPreg.add(pnlpreg2);
+
+        //agregamos al panel 2 las preguntas y respuestas
+        JLabel preg1 = new JLabel("Pregunta 1");
+        preg1.setBounds(140, 10, 120, 20);
+        preg1.setForeground(Color.white);
+        pnlpreg2.add(preg1);
+
+        JTextField txtR1 = new JTextField();
+        txtR1.setBounds(45, 40, 250, 20);
+        pnlpreg2.add(txtR1);
+
+        JLabel preg2 = new JLabel("Pregunta 2");
+        preg2.setBounds(140, 90, 300, 20);
+        preg2.setForeground(Color.white);
+        pnlpreg2.add(preg2);
+
+        JTextField txtR2 = new JTextField();
+        txtR2.setBounds(45, 120, 250, 20);
+        pnlpreg2.add(txtR2);
+
+        JLabel preg3 = new JLabel("pregunta 3");
+        preg3.setBounds(140, 170, 300, 20);
+        preg3.setForeground(Color.white);
+        pnlpreg2.add(preg3);
+
+        JTextField txtR3 = new JTextField();
+        txtR3.setBounds(45, 200, 250, 20);
+        pnlpreg2.add(txtR3);
+
+        JButton BtnRecuperar = new JButton("RECUPERAR");
+        BtnRecuperar.setBounds(135, 330, 120, 20);
+        BtnRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
+        BtnRecuperar.setFocusPainted(false);
+        pnlPreg.add(BtnRecuperar);
+        
+        //funcionalidad del btnRecuperar
+        BtnRecuperar.addActionListener(e -> btnRecuperarVenRecup(ventPreg));
+
+        ventPreg.add(pnlPreg, BorderLayout.CENTER);
+        ventPreg.setLocationRelativeTo(this);
+        ventPreg.setVisible(true);
+    }
+    
+    public void btnRecuperarVenRecup (JDialog ventPreg){
+        JOptionPane.showMessageDialog(null, "Su contraseña es " );
+        ventPreg.dispose();
+        
     }
 }
