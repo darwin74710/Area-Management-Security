@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -199,6 +200,10 @@ public class Registros extends JFrame{
                 botonEditar.setFocusPainted(false);
                 botonEditar.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        if (descriptData.getText().contains("|")){
+                            JOptionPane.showMessageDialog(Registros.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
                         guardado.editarDescriptRegistro(nombreRegistro, datos, descriptData.getText());
                         
                         descripcion.setText(datos.get(1).replace("\\n", "\n"));

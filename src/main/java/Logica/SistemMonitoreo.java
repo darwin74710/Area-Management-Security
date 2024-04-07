@@ -191,12 +191,16 @@ public class SistemMonitoreo extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             String nombreMapa = datoNombreMap.getText().trim();
                             try{
-                                if (nombreMapa.length() > 20){
-                                    JOptionPane.showMessageDialog(SistemMonitoreo.this, "Ingrese menos de 20 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
+                                if (nombreMapa.length() > 30){
+                                    JOptionPane.showMessageDialog(SistemMonitoreo.this, "Ingrese menos de 30 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                                     return;
                                 }
                                 if (nombreMapa.length() <= 0){
                                     JOptionPane.showMessageDialog(SistemMonitoreo.this, "Ingresele un nombre al Mapa.", "Poco texto.", JOptionPane.WARNING_MESSAGE);
+                                    return;
+                                }
+                                if (nombreMapa.contains("|")){
+                                    JOptionPane.showMessageDialog(SistemMonitoreo.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
                                     return;
                                 }
                                 
@@ -579,14 +583,19 @@ public class SistemMonitoreo extends JFrame {
                 int alto = Integer.parseInt(datoAlto.getText());            
                 
                 // Verificar nombre.
-                if (nombre.length() > 20){
-                    JOptionPane.showMessageDialog(this, "Ingrese menos de 20 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
+                if (nombre.length() > 30){
+                    JOptionPane.showMessageDialog(this, "Ingrese menos de 30 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 if (nombre.length() <= 0){
                     JOptionPane.showMessageDialog(this, "Ingresele un nombre al area.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+                if (nombre.contains("|") || datoDescript.getText().contains("|")){
+                    JOptionPane.showMessageDialog(SistemMonitoreo.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
                 // Verificar tamaño.
                 if (ancho < tamañoMinimo || ancho > tamañoMaximo || alto < tamañoMinimo || alto > tamañoMaximo) {
                     JOptionPane.showMessageDialog(this, "El tamaño del area debe estar entre " + tamañoMinimo + "x" + tamañoMinimo + " y " + tamañoMaximo + "x" + tamañoMaximo + ".", "Tamaño no válido", JOptionPane.WARNING_MESSAGE);
@@ -744,14 +753,19 @@ public class SistemMonitoreo extends JFrame {
                 try {
                     String nombre = datoNombre.getText().trim();
                     //Validaciones
-                    if (nombre.length() > 20){
-                        JOptionPane.showMessageDialog(this, "Ingrese menos de 20 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
+                    if (nombre.length() > 30){
+                        JOptionPane.showMessageDialog(this, "Ingrese menos de 30 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                     if (nombre.length() <= 0){
                         JOptionPane.showMessageDialog(this, "Ingresele un nombre al area.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
+                    if (nombre.contains("|") || datoDescript.getText().contains("|")){
+                        JOptionPane.showMessageDialog(SistemMonitoreo.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    
                     datosArchivo.set(0, nombre);
                     datosArchivo.set(1, datoDescript.getText());
                     datosArchivo.set(2, colorAHexadecimal(color));

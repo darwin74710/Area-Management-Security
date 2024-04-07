@@ -1,0 +1,1 @@
+Zona Conform|Desde esta area el personal descansa.\n\n- Apta para el descanso.\n- Mantenimiento de medio rendimiento.|#ff9966|Imagenes/Iconos/areaEstandar.png|desActive

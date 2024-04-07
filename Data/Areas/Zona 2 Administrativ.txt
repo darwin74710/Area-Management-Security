@@ -1,0 +1,1 @@
+Zona 2 Administrativ|Zona encargada por los administradores.\n\n- Limpieza general.\n- Mantenimiento de alto rendimiento.|#2fb253|Imagenes/Iconos/areaEstandar.png|desActive

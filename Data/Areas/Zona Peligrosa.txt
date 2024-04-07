@@ -1,0 +1,1 @@
+Zona Peligrosa|Solo personal autorizado puede ingresar.\n\n- Evitar dar ingreso a personas no autorizadas.\n- Mantenimiento de alto rendimiento.|#3333ff|Imagenes/Iconos/areaEstandar.png|desActive

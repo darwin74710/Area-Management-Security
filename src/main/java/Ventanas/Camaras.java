@@ -338,14 +338,19 @@ public class Camaras extends JFrame{
                 // Eliminar espacios al inicio y al final
                 String nombre = registro.getText().trim(); 
                 // Verificar nombre.
-                if (nombre.length() > 20){
-                    JOptionPane.showMessageDialog(this, "Ingrese menos de 20 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
+                if (nombre.length() > 30){
+                    JOptionPane.showMessageDialog(this, "Ingrese menos de 30 caracteres en el nombre.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 if (nombre.length() <= 0){
                     JOptionPane.showMessageDialog(this, "Ingresele un nombre al Registro.", "Poco texto.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
+                if (nombre.contains("|") || descripcion.getText().contains("|")){
+                    JOptionPane.showMessageDialog(this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
                 guardadoRegistros.guardarRegistro(nombre, descripcion.getText(), ruta1, ruta2, ruta3);
 
                 JButton boton = new JButton(guardadoRegistros.nombreRegistro);
