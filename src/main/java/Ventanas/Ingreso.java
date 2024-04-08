@@ -2,6 +2,7 @@ package Ventanas;
 
 import static Logica.CameraManager.cargarCamaras;
 import Logica.botones;
+import archivos.ArchivoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -204,30 +205,41 @@ public class Ingreso extends JFrame {
         usuario = textoUsuario.getText();
         contraseña = String.valueOf(textoContraseña.getPassword());
 
-        /*if (usuario.isEmpty() || usuario == null) {
+        if (usuario.isEmpty() || usuario == null) {
             JOptionPane.showMessageDialog(this, "Ingrese un usuario valido");
             textoUsuario.requestFocusInWindow();
             return;
         }
-         if (contraseña.isEmpty() || contraseña == null) {
+        if (contraseña.isEmpty() || contraseña == null) {
             JOptionPane.showMessageDialog(this, "Ingrese una contraseña valida");
             textoContraseña.requestFocusInWindow();
             return;
-        }*/
-        
-        if (usuario.equals("") && contraseña.equals("")) {
+        }
 
-            Menu ventanaMenu = new Menu();
-            ventanaMenu.setVisible(true);
-            setVisible(false);
+
+        ArchivoUsuarios archivoU = new ArchivoUsuarios();
+        String[] dato = archivoU.leerArchivo(usuario);
+        if (dato != null) {
+            if (dato[5].equals(contraseña)) {
+                menu.usuario = dato;
+                Menu ventanaMenu = new Menu();
+                ventanaMenu.setVisible(true);
+                setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
+                textoUsuario.setText("");
+                textoContraseña.setText("");
+                textoUsuario.requestFocusInWindow();
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
-            System.out.println(usuario + contraseña);
             textoUsuario.setText("");
             textoContraseña.setText("");
             textoUsuario.requestFocusInWindow();
         }
+
+//       
     }//Fin metodo btnIngresar
 
     public void btnRecuperarContra() {
@@ -344,7 +356,7 @@ public class Ingreso extends JFrame {
         BtnRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
         BtnRecuperar.setFocusPainted(false);
         pnlPreg.add(BtnRecuperar);
-        
+
         //funcionalidad del btnRecuperar
         BtnRecuperar.addActionListener(e -> btnRecuperarVenRecup(ventPreg));
 
@@ -352,10 +364,10 @@ public class Ingreso extends JFrame {
         ventPreg.setLocationRelativeTo(this);
         ventPreg.setVisible(true);
     }
-    
-    public void btnRecuperarVenRecup (JDialog ventPreg){
-        JOptionPane.showMessageDialog(null, "Su contraseña es " );
+
+    public void btnRecuperarVenRecup(JDialog ventPreg) {
+        JOptionPane.showMessageDialog(null, "Su contraseña es ");
         ventPreg.dispose();
-        
+
     }
 }

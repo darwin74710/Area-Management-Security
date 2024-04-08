@@ -1,1 +1,3 @@
-S|S|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
+S|u1|S|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
+darwin|u2|85|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
+felipe|u3|41|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
