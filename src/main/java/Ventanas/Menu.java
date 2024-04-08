@@ -23,6 +23,8 @@ import javax.swing.border.EmptyBorder;
 public class Menu extends JFrame {
 
     public static boolean deteccionManager = false;
+    
+    public static String[] usuario;
 
     public JLabel fondo = new JLabel();
 
@@ -109,32 +111,41 @@ public class Menu extends JFrame {
         pnlInfoUsuario.setBounds(20, 180, 280, 330);
         fondoPerfil.add(pnlInfoUsuario);
 
-        JLabel textNombre = new JLabel("NOMBRE");
+        
+        JLabel textNombre = new JLabel();
+       
         textNombre.setBounds(110, 10, 100, 50);
         textNombre.setForeground(Color.white);
         pnlInfoUsuario.add(textNombre);
 
-        JLabel textCedula = new JLabel("CÉDULA");
+        JLabel textCedula = new JLabel();
         textCedula.setBounds(110, 70, 100, 50);
         textCedula.setForeground(Color.white);
         pnlInfoUsuario.add(textCedula);
 
-        JLabel textEmail = new JLabel("EMAIL");
+        JLabel textEmail = new JLabel();
         textEmail.setBounds(115, 130, 100, 50);
         textEmail.setForeground(Color.white);
         pnlInfoUsuario.add(textEmail);
 
-        JLabel textGenero = new JLabel("GÉNERO");
+        JLabel textGenero = new JLabel();
         textGenero.setBounds(110, 190, 100, 50);
         textGenero.setForeground(Color.white);
         pnlInfoUsuario.add(textGenero);
 
-        JLabel textTelefono = new JLabel("TELÉFONO");
+        JLabel textTelefono = new JLabel();
         textTelefono.setBounds(105, 260, 100, 50);
         textTelefono.setForeground(Color.white);
         pnlInfoUsuario.add(textTelefono);
-
         
+         if (usuario != null){
+            textNombre.setText(usuario[1] + " " + usuario[2]);
+            textCedula.setText(usuario[3]);
+            textEmail.setText(usuario[4]);
+            textGenero.setText(usuario[7]);
+            textTelefono.setText(usuario[8]);
+        }
+     
         JButton botonAtrasPerfil = new JButton("ATRAS");
         botonAtrasPerfil.setBackground(Color.decode(colorBotonClaro));
         botonAtrasPerfil.setFocusPainted(false);

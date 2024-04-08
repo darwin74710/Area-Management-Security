@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ArchivoUsuarios {
@@ -36,14 +38,15 @@ public class ArchivoUsuarios {
         }
     }
 
-    public void escribirArchivo(String nombre, String apellido,
+    public void escribirArchivo(String usuario, String nombre, String apellido,
             String cedula, String email, String password1, String password2,
             String genero, String telefono, String rutaFoto, String primeraPreg,
             String primeraResp, String segundaPreg, String segundaResp, String terceraPreg, String terceraResp) {
 
         try {
             FileWriter escribir = new FileWriter(archivo, true);
-            escribir.write(nombre + "|"
+            escribir.write(usuario + "|"
+                    + nombre + "|"
                     + apellido + "|"
                     + cedula + "|"
                     + email + "|"
@@ -66,17 +69,19 @@ public class ArchivoUsuarios {
 
     }//Fin metodo escribirArchivo
 
-    public void leerArchivo() {
+    public String[] leerArchivo(String nombre) {
 
-        String cadena;
+        String rutaCarpeta = "Data/Usuarios/usuarios.txt";
 
-        try {
-            FileReader leerArchivo = new FileReader(archivo);
-            BufferedReader leer = new BufferedReader(leerArchivo);
-            cadena = leer.readLine();
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaCarpeta))) {
+            String cadena;
+            while ((cadena = br.readLine()) != null) {
+                String[] datosUsuario = cadena.split("\\|");
+                
+                if (datosUsuario.length > 0 && datosUsuario[0].trim().equals(nombre)){
+                    return datosUsuario;
+                }
 
-            while (cadena != null) {
-                cadena = leer.readLine();
             }
 
         } catch (FileNotFoundException ex) {
@@ -84,6 +89,7 @@ public class ArchivoUsuarios {
         } catch (IOException ex) {
             System.out.println("No se puede leer la cadena de texto");
         }
+        return null;
 
     }//Fin metodo leerArchivo
 
