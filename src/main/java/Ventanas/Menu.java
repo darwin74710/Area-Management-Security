@@ -1,6 +1,7 @@
 package Ventanas;
 
 import Logica.SaveConfiguraciones;
+import Logica.botones;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,6 +32,7 @@ public class Menu extends JFrame {
     JButton opcion3 = new JButton();
 
     SaveConfiguraciones configVents = new SaveConfiguraciones();
+    botones VerContra = new botones();
 
     JPanel elementosSuperiores = new JPanel();
     JButton botonPerfil = new JButton();
@@ -179,6 +181,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RecargarColores();
+                VerContra.activContra = false;
                 Ingreso ventanaIngreso = new Ingreso();
                 ventanaIngreso.ActualizarIngreso();
                 ventanaIngreso.setVisible(true);
