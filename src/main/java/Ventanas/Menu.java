@@ -90,7 +90,12 @@ public class Menu extends JFrame {
         fondo.add(elementosSuperiores);
 
         botonPerfil.setBounds(20, 30, 100, 100);
-        botonPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        if (usuario != null){
+            botonPerfil.setIcon(new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        }else{
+            botonPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        }
+        
         botonPerfil.addActionListener((ActionEvent e) -> {
             VerPerfil();
         });
@@ -103,7 +108,12 @@ public class Menu extends JFrame {
         // ----- INFORMACIÓN DEL USUARIO ----- 
         JLabel imagenPerfil = new JLabel();
         //Le establecemos una imagen de perfil con un tamaño preestablecido.d
-        imagenPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        if (usuario != null){
+            imagenPerfil.setIcon(new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        }else{
+            imagenPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        }
+        
         imagenPerfil.setBounds(75, 10, 150, 150);
         fondoPerfil.add(imagenPerfil);
 
