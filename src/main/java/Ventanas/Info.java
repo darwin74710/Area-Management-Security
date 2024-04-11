@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -29,6 +30,8 @@ public class Info extends JFrame{
     JScrollPane scrollArea = new JScrollPane();
     JPanel panelMensajes = new JPanel();
     JTextField chat = new JTextField();
+    
+    int numeroChat = 0;
     
     public Info(){
         PanelFondo();
@@ -103,6 +106,16 @@ public class Info extends JFrame{
         chat.setBounds(140, 510, 610, 40);
         chat.setFont(new Font("Arial", 1, 20));
         fondo.add(chat);
+        chat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (!chat.getText().equals("")){
+                    chatPersonal();
+                    chatIA();
+                }else{
+                    JOptionPane.showMessageDialog(Info.this, "Debes escoger una opción.", "Escoge algo.", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
         
         
         JButton enviar = new JButton();
@@ -112,7 +125,18 @@ public class Info extends JFrame{
         enviar.setBounds(750, 510, 40, 40);
         fondo.add(enviar);
         
-        enviar.addActionListener(e -> chatIA());
+        enviar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!chat.getText().equals("")){
+                    chatPersonal();
+                    chatIA();
+                }else{
+                    JOptionPane.showMessageDialog(Info.this, "Debes escoger una opción.", "Escoge algo.", JOptionPane.WARNING_MESSAGE);
+                }
+                
+            }
+        });
     }
     
     private void Introduccion(){
@@ -139,6 +163,45 @@ public class Info extends JFrame{
         info.setPreferredSize(new Dimension(455, 130));
         info.setBorder(new EmptyBorder(10, 10, 10, 10));
         introduccion.add(info);
+    }
+    
+    private void chatPersonal(){
+        panelMensajes.add(Box.createRigidArea(new Dimension(0, 10)));
+        
+        JPanel mensaje = new JPanel();
+        mensaje.setPreferredSize(new Dimension(620, 150));
+        mensaje.setMaximumSize(new Dimension(620, 150));
+        mensaje.setBackground(Color.decode(menu.colorPanelMedio));
+        mensaje.setBorder(new EmptyBorder(5, 5, 5, 5));
+        panelMensajes.add(mensaje);
+        
+        JTextArea info = new JTextArea();
+        info.setEditable(false);
+        info.setLineWrap(true);
+        info.setWrapStyleWord(true);
+        info.setBackground(Color.decode(menu.colorPanelClaro));
+        info.setForeground(Color.white);
+        info.setPreferredSize(new Dimension(455, 130));
+        info.setPreferredSize(new Dimension(455, 130));
+        info.setBorder(new EmptyBorder(10, 10, 10, 10));
+        mensaje.add(info);
+        
+        JLabel imagenHormig = new JLabel();
+        imagenHormig.setIcon(new ImageIcon((new ImageIcon(menu.usuario[9])).getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH)));
+        imagenHormig.setPreferredSize(new Dimension(130, 130));
+        imagenHormig.setMaximumSize(new Dimension(130, 130));
+        mensaje.add(imagenHormig);
+
+        personalMensajes(info);
+        
+        panelMensajes.revalidate();
+        panelMensajes.repaint();
+        
+        // Metodo para ir a la parte final del scroll cuando se re pinte el nuevo mensaje.
+        SwingUtilities.invokeLater(() -> {
+            JScrollBar verticalScrollBar = scrollArea.getVerticalScrollBar();
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        });
     }
     
     private void chatIA(){          
@@ -168,6 +231,7 @@ public class Info extends JFrame{
         info.setBorder(new EmptyBorder(10, 10, 10, 10));
         mensaje.add(info);
 
+        IAmensajes(info);
         chat.setText("");
         
         panelMensajes.revalidate();
@@ -182,11 +246,52 @@ public class Info extends JFrame{
     
     private void reiniciarChat(){
         chat.setText("");
+        numeroChat = 0;
         panelMensajes.removeAll();
         
         Introduccion();
         
         panelMensajes.revalidate();
         panelMensajes.repaint();
+    }
+    
+    private void personalMensajes(JTextArea mensaje){
+        //------------ PRIMERA OPCIÓN ---------------
+        if (numeroChat == 0 && chat.getText().equals("1")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 1 PERSONAL");
+            System.out.println("1");
+        }else if (numeroChat == 0 && chat.getText().equals("2")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 2 PERSONAL");
+        }else if (numeroChat == 0 && chat.getText().equals("3")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 3 PERSONAL");
+        }else if (numeroChat == 0 && chat.getText().equals("4")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 4 PERSONAL");
+        }else if (numeroChat == 0 && chat.getText().equals("5")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 5 PERSONAL");
+        }else if (numeroChat == 0){
+            mensaje.setText(chat.getText());
+        }
+    }
+    
+    private void IAmensajes(JTextArea mensaje){
+        //------------ PRIMERA OPCIÓN ---------------
+        if (numeroChat == 0 && chat.getText().equals("1")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 1 IA");
+            numeroChat = 1;
+        }else if (numeroChat == 0 && chat.getText().equals("2")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 2 IA");
+            numeroChat = 2;
+        }else if (numeroChat == 0 && chat.getText().equals("3")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 3 IA");
+            numeroChat = 3;
+        }else if (numeroChat == 0 && chat.getText().equals("4")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 4 IA");
+            numeroChat = 4;
+        }else if (numeroChat == 0 && chat.getText().equals("5")){
+            mensaje.setText("SE ESCOGIO LO OPCIÓN 5 IA");
+            numeroChat = 5;
+        }else if (numeroChat == 0){
+            mensaje.setText("Debes escoger una de las opciones.");
+        }
     }
 }
