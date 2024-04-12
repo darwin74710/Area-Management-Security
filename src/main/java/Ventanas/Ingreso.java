@@ -2,6 +2,7 @@ package Ventanas;
 
 import static Logica.CameraManager.cargarCamaras;
 import Logica.botones;
+import static Logica.botones.activContra;
 import archivos.ArchivoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +12,11 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -23,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class Ingreso extends JFrame {
 
@@ -32,9 +39,9 @@ public class Ingreso extends JFrame {
 
     public JLabel fondo = new JLabel();
 
-    JButton botonVerContra = new JButton();
+    JLabel botonVerContra = new JLabel();
     JButton ingreso = new JButton("INGRESAR");
-    JButton recuperarContra = new JButton("RECUPERAR");
+    JLabel recuperarContra = new JLabel("¿Se te olvidó tu contraseña?");
 
     public Ingreso() {
         menu.RecargarColores();
@@ -54,149 +61,161 @@ public class Ingreso extends JFrame {
 
         //Establecemos imagen de fondo.
         fondo = new JLabel();
-        fondo.setLayout(new BoxLayout(fondo, BoxLayout.X_AXIS)); //Le añadimos un layout a la imagen de fondo.
+        fondo.setLayout(null);
         this.add(fondo);
     }
 
     private void Distribucion() {
-        //Agregamos un espacio en la distribución de izquierda a derecha.
-        fondo.add(Box.createRigidArea(new Dimension(10, 0)));
-
         // Añadimos la imagen izquierda de la ventana.
         ImageIcon imagen = new ImageIcon("Imagenes/LogoInicio.png"); //Creamos la ruta de una imagen.
         JLabel izquierda = new JLabel();//Creamos un layout de imagen.
-        izquierda.setSize(400, 400);
+        izquierda.setBounds(80, 80, 300, 300);
         izquierda.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(izquierda.getWidth(), izquierda.getHeight(), Image.SCALE_SMOOTH))); //Ajustamos el tamaño de la imagen.
         fondo.add(izquierda);
+        
+        JLabel texto0 = new JLabel("AMS");
+        texto0.setFont(new Font("Arial", 1, 100));
+        texto0.setForeground(Color.white);
+        texto0.setBounds(120, 290, 300, 300);
+        fondo.add(texto0);
 
         ladoDerecho();
     }
 
     private void ladoDerecho() {
-        //Creamos un panel para el lado derecho.
-        JPanel derecha = new JPanel();
-        derecha.setSize(600, 600);
-        derecha.setOpaque(false); //Hacemos que el color del panel no se vea.
-        derecha.setLayout(new BoxLayout(derecha, BoxLayout.Y_AXIS)); //Le establecemos un layout al panel de forma vertical.
-
-        //Agregamos un espacio.
-        derecha.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        //Creamos descripción de ventana.
-        JLabel texto2 = new JLabel("<html><body><center><h1 style=\"font-size: 30px; margin-bottom: 0px\">AREA MANAGEMENT SECURITY</h1>"
-                + "<p>Ingresa con tu usuario y contraseña para continuar.</p></html>");
-        texto2.setFont(new Font("Constantia Bold", 1, 30));
-        texto2.setForeground(Color.white);
-        texto2.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
-        derecha.add(texto2);
-
-        //Creamos un espacio.
-        derecha.add(Box.createRigidArea(new Dimension(0, 30)));
-
-        //Creamos el titulo de usuario.
-        JLabel texto3 = new JLabel("Usuario");
-        texto3.setBounds(50, 0, 300, 40);
-        texto3.setFont(new Font("Constantia Bold", 1, 30));
-        texto3.setForeground(Color.white);
-        texto3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        derecha.add(texto3);
-
-        //Se crea un panel para poder redimensionar el campo de texto.
-        JPanel campoTextoUsuario = new JPanel();
-        campoTextoUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoTextoUsuario.setOpaque(false);
-        campoTextoUsuario.setLayout(null);
-        campoTextoUsuario.setPreferredSize(new Dimension(600, 70));
-        //Se crea el campo de texto.
-        textoUsuario = new JTextField();
-        textoUsuario.setFont(new Font("Arial", 1, 40));
-        textoUsuario.setBounds(80, 0, 400, 55);
-
-        campoTextoUsuario.add(textoUsuario);
-        derecha.add(campoTextoUsuario);
-
-        //Se agrega un espacio.
-        derecha.add(Box.createRigidArea(new Dimension(0, 15)));
-
-        JLabel texto4 = new JLabel("Contraseña");
-        texto4.setBounds(50, 0, 300, 40);
-        texto4.setFont(new Font("Constantia Bold", 1, 30));
-        texto4.setForeground(Color.white);
-        texto4.setAlignmentX(Component.CENTER_ALIGNMENT);
-        derecha.add(texto4);
-
-        //Se crea un panel para poder redimensionar el campo de texto.
-        JPanel campoTextoContraseña = new JPanel();
-        campoTextoContraseña.setAlignmentX(Component.CENTER_ALIGNMENT);
-        campoTextoContraseña.setOpaque(false);
-        campoTextoContraseña.setLayout(null);
-        campoTextoContraseña.setPreferredSize(new Dimension(600, 70));
-        derecha.add(campoTextoContraseña);
-
-        //Se crea el campo de texto.
-        textoContraseña = new JPasswordField(); //Campo de texto tipo contraseña.
-        textoContraseña.setEchoChar((char) 0); //Desactivar la vista de contraseña.
-        textoContraseña.setEchoChar('*'); //Activar la vista de contraseña.
-        textoContraseña.setFont(new Font("Arial", 1, 40));
-        textoContraseña.setBounds(80, 0, 400, 55);
-
-        campoTextoContraseña.add(textoContraseña);
-
-        //Creamos boton para ver y no ver contraseña.
-        botonVerContra.setBounds(490, 8, 40, 40);
-        botonVerContra.setOpaque(false);
-        botonVerContra.setFocusPainted(false);
-
+        // Para el botón de ver contraseña
         ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
         ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
+        
+        JLabel texto1 = new JLabel("LOGIN");
+        texto1.setFont(new Font("Arial", 1, 60));
+        texto1.setForeground(Color.white);
+        texto1.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
+        texto1.setBounds(620, 30, 500, 80);
+        fondo.add(texto1);
+        
+        //Creamos descripción de ventana.
+        JLabel texto2 = new JLabel("<html><body><center><p>INGRESE CON USUARIO Y CONTRASEÑA PARA CONTINUAR</p></html>");
+        texto2.setFont(new Font("Arial", 1, 20));
+        texto2.setForeground(Color.white);
+        texto2.setAlignmentX(Component.CENTER_ALIGNMENT); //Centrar el texto
+        texto2.setBounds(470, 100, 500, 80);
+        fondo.add(texto2);
+        
+        Border bordeTexto = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white);
 
-        botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
-        campoTextoContraseña.add(botonVerContra);
+        //Se crea el campo de texto.
+        textoUsuario = new JTextField("Usuario");
+        textoUsuario.setOpaque(false);
+        textoUsuario.setBorder(bordeTexto);
+        textoUsuario.setForeground(Color.gray);
+        textoUsuario.setFont(new Font("Arial", 1, 27));
+        textoUsuario.setBounds(550, 220, 330, 50);
+        
+        // Agregar un FocusListener al JTextField
+        textoUsuario.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Si el campo de texto obtiene el foco y el texto es igual al texto indicativo, eliminarlo
+                if (textoUsuario.getText().equals("Usuario")) {
+                    textoUsuario.setText("");
+                    textoUsuario.setForeground(Color.white); // Restablecer el color del texto
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Si el campo de texto pierde el foco y está vacío, establecer el texto indicativo
+                if (textoUsuario.getText().isEmpty()) {
+                    textoUsuario.setText("Usuario");
+                    textoUsuario.setForeground(Color.gray);
+                }
+            }
+        });
+
+        fondo.add(textoUsuario);
+
+        //Se crea el campo de texto.
+        textoContraseña = new JPasswordField("Contraseña"); //Campo de texto tipo contraseña.
+        textoContraseña.setEchoChar((char) 0); //Desactivar la vista de contraseña.
+        textoContraseña.setOpaque(false);
+        textoContraseña.setBorder(bordeTexto);
+        textoContraseña.setForeground(Color.gray);
+        textoContraseña.setFont(new Font("Arial", 1, 27));
+        textoContraseña.setBounds(550, 320, 330, 50);
+        fondo.add(textoContraseña);
+        
+        // Agregar un FocusListener al JTextField
+        textoContraseña.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Si el campo de texto obtiene el foco y el texto es igual al texto indicativo, eliminarlo
+                if (String.valueOf(textoContraseña.getPassword()).equals("Contraseña")) {
+                    textoContraseña.setText("");
+                    if (activContra == false){
+                        textoContraseña.setEchoChar('*');
+                    }else{
+                        textoContraseña.setEchoChar((char) 0);
+                    }
+                    textoContraseña.setForeground(Color.white); // Restablecer el color del texto
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Si el campo de texto pierde el foco y está vacío, establecer el texto indicativo
+                if (String.valueOf(textoContraseña.getPassword()).isEmpty()) {
+                    textoContraseña.setEchoChar((char) 0);
+                    textoContraseña.setText("Contraseña");
+                    textoContraseña.setForeground(Color.gray);
+                }
+            }
+        });
+
+        //Creamos boton para ver y no ver contraseña.
+        botonVerContra.setBounds(890, 330, 30, 30);
+        
+        botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        fondo.add(botonVerContra);
 
         //Agregamos la logica al botón.
         botones.verContra(textoContraseña, botonVerContra, logoVer, logoNoVer);
 
-        //Creamos un panel para añadir botones de izquierda a derecha.
-        JPanel botonesDerecha = new JPanel();
-        botonesDerecha.setOpaque(false);
-        botonesDerecha.setLayout(new BoxLayout(botonesDerecha, BoxLayout.X_AXIS));
-
         //Creamos los botones.
         ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setFocusPainted(false); //Quitamos las lineas de focus.
-
-        ingreso.setFont(new Font("Arial", 1, 25));
+        ingreso.setBounds(550, 400, 330, 50);
+        ingreso.setFont(new Font("Arial", 1, 20));
         ingreso.setForeground(Color.white);
-        botonesDerecha.add(ingreso);
+        fondo.add(ingreso);
 
         //funcionalidad del boton ingresar
         ingreso.addActionListener((ActionEvent e) -> {
             btnIngresarActionPerformed(e);
         });
 
-        //Creamos un espacio entre los botones.
-        botonesDerecha.add(Box.createRigidArea(new Dimension(10, 0)));
-
         recuperarContra.setBackground(Color.decode(menu.colorBotonOscuro));
-        recuperarContra.setFocusPainted(false);
-
-        recuperarContra.setFont(new Font("Arial", 1, 25));
+        
+        recuperarContra.setFont(new Font("Arial", 1, 15));
         recuperarContra.setForeground(Color.white);
-        botonesDerecha.add(recuperarContra);
+        recuperarContra.setBounds(610, 460, 330, 30);
+        fondo.add(recuperarContra);
 
         // ----- Funcionalidad btnRecuperar -----
-        recuperarContra.addActionListener((ActionEvent e) -> {
-            btnRecuperarContra();
+        recuperarContra.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnRecuperarContra();
+            }
+            
         });
-
-        //Separamos los botones de los bordes.
-        derecha.add(Box.createRigidArea(new Dimension(0, 30)));
-        derecha.add(botonesDerecha);
-        derecha.add(Box.createRigidArea(new Dimension(0, 30)));
-
-        fondo.add(derecha);
-        //Agregamos un espacio al final.
-        fondo.add(Box.createRigidArea(new Dimension(10, 0)));
+        
+        //Decoración de ventana
+        JPanel panelFondo = new JPanel();
+        panelFondo.setOpaque(true);
+        panelFondo.setBackground(Color.decode(menu.colorPanelMedio));
+        panelFondo.setBounds(460, 0, 530, 560);
+        fondo.add(panelFondo);
     }
 
     public void btnIngresarActionPerformed(ActionEvent e) {
@@ -206,14 +225,12 @@ public class Ingreso extends JFrame {
         usuario = textoUsuario.getText();
         contraseña = String.valueOf(textoContraseña.getPassword());
 
-        if (usuario.isEmpty() || usuario == null) {
+        if (usuario.isEmpty() || usuario == null || usuario.equals("Usuario")) {
             JOptionPane.showMessageDialog(this, "Ingrese un usuario valido");
-            textoUsuario.requestFocusInWindow();
             return;
         }
-        if (contraseña.isEmpty() || contraseña == null) {
+        if (contraseña.isEmpty() || contraseña == null || contraseña.equals("Contraseña")) {
             JOptionPane.showMessageDialog(this, "Ingrese una contraseña valida");
-            textoContraseña.requestFocusInWindow();
             return;
         }
 
@@ -229,14 +246,15 @@ public class Ingreso extends JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
                 textoUsuario.setText("");
                 textoContraseña.setText("");
-                textoUsuario.requestFocusInWindow();
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
-            textoUsuario.setText("");
-            textoContraseña.setText("");
-            textoUsuario.requestFocusInWindow();
+            textoUsuario.setText("Usuario");
+            textoUsuario.setForeground(Color.gray);
+            textoContraseña.setText("Contraseña");
+            textoContraseña.setForeground(Color.gray);
+            textoContraseña.setEchoChar((char) 0);
         }
 
 //       
