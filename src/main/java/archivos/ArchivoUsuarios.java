@@ -92,5 +92,26 @@ public class ArchivoUsuarios {
         return null;
 
     }//Fin metodo leerArchivo
+    
+    public String[] RecuperarContra(String cedula){
+        
+        String rutaCarpeta = "Data/Usuarios/usuarios.txt";
 
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaCarpeta))) {
+            String cadena;
+            while ((cadena = br.readLine()) != null) {
+                String[] datosUsuario = cadena.split("\\|");
+                
+                if(datosUsuario.length > 0 && datosUsuario[3].trim().equals(cedula)){
+                    return datosUsuario;
+                }
+            }
+            } catch (FileNotFoundException ex) {
+            System.err.println("No se puede recuperar la contraseña");
+        } catch (IOException ex) {
+            System.err.println("No se puede leer la cadena de texto");
+        }
+        return null;
+    }//fin metodo recuperarContra 
+    
 }//fin classsssssss

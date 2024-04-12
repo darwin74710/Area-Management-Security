@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Ingreso extends JFrame {
 
@@ -216,7 +217,6 @@ public class Ingreso extends JFrame {
             return;
         }
 
-
         ArchivoUsuarios archivoU = new ArchivoUsuarios();
         String[] dato = archivoU.leerArchivo(usuario);
         if (dato != null) {
@@ -270,7 +270,7 @@ public class Ingreso extends JFrame {
         pnlRecuperar.add(botonAceptar);
 
         //Funcionalidad btnAceptar
-        botonAceptar.addActionListener(e -> btnAceptarValidacion(ventRecuperar));
+        botonAceptar.addActionListener(e -> btnAceptarValidacion(ventRecuperar, txtRCedula));
 
         JButton botonCancelar = new JButton("CANCELAR");
         botonCancelar.setBounds(250, 80, 100, 20);
@@ -300,74 +300,111 @@ public class Ingreso extends JFrame {
         fondo.repaint();
     }
 
-    public void btnAceptarValidacion(JDialog ventRecuperar) {
-        ventRecuperar.dispose();
+    public void btnAceptarValidacion(JDialog ventRecuperar, JTextField txtRCedula) {
+        String cedula = null;
 
-        JDialog ventPreg = new JDialog(this, "Preguntas de validación", true);
-        ventPreg.setSize(400, 400);
-        ventPreg.setLocationRelativeTo(null);
-        ventPreg.setResizable(false);
+        cedula = txtRCedula.getText();
 
-        JPanel pnlPreg = new JPanel();
-        pnlPreg.setLayout(null);
-        pnlPreg.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
+        if (cedula.isEmpty() || cedula == null) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula");
+            txtRCedula.requestFocusInWindow();
+            return;
+        }
 
-        JLabel texto = new JLabel("Ingrese las respuestas de las preguntas");
-        texto.setBounds(70, 10, 300, 20);
-        texto.setForeground(Color.white);
-        pnlPreg.add(texto);
+        ArchivoUsuarios archivoU = new ArchivoUsuarios();
+        String[] dato = archivoU.RecuperarContra(cedula);
+        if (dato != null) {
+            if (dato[3].equals(cedula)) {
+                ventRecuperar.dispose();
 
-        JPanel pnlpreg2 = new JPanel();
-        pnlpreg2.setLayout(null);
-        pnlpreg2.setBackground(Color.decode(menu.colorPanelClaro));
-        pnlpreg2.setBounds(20, 40, 345, 280);
-        pnlPreg.add(pnlpreg2);
+                JDialog ventPreg = new JDialog(this, "Preguntas de validación", true);
+                ventPreg.setSize(400, 400);
+                ventPreg.setLocationRelativeTo(null);
+                ventPreg.setResizable(false);
 
-        //agregamos al panel 2 las preguntas y respuestas
-        JLabel preg1 = new JLabel("Pregunta 1");
-        preg1.setBounds(140, 10, 120, 20);
-        preg1.setForeground(Color.white);
-        pnlpreg2.add(preg1);
+                JPanel pnlPreg = new JPanel();
+                pnlPreg.setLayout(null);
+                pnlPreg.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
-        JTextField txtR1 = new JTextField();
-        txtR1.setBounds(45, 40, 250, 20);
-        pnlpreg2.add(txtR1);
+                JLabel texto = new JLabel("Ingrese las respuestas de las preguntas");
+                texto.setFont(new Font("Arial", 1, 17));
+                texto.setHorizontalAlignment(SwingConstants.CENTER);
+                texto.setBounds(20, 10, 345, 20);
+                texto.setForeground(Color.white);
+                pnlPreg.add(texto);
 
-        JLabel preg2 = new JLabel("Pregunta 2");
-        preg2.setBounds(140, 90, 300, 20);
-        preg2.setForeground(Color.white);
-        pnlpreg2.add(preg2);
+                JPanel pnlpreg2 = new JPanel();
+                pnlpreg2.setLayout(null);
+                pnlpreg2.setBackground(Color.decode(menu.colorPanelClaro));
+                pnlpreg2.setBounds(20, 40, 345, 280);
+                pnlPreg.add(pnlpreg2);
 
-        JTextField txtR2 = new JTextField();
-        txtR2.setBounds(45, 120, 250, 20);
-        pnlpreg2.add(txtR2);
+                //agregamos al panel2 las preguntas y respuestas
+                JLabel preg1 = new JLabel(dato[10]);
+                preg1.setBounds(20, 10, 305, 20);
+                preg1.setHorizontalAlignment(SwingConstants.CENTER);
+                preg1.setForeground(Color.white);
+                preg1.setOpaque(true);
+                preg1.setBackground(Color.decode(menu.colorPanelMedio));
+                pnlpreg2.add(preg1);
 
-        JLabel preg3 = new JLabel("pregunta 3");
-        preg3.setBounds(140, 170, 300, 20);
-        preg3.setForeground(Color.white);
-        pnlpreg2.add(preg3);
+                JTextField txtR1 = new JTextField();
+                txtR1.setBounds(45, 40, 250, 20);
+                pnlpreg2.add(txtR1);
 
-        JTextField txtR3 = new JTextField();
-        txtR3.setBounds(45, 200, 250, 20);
-        pnlpreg2.add(txtR3);
+                JLabel preg2 = new JLabel(dato[12]);
+                preg2.setBounds(20, 90, 305, 20);
+                preg2.setHorizontalAlignment(SwingConstants.CENTER);
+                preg2.setForeground(Color.white);
+                preg2.setOpaque(true);
+                preg2.setBackground(Color.decode(menu.colorPanelMedio));
+                pnlpreg2.add(preg2);
 
-        JButton BtnRecuperar = new JButton("RECUPERAR");
-        BtnRecuperar.setBounds(135, 330, 120, 20);
-        BtnRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
-        BtnRecuperar.setFocusPainted(false);
-        pnlPreg.add(BtnRecuperar);
+                JTextField txtR2 = new JTextField();
+                txtR2.setBounds(45, 120, 250, 20);
+                pnlpreg2.add(txtR2);
 
-        //funcionalidad del btnRecuperar
-        BtnRecuperar.addActionListener(e -> btnRecuperarVenRecup(ventPreg));
+                JLabel preg3 = new JLabel(dato[14]);
+                preg3.setBounds(20, 170, 305, 20);
+                preg3.setHorizontalAlignment(SwingConstants.CENTER);
+                preg3.setForeground(Color.white);
+                preg3.setOpaque(true);
+                preg3.setBackground(Color.decode(menu.colorPanelMedio));
+                pnlpreg2.add(preg3);
 
-        ventPreg.add(pnlPreg, BorderLayout.CENTER);
-        ventPreg.setLocationRelativeTo(this);
-        ventPreg.setVisible(true);
-    }
+                JTextField txtR3 = new JTextField();
+                txtR3.setBounds(45, 200, 250, 20);
+                pnlpreg2.add(txtR3);
 
-    public void btnRecuperarVenRecup(JDialog ventPreg) {
-        JOptionPane.showMessageDialog(null, "Su contraseña es ");
-        ventPreg.dispose();
+                JButton BtnRecuperar = new JButton("RECUPERAR");
+                BtnRecuperar.setBounds(135, 330, 120, 20);
+                BtnRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
+                BtnRecuperar.setFocusPainted(false);
+                pnlPreg.add(BtnRecuperar);
+
+                //funcionalidad del btnRecuperar
+                ActionListener recuperar = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(dato[11].equals(txtR1.getText()) && dato[13].equals(txtR2.getText()) && dato[15].equals(txtR3.getText())){
+                            JOptionPane.showMessageDialog(null, "Su Usuario es " + dato[0] + " y su contraseña es " + dato[3]);
+                            ventPreg.dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Respuestas incorrectas");
+                        }
+                    }
+                };
+                BtnRecuperar.addActionListener(recuperar);
+
+                ventPreg.add(pnlPreg, BorderLayout.CENTER);
+                ventPreg.setLocationRelativeTo(this);
+                ventPreg.setVisible(true);
+            }
+        } else {
+            System.out.println("algo");
+            JOptionPane.showMessageDialog(null, "La Cédula no esta en la base de datos");
+        }
+
 
     }
 }

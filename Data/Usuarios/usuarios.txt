@@ -1,3 +1,3 @@
-S|u1|S|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
-darwin|u2|85|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
-felipe|u3|41|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
+admin|Rafito|Puerta|1|rafito@gmail.com|123|3013405382|Masculino|3013405382|D:\imagenes\sukuna.jpg|S|S|S|S|S|S|
+darwin|u2|85|S|S|1|1|Masculino|S|D:\imagenes\aja.png|S|S|S|S|S|S|
+felipe|Juan Felipe|Vargas|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|

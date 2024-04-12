@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 public class Menu extends JFrame {
 
     public static boolean deteccionManager = false;
-    
+
     public static String[] usuario;
 
     public JLabel fondo = new JLabel();
@@ -90,12 +89,12 @@ public class Menu extends JFrame {
         fondo.add(elementosSuperiores);
 
         botonPerfil.setBounds(20, 30, 100, 100);
-        if (usuario != null){
+        if (usuario != null) {
             botonPerfil.setIcon(new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-        }else{
+        } else {
             botonPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         }
-        
+
         botonPerfil.addActionListener((ActionEvent e) -> {
             VerPerfil();
         });
@@ -108,12 +107,12 @@ public class Menu extends JFrame {
         // ----- INFORMACIÓN DEL USUARIO ----- 
         JLabel imagenPerfil = new JLabel();
         //Le establecemos una imagen de perfil con un tamaño preestablecido.d
-        if (usuario != null){
+        if (usuario != null) {
             imagenPerfil.setIcon(new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
-        }else{
+        } else {
             imagenPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
         }
-        
+
         imagenPerfil.setBounds(75, 10, 150, 150);
         fondoPerfil.add(imagenPerfil);
 
@@ -123,41 +122,51 @@ public class Menu extends JFrame {
         pnlInfoUsuario.setBounds(20, 180, 280, 330);
         fondoPerfil.add(pnlInfoUsuario);
 
-        
         JLabel textNombre = new JLabel();
-       
-        textNombre.setBounds(110, 10, 100, 50);
+        textNombre.setFont(new Font("Arial", 1, 20));
+        textNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        textNombre.setBounds(20, 10, 240, 50);
         textNombre.setForeground(Color.white);
+        textNombre.setOpaque(true);
+        textNombre.setBackground(Color.decode(colorPanelMedio));
         pnlInfoUsuario.add(textNombre);
 
         JLabel textCedula = new JLabel();
-        textCedula.setBounds(110, 70, 100, 50);
+        textCedula.setFont(new Font("Arial", 1, 20));
+        textCedula.setHorizontalAlignment(SwingConstants.CENTER);
+        textCedula.setBounds(20, 70, 240, 50);
         textCedula.setForeground(Color.white);
+        textCedula.setOpaque(true);
+        textCedula.setBackground(Color.decode(colorPanelMedio));
         pnlInfoUsuario.add(textCedula);
 
         JLabel textEmail = new JLabel();
-        textEmail.setBounds(115, 130, 100, 50);
+        textEmail.setFont(new Font("Arial", 1, 20));
+        textEmail.setHorizontalAlignment(SwingConstants.CENTER);
+        textEmail.setBounds(20, 130, 240, 50);
         textEmail.setForeground(Color.white);
+        textEmail.setOpaque(true);
+        textEmail.setBackground(Color.decode(colorPanelMedio));
         pnlInfoUsuario.add(textEmail);
 
         JLabel textGenero = new JLabel();
-        textGenero.setBounds(110, 190, 100, 50);
+        textGenero.setFont(new Font("Arial", 1, 20));
+        textGenero.setHorizontalAlignment(SwingConstants.CENTER);
+        textGenero.setBounds(20, 190, 240, 50);
         textGenero.setForeground(Color.white);
+        textGenero.setOpaque(true);
+        textGenero.setBackground(Color.decode(colorPanelMedio));
         pnlInfoUsuario.add(textGenero);
 
         JLabel textTelefono = new JLabel();
-        textTelefono.setBounds(105, 260, 100, 50);
+        textTelefono.setFont(new Font("Arial", 1, 20));
+        textTelefono.setHorizontalAlignment(SwingConstants.CENTER);
+        textTelefono.setBounds(20, 250, 240, 50);
         textTelefono.setForeground(Color.white);
+        textTelefono.setOpaque(true);
+        textTelefono.setBackground(Color.decode(colorPanelMedio));
         pnlInfoUsuario.add(textTelefono);
-        
-         if (usuario != null){
-            textNombre.setText(usuario[1] + " " + usuario[2]);
-            textCedula.setText(usuario[3]);
-            textEmail.setText(usuario[4]);
-            textGenero.setText(usuario[7]);
-            textTelefono.setText(usuario[8]);
-        }
-     
+
         JButton botonAtrasPerfil = new JButton("ATRAS");
         botonAtrasPerfil.setBackground(Color.decode(colorBotonClaro));
         botonAtrasPerfil.setFocusPainted(false);
@@ -174,6 +183,15 @@ public class Menu extends JFrame {
         texto1.setForeground(Color.white); //Le establecemos un color con formato hexadecimal. //Centrar el texto
         texto1.setBounds(80, 30, 440, 40);
         elementosSuperiores.add(texto1);
+
+        if (usuario != null) {
+            texto1.setText("Bienvenido " + usuario[1]);
+            textNombre.setText(usuario[1] + " " + usuario[2]);
+            textCedula.setText(usuario[3]);
+            textEmail.setText(usuario[4]);
+            textGenero.setText(usuario[7]);
+            textTelefono.setText(usuario[8]);
+        }
 
         //Creamos el boton para volver.
         JButton botonVolver = new JButton();

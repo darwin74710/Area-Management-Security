@@ -438,15 +438,6 @@ public class Registrar extends JFrame {
 
         buttPanel.add(Box.createRigidArea(new Dimension(10, 0)));//generamos espacio entre los botones         
 
-        //-- Se crea Boton para recuperar la contraseña --
-        JButton botonRecuperar = new JButton("Recuperar");
-        botonRecuperar.setBackground(Color.decode(menu.colorBotonClaro));
-        botonRecuperar.setFocusPainted(false);
-        botonRecuperar.setBorderPainted(false);
-        buttPanel.add(botonRecuperar);
-
-        buttPanel.add(Box.createRigidArea(new Dimension(10, 0)));//se genera espacio entre los botones
-
         //-- Se crea Botón para limpiar los campos de texto --
         JButton botonLimpiar = new JButton("Limpiar");
         botonLimpiar.setBackground(Color.decode(menu.colorBotonClaro));
