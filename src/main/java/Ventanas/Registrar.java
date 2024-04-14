@@ -31,6 +31,7 @@ public class Registrar extends JFrame {
 
     /* -- variables para los campos de texto de la informacion
     que se esta solicitando -- */
+    JComboBox tipoUsuario;
     JTextField usuarioT;
     JTextField nombreT;
     JTextField apellidoT;
@@ -140,7 +141,7 @@ public class Registrar extends JFrame {
         JPanel panForm = new JPanel();
         panForm.setBackground(Color.decode(menu.colorPanelOscuro));
         panForm.setLayout(null);
-        panForm.setPreferredSize(new Dimension(700, 1080));
+        panForm.setPreferredSize(new Dimension(700, 1210));
         ScrollForm.setViewportView(panForm);
 
         //se llama el metodo 
@@ -149,83 +150,92 @@ public class Registrar extends JFrame {
     }//FIN METODO
 
     private void ElementosForm(JPanel panForm) {
+        
+        String[] tipUsuario = {"Administrador", "Usuario"};
+
+        //se crea el JComboBox
+        //Para ingresar tipo de usuario
+        tipoUsuario = new JComboBox(tipUsuario);
+        tipoUsuario.setBounds(20, 10, 140, 20);
+        panForm.add(tipoUsuario);
+        
         // 1.1 -- Se crea el texto para solcitud de llenado de campo de texto. 
         JLabel textN0 = new JLabel("Usuario(*)");
-        textN0.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN0.setFont(new Font("Arial", Font.BOLD, 15));
         textN0.setForeground(Color.white);
-        textN0.setBounds(20, 10, 140, 30);
+        textN0.setBounds(20, 70, 140, 30);
         panForm.add(textN0);
 
         // 2.1 -- Se crea caja de texto para introducir el campo solicitado
         usuarioT = new JTextField();
-        usuarioT.setBounds(20, 40, 140, 20);
+        usuarioT.setBounds(20, 100, 140, 20);
         panForm.add(usuarioT);
 
         // 1.1 -- Se crea el texto para solcitud de llenado de campo de texto. 
         JLabel textN1 = new JLabel("Nombre(*)");
-        textN1.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN1.setFont(new Font("Arial", Font.BOLD, 15));
         textN1.setForeground(Color.white);
-        textN1.setBounds(20, 100, 140, 30);
+        textN1.setBounds(20, 160, 140, 30);
         panForm.add(textN1);
 
         // 2.1 -- Se crea caja de texto para introducir el campo solicitado
         nombreT = new JTextField();
-        nombreT.setBounds(20, 130, 140, 20);
+        nombreT.setBounds(20, 200, 140, 20);
         panForm.add(nombreT);
 
         //1.3
         JLabel textN3 = new JLabel("Apellido(*)");
-        textN3.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN3.setFont(new Font("Arial", Font.BOLD, 15));
         textN3.setForeground(Color.white);
-        textN3.setBounds(20, 190, 140, 30);
+        textN3.setBounds(20, 260, 140, 30);
         panForm.add(textN3);
 
         //2.3
         apellidoT = new JTextField();
-        apellidoT.setBounds(20, 220, 140, 20);
+        apellidoT.setBounds(20, 300, 140, 20);
         panForm.add(apellidoT);
 
         //1.5
         JLabel textN5 = new JLabel("Cédula(*)");
-        textN5.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN5.setFont(new Font("Arial", Font.BOLD, 15));
         textN5.setForeground(Color.white);
-        textN5.setBounds(20, 280, 140, 30);
+        textN5.setBounds(20, 360, 140, 30);
         panForm.add(textN5);
 
         //2.5
         cedulaT = new JTextField();
-        cedulaT.setBounds(20, 310, 140, 20);
+        cedulaT.setBounds(20, 400, 140, 20);
         panForm.add(cedulaT);
 
         //1.6
         JLabel textN6 = new JLabel("Email(*)");
-        textN6.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN6.setFont(new Font("Arial", Font.BOLD, 15));
         textN6.setForeground(Color.white);
-        textN6.setBounds(20, 370, 140, 30);
+        textN6.setBounds(20, 460, 140, 30);
         panForm.add(textN6);
 
         //2.6
         emailT = new JTextField();
-        emailT.setBounds(20, 400, 140, 20);
+        emailT.setBounds(20, 500, 140, 20);
         panForm.add(emailT);
 
         //1.7
         JLabel textN7 = new JLabel("Password(*)");
-        textN7.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN7.setFont(new Font("Arial", Font.BOLD, 15));
         textN7.setForeground(Color.white);
-        textN7.setBounds(20, 460, 140, 30);
+        textN7.setBounds(20, 560, 140, 30);
         panForm.add(textN7);
 
         //2.7
         password1T = new JPasswordField();
-        password1T.setBounds(20, 490, 140, 20);
+        password1T.setBounds(20, 600, 140, 20);
         password1T.setEchoChar((char) 0);
         password1T.setEchoChar('*');
         panForm.add(password1T);
 
         //boton para activar la contraseña visible
         verContra = new JButton();
-        verContra.setBounds(180, 490, 20, 20);
+        verContra.setBounds(180, 600, 20, 20);
         verContra.setOpaque(false);
         verContra.setFocusPainted(false);
         verContra.setBorderPainted(false);
@@ -257,23 +267,23 @@ public class Registrar extends JFrame {
 
         //1.8
         JLabel textN8 = new JLabel("Confirmar Password(*)");
-        textN8.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN8.setFont(new Font("Arial", Font.BOLD, 15));
         textN8.setForeground(Color.white);
-        textN8.setBounds(20, 550, 170, 30);
+        textN8.setBounds(20, 660, 170, 30);
         panForm.add(textN8);
 
         //2.8
         password2T = new JPasswordField();
-        password2T.setBounds(20, 580, 140, 20);
+        password2T.setBounds(20, 690, 140, 20);
         password2T.setEchoChar((char) 0);
         password2T.setEchoChar('*');
         panForm.add(password2T);
 
         //1.9
         JLabel textN9 = new JLabel("Género(*)");
-        textN9.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN9.setFont(new Font("Arial", Font.BOLD, 15));
         textN9.setForeground(Color.white);
-        textN9.setBounds(20, 640, 140, 30);
+        textN9.setBounds(20, 750, 140, 30);
         panForm.add(textN9);
 
         //2.9
@@ -282,33 +292,33 @@ public class Registrar extends JFrame {
 
         //se crea el JComboBox
         generoT = new JComboBox(genero);
-        generoT.setBounds(20, 670, 140, 20);
+        generoT.setBounds(20, 780, 140, 20);
         panForm.add(generoT);
 
         //1.10
         JLabel textN10 = new JLabel("Teléfono(*)");
-        textN10.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN10.setFont(new Font("Arial", Font.BOLD, 15));
         textN10.setForeground(Color.white);
-        textN10.setBounds(20, 730, 140, 30);
+        textN10.setBounds(20, 840, 140, 30);
         panForm.add(textN10);
 
         //2.10
         telefonoT = new JTextField();
-        telefonoT.setBounds(20, 770, 140, 20);
+        telefonoT.setBounds(20, 870, 140, 20);
         panForm.add(telefonoT);
 
         //1.11
         JLabel textN11 = new JLabel("<html><body><center><p>Cargar imagen"
                 + " de perfil</p></html>");
-        textN11.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        textN11.setFont(new Font("Arial", Font.BOLD, 15));
         textN11.setForeground(Color.white);
-        textN11.setBounds(20, 810, 140, 40);
+        textN11.setBounds(20, 930, 140, 40);
         panForm.add(textN11);
 
         //2.11
         fotoPerfilT = new JButton("Cargar");
         fotoPerfilT.setBackground(Color.decode(menu.colorBotonClaro));
-        fotoPerfilT.setBounds(20, 865, 140, 50);
+        fotoPerfilT.setBounds(20, 985, 140, 50);
         panForm.add(fotoPerfilT);
 
         //funcionalidad del boton cargar imagen
@@ -320,12 +330,12 @@ public class Registrar extends JFrame {
         fotoPerfil = new JLabel();
         fotoPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
                 .getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH)));
-        fotoPerfil.setBounds(20, 925, 140, 140);
+        fotoPerfil.setBounds(20, 1045, 140, 140);
         panForm.add(fotoPerfil);
 
         //linea que divide el panel
         JPanel panDiv = new JPanel();
-        panDiv.setBounds(375, 10, 1, 980);
+        panDiv.setBounds(375, 10, 1, 1190);
         panForm.add(panDiv);
 
         //División del panel para recuperación de la contraseña
@@ -336,14 +346,14 @@ public class Registrar extends JFrame {
         panForm.add(titPanel2);
 
         JLabel textRePs = new JLabel("<html><body><center><p>Recuperar"
-                + " Password</p></html>");
-        textRePs.setFont(new Font("Constantia Bold", Font.BOLD, 20));
+                + " Contraseña</p></html>");
+        textRePs.setFont(new Font("Arial", Font.BOLD, 20));
         textRePs.setForeground(Color.white);
         titPanel2.add(textRePs);
 
         // 1.1 Preguntas de recuperación
         JLabel preg1 = new JLabel("Primera pregunta(*)");
-        preg1.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        preg1.setFont(new Font("Arial", Font.BOLD, 15));
         preg1.setForeground(Color.white);
         preg1.setBounds(410, 70, 358, 30);
         panForm.add(preg1);
@@ -355,7 +365,7 @@ public class Registrar extends JFrame {
 
         // 3.1 Respuesta de recuperacion
         JLabel res1 = new JLabel("Primera Respuesta(*)");
-        res1.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        res1.setFont(new Font("Arial", Font.BOLD, 15));
         res1.setForeground(Color.white);
         res1.setBounds(410, 160, 358, 30);
         panForm.add(res1);
@@ -367,7 +377,7 @@ public class Registrar extends JFrame {
 
         //1.2
         JLabel preg2 = new JLabel("Segunda pregunta(*)");
-        preg2.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        preg2.setFont(new Font("Arial", Font.BOLD, 15));
         preg2.setForeground(Color.white);
         preg2.setBounds(410, 250, 358, 30);
         panForm.add(preg2);
@@ -379,7 +389,7 @@ public class Registrar extends JFrame {
 
         //3.2
         JLabel res2 = new JLabel("Segunda Respuesta(*)");
-        res2.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        res2.setFont(new Font("Arial", Font.BOLD, 15));
         res2.setForeground(Color.white);
         res2.setBounds(410, 340, 358, 30);
         panForm.add(res2);
@@ -391,7 +401,7 @@ public class Registrar extends JFrame {
 
         //1.3
         JLabel preg3 = new JLabel("Tercera Pregunta(*)");
-        preg3.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        preg3.setFont(new Font("Arial", Font.BOLD, 15));
         preg3.setForeground(Color.white);
         preg3.setBounds(410, 430, 358, 30);
         panForm.add(preg3);
@@ -403,7 +413,7 @@ public class Registrar extends JFrame {
 
         //3.3
         JLabel res3 = new JLabel("Tercera Respuesta(*)");
-        res3.setFont(new Font("Constantia Bold", Font.BOLD, 15));
+        res3.setFont(new Font("Arial", Font.BOLD, 15));
         res3.setForeground(Color.white);
         res3.setBounds(410, 520, 358, 30);
         panForm.add(res3);
@@ -506,6 +516,7 @@ public class Registrar extends JFrame {
         String segundaResp = segundaRespT.getText();
         String terceraPreg = terceraPregT.getText();
         String terceraResp = terceraRespT.getText();
+        String tUsuario = (String) tipoUsuario.getSelectedItem();
 
         if (usuario.isEmpty() || usuario == null
                 && nombre.isEmpty() || nombre == null
@@ -521,7 +532,8 @@ public class Registrar extends JFrame {
                 && segundaPreg.isEmpty() || segundaPreg == null
                 && segundaResp.isEmpty() || segundaResp == null
                 && terceraPreg.isEmpty() || terceraPreg == null
-                && terceraResp.isEmpty() || terceraResp == null) {
+                && terceraResp.isEmpty() || terceraResp == null
+                && tUsuario.isEmpty() || tUsuario == null) {
 
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos de texto solicitados");
 
@@ -533,7 +545,7 @@ public class Registrar extends JFrame {
             archivoU.escribirArchivo(usuario, nombre, apellido,
                     cedula, email, password1, password2,
                     genero, telefono, ruta, primeraPreg,
-                    primeraResp, segundaPreg, segundaResp, terceraPreg, terceraResp);
+                    primeraResp, segundaPreg, segundaResp, terceraPreg, terceraResp, tUsuario);
         } else {
             JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales");
 
