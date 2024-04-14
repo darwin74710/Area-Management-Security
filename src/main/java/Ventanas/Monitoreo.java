@@ -24,7 +24,7 @@ public class Monitoreo extends JFrame{
     public SistemMonitoreo SistemAreas = new SistemMonitoreo();
     
     // Creamos paneles para guardar los elementos
-    public JLabel fondo = new JLabel();
+    public JPanel fondo = new JPanel();
     public JPanel configArea = new JPanel();
     
     public Monitoreo(){
@@ -44,9 +44,8 @@ public class Monitoreo extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         
-        // Establecemos imagen de fondo.
-        fondo = new JLabel();
-        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        fondo = new JPanel();
+        fondo.setBackground(Color.decode(menu.colorPanelClaro));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,0,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);

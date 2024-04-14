@@ -1,5 +1,6 @@
 package Logica;
 
+import Ventanas.Menu;
 import org.opencv.core.Core;
 import org.opencv.videoio.VideoCapture;
 import javax.swing.*;
@@ -30,6 +31,7 @@ public class CameraManager {
     
     static SaveAreas guardadoAreas = new SaveAreas();
     static SistemNotificaciones notifi = new SistemNotificaciones();
+    static Menu menu = new Menu();
     
     static SaveConfiguraciones guardadoConfig = new SaveConfiguraciones();
 
@@ -179,6 +181,9 @@ public class CameraManager {
                                         if (System.currentTimeMillis() - ultimoTiempoGrabacion >= 60000) {
                                             System.out.println("Movimiento detectado en la cámara " + camaraIndex);
                                             notifi.guardarNotifi(camaraIndex);
+                                            menu.btnNotifi.revalidate();
+                                            menu.btnNotifi.repaint();
+                                            
                                             // Cambiar el códec de compresión a H.264 para MP4
                                             VideoWriter videoWriter = new VideoWriter(nombreArchivo, VideoWriter.fourcc('H', '2', '6', '4'), 10, new Size(frameMat.width(), frameMat.height()));
 

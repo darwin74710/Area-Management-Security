@@ -34,7 +34,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Camaras extends JFrame{
     Menu menu;
-    public JLabel fondo = new JLabel();
+    public JPanel fondo = new JPanel();
     public static String nombreArea = new String();
     public JFrame ventanaAnterior;
     public static JButton botonSeleccionado;
@@ -68,9 +68,8 @@ public class Camaras extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         
-        //Establecemos imagen de fondo.
-        fondo = new JLabel();
-        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        fondo = new JPanel();
+        fondo.setBackground(Color.decode(menu.colorPanelClaro));
         fondo.setLayout(null);
         fondo.setBorder(new EmptyBorder(10,0,10,10)); //Establecemos margenes en el fondo.
         this.add(fondo);

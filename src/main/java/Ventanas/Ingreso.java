@@ -34,7 +34,7 @@ public class Ingreso extends JFrame {
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
 
-    public JLabel fondo = new JLabel();
+    public JPanel fondo = new JPanel();
 
     JLabel botonVerContra = new JLabel();
     JButton ingreso = new JButton("INGRESAR");
@@ -56,8 +56,7 @@ public class Ingreso extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        //Establecemos imagen de fondo.
-        fondo = new JLabel();
+        fondo = new JPanel();
         fondo.setLayout(null);
         this.add(fondo);
     }
@@ -204,7 +203,6 @@ public class Ingreso extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 btnRecuperarContra();
             }
-            
         });
         
         //Decoración de ventana
@@ -241,8 +239,11 @@ public class Ingreso extends JFrame {
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
-                textoUsuario.setText("");
-                textoContraseña.setText("");
+                textoUsuario.setText("Usuario");
+                textoUsuario.setForeground(Color.gray);
+                textoContraseña.setText("Contraseña");
+                textoContraseña.setForeground(Color.gray);
+                textoContraseña.setEchoChar((char) 0);
             }
 
         } else {
@@ -307,7 +308,7 @@ public class Ingreso extends JFrame {
     }
 
     public void ActualizarIngreso() {
-        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        fondo.setBackground(Color.decode(menu.colorPanelClaro));
         botonVerContra.setBackground(Color.decode(menu.colorBotonOscuro));
         ingreso.setBackground(Color.decode(menu.colorBotonOscuro));
 

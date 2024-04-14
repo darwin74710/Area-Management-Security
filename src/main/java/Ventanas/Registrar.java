@@ -58,7 +58,7 @@ public class Registrar extends JFrame {
     boolean activContra = false;
 
     //Label para el fondo de la ventana
-    public JLabel fondo = new JLabel();
+    public JPanel fondo = new JPanel();
 
     //varible para el oyente de accion 
     ActionListener obtenerInfo;
@@ -77,9 +77,8 @@ public class Registrar extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        //Establecemos imagen de fondo.
-        fondo = new JLabel();
-        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        fondo = new JPanel();
+        fondo.setBackground(Color.decode(menu.colorPanelClaro));
         fondo.setLayout(new BoxLayout(fondo, BoxLayout.Y_AXIS));
         fondo.setBorder(new EmptyBorder(10, 0, 10, 10));
         this.add(fondo);

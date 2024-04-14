@@ -26,7 +26,7 @@ import javax.swing.border.EmptyBorder;
 public class Info extends JFrame{
     Menu menu;
     
-    public JLabel fondo = new JLabel();
+    public JPanel fondo = new JPanel();
     JScrollPane scrollArea = new JScrollPane();
     JPanel panelMensajes = new JPanel();
     JTextField chat = new JTextField();
@@ -47,9 +47,8 @@ public class Info extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         
-        //Establecemos imagen de fondo.
-        fondo = new JLabel();
-        fondo.setIcon(new ImageIcon((new ImageIcon(menu.imagenFondo)).getImage().getScaledInstance(1000, 600, Image.SCALE_SMOOTH)));
+        fondo = new JPanel();
+        fondo.setBackground(Color.decode(menu.colorPanelClaro));
         this.add(fondo);
     }
     
