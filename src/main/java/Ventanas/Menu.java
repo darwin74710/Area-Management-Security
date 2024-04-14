@@ -2,6 +2,7 @@ package Ventanas;
 
 import Logica.SaveConfiguraciones;
 import Logica.botones;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,7 +20,9 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.awt.image.RescaleOp;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -233,9 +236,29 @@ public class Menu extends JFrame {
         });
         
         // PERFIL Y CONFIGURACIONES
-        JLabel marcoPerfil = new JLabel();
-        ImageIcon marco = new ImageIcon((new ImageIcon("Imagenes/Iconos/marcoPerfil.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-        marcoPerfil.setIcon(marco);
+        // Cargar la imagen original
+        BufferedImage originalImage = null;
+        try {
+            originalImage = ImageIO.read(new File("Imagenes/Iconos/marcoPerfil.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        Color colorNuevo = Color.decode(colorPanelMedio);
+        
+        // Procesar la imagen y cambiar el color
+        BufferedImage imagenProcesada = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = imagenProcesada.createGraphics();
+        g.drawImage(originalImage, 0, 0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(colorNuevo);
+        g.fillRect(0, 0, originalImage.getWidth(), originalImage.getHeight());
+        g.dispose();
+        
+        // Escalar la imagen procesada
+        Image imagenEscalaSuave = imagenProcesada.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        
+        JLabel marcoPerfil = new JLabel(new ImageIcon(imagenEscalaSuave));
         marcoPerfil.setBounds(920, 10, 50, 50);
         barraSuperior.add(marcoPerfil);
 
