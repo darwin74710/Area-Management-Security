@@ -1,3 +1,4 @@
-admin|Rafito|Puerta|1|rafito@gmail.com|123|3013405382|Masculino|3013405382|D:\imagenes\sukuna.jpg|S|S|S|S|S|S|
-darwin|u2|85|S|S|1|1|Masculino|S|D:\imagenes\aja.png|S|S|S|S|S|S|
-felipe|Juan Felipe|Vargas|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|
+admin|Rafito|Puerta|1|rafito@gmail.com|123|3013405382|Masculino|3013405382|D:\imagenes\sukuna.jpg|S|S|S|S|S|S|Administrador|
+darwin|u2|85|S|S|1|1|Masculino|S|D:\imagenes\aja.png|S|S|S|S|S|S|Usuario|
+felipe|Juan Felipe|Vargas|S|S|1|1|Masculino|S|C:\Users\darwi\OneDrive\Imágenes\eto.jpg|S|S|S|S|S|S|Usuario|
+AMS|MC|777|4512853|mc777@gmail.com|2|2|Masculino|4444444|C:\Users\Pipe\Pictures\Screenshots\Captura de pantalla 2024-04-11 173321.png|1|2|3|4|5|6|Administrador|

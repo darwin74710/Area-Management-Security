@@ -1,7 +1,6 @@
 package archivos;
 
 import Ventanas.Ingreso;
-import Ventanas.Menu;
 import Ventanas.Registrar;
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,9 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
+
 
 public class ArchivoUsuarios {
 
@@ -41,7 +38,7 @@ public class ArchivoUsuarios {
     public void escribirArchivo(String usuario, String nombre, String apellido,
             String cedula, String email, String password1, String password2,
             String genero, String telefono, String rutaFoto, String primeraPreg,
-            String primeraResp, String segundaPreg, String segundaResp, String terceraPreg, String terceraResp) {
+            String primeraResp, String segundaPreg, String segundaResp, String terceraPreg, String terceraResp, String tUsuario) {
 
         try {
             FileWriter escribir = new FileWriter(archivo, true);
@@ -61,6 +58,7 @@ public class ArchivoUsuarios {
                     + segundaResp + "|"
                     + terceraPreg + "|"
                     + terceraResp + "|"
+                    + tUsuario + "|"
                     + "\r\n");
             escribir.close();
         } catch (IOException ex) {
