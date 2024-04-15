@@ -1,0 +1,200 @@
+package Logica;
+
+import Ventanas.Menu;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
+
+public class AnimMenu{
+    
+    JPanel fondo = Menu.animFondo;
+    
+    private Timer animadorVD;
+    private Timer animadorMensj;
+    public static Timer mensajesTemp;
+    public static Timer hablarTemp;
+    
+    int yPanel1 = -500;
+    int yDar = 500;
+    int yVar = 510;
+    
+    boolean cambiador1 = false;
+    
+    public void standar(){
+        fondo.removeAll();
+        JPanel panelStandar = new JPanel();
+        panelStandar.setOpaque(false);
+        panelStandar.setLayout(null);
+        panelStandar.setBounds(0, 0, 985, 495);
+        fondo.add(panelStandar);
+        
+        JPanel mensaje = new JPanel();
+        mensaje.setOpaque(true);
+        mensaje.setBackground(Color.decode(Menu.colorPanelMedio));
+        mensaje.setBounds(yPanel1, 20, 500, 200);
+        panelStandar.add(mensaje);
+        
+        JLabel titulo = new JLabel();
+        if (Menu.usuario != null){
+            if (Menu.usuario[7].equals("Masculino")){
+                titulo.setText("Bienvenido " + Menu.usuario[0]);
+            }else if(Menu.usuario[7].equals("Femenino")){
+                titulo.setText("Bienvenida " + Menu.usuario[0]);
+            }else if(Menu.usuario[7].equals("No especificado")){
+                titulo.setText("Bienvenide " + Menu.usuario[0]);
+            }
+        }
+            
+        titulo.setForeground(Color.white);
+        titulo.setFont(new Font("Arial", 1, 30));
+        mensaje.add(titulo);
+        
+        JLabel textoIntro = new JLabel();
+        textoIntro.setBorder(new EmptyBorder(10,10,10,10));
+        textoIntro.setText("<html><p>Area Management Security es una aplicación para escritorio enfocada"
+                + " en reducir los hurtos y anomalías generados en las diferentes zonas de trabajo.</p></html>");
+        textoIntro.setForeground(Color.white);
+        textoIntro.setPreferredSize(new Dimension(500, 150));
+        textoIntro.setMaximumSize(new Dimension(500, 150));
+        textoIntro.setFont(new Font("Arial", 1, 20));
+        mensaje.add(textoIntro);
+        
+        JLabel darwin = new JLabel();
+        darwin.setIcon(new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-1.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH)));
+        darwin.setBounds(300, yDar, 131, 205);
+        fondo.add(darwin);
+        
+        JLabel vargas = new JLabel();
+        vargas.setIcon(new ImageIcon((new ImageIcon("Imagenes/Animaciones/vargas1-1.png")).getImage().getScaledInstance(146, 193, Image.SCALE_SMOOTH)));
+        vargas.setBounds(100, yVar, 146, 193);
+        fondo.add(vargas);
+        
+        JLabel chat1 = new JLabel();
+        chat1.setBounds(370, 230, 160, 100);
+        fondo.add(chat1);
+        
+        JLabel chat2 = new JLabel();
+        chat2.setBounds(10, 230, 160, 100);
+        fondo.add(chat2);
+        
+        // TEMPORIZADOR DE ANIMACIÓN 1
+        // Crear un temporizador para actualizar la posición del panel
+        animadorVD = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Actualizar la posición del panel
+                yDar -= 4; // Cambia la velocidad del desplazamiento ajustando este valor
+                yVar -= 4;
+                darwin.setLocation(300, yDar);
+                vargas.setLocation(100, yVar);
+                fondo.repaint();
+
+                // Detener la animación cuando el panel llegue a su destino
+                if (yDar <= 290 && yVar <= 300) {
+                    animadorVD.stop();
+                    mensajesDV(darwin, vargas, chat1, chat2);
+                }
+            }
+        });
+        
+        animadorMensj = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Actualizar la posición del panel
+                yPanel1 += 10; // Cambia la velocidad del desplazamiento ajustando este valor
+                mensaje.setLocation(yPanel1, 20);
+                fondo.repaint();
+
+                // Detener la animación cuando el panel llegue a su destino
+                if (yPanel1 >= 20) {
+                    animadorMensj.stop();
+                }
+            }
+        });
+        
+        anim1();    
+    }
+    
+    private void anim1(){
+        animadorVD.start();
+        animadorMensj.start();
+    }
+    
+    private void mensajesDV(JLabel darwin, JLabel vargas, JLabel chat1, JLabel chat2){
+        // Crear un temporizador Swing
+        ImageIcon darwin1 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-1.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH));
+        ImageIcon darwin2 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-2.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH));
+        ImageIcon vargas1 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/vargas1-1.png")).getImage().getScaledInstance(146, 193, Image.SCALE_SMOOTH));
+        ImageIcon vargas2 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/vargas1-2.png")).getImage().getScaledInstance(146, 193, Image.SCALE_SMOOTH));
+        ImageIcon imgchat1 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/chat.png")).getImage().getScaledInstance(160, 100, Image.SCALE_SMOOTH));
+        ImageIcon imgchat2 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/chat2.png")).getImage().getScaledInstance(160, 100, Image.SCALE_SMOOTH));
+        
+        mensajesTemp = new Timer(25000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hablarTemp = new Timer(100, new ActionListener() {
+                    int contador = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Cambiar los íconos cada 2 segundos durante 20 segundos
+                        if (contador < 20) {
+                            if (cambiador1 == false){
+                                darwin.setIcon(darwin2);
+                                vargas.setIcon(vargas2);
+                                chat1.setIcon(imgchat1);
+                                chat2.setIcon(imgchat2);
+                                fondo.revalidate();
+                                fondo.repaint();
+                                cambiador1 = true;
+                            }else{
+                                darwin.setIcon(darwin1);
+                                vargas.setIcon(vargas1);
+                                chat1.setIcon(imgchat1);
+                                chat2.setIcon(imgchat2);
+                                fondo.revalidate();
+                                fondo.repaint();
+                                cambiador1 = false;
+                            }
+                            contador++;
+                        } else {
+                            // Detener el temporizador
+                            darwin.setIcon(darwin1);
+                            vargas.setIcon(vargas1);
+                            chat1.setIcon(null);
+                            chat2.setIcon(null);
+                            fondo.revalidate();
+                            fondo.repaint();
+                            ((Timer) e.getSource()).stop();
+                        }
+                    }
+                });
+
+                // Iniciar el temporizador secundario
+                hablarTemp.start();
+            }
+        });
+
+        // Iniciar el temporizador
+        mensajesTemp.start();
+    }
+    
+    public void detenerMensajes() {
+        // Detener el temporizador de animación de mensajes
+        if (mensajesTemp != null && mensajesTemp.isRunning()) {
+            mensajesTemp.stop();
+        }
+        if (hablarTemp != null && hablarTemp.isRunning()) {
+            hablarTemp.stop();
+        }
+    }
+}

@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import archivos.ArchivoUsuarios;
 import archivos.TextPrompt;
 import java.awt.Color;
@@ -31,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Registrar extends JFrame {
 
     Menu menu;
+    public AnimMenu anim = new AnimMenu();
 
     /* -- variables para los campos de texto de la informacion
     que se esta solicitando -- */
@@ -129,6 +131,8 @@ public class Registrar extends JFrame {
                 ventanaMenu.RecargarColores();
                 ventanaMenu.notifiDetect();
                 ventanaMenu.setVisible(true);
+                anim.detenerMensajes();
+                anim.standar();
                 dispose();
             }
         };

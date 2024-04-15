@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import Logica.SaveConfiguraciones;
 import Logica.botones;
 import java.awt.AlphaComposite;
@@ -40,9 +41,11 @@ public class Menu extends JFrame {
     public static String[] usuario;
 
     public JPanel fondo = new JPanel();
+    public static JPanel animFondo = new JPanel();
 
     SaveConfiguraciones configVents = new SaveConfiguraciones();
     botones VerContra = new botones();
+    public AnimMenu anim = new AnimMenu();
 
     JPanel elementosSuperiores = new JPanel();
     JPanel botonesPanel = new JPanel();
@@ -70,7 +73,6 @@ public class Menu extends JFrame {
     public Menu() {
         RecargarColores();
         PanelFondo();
-        //VerPerfil();
         Deteccion();
     }
 
@@ -118,6 +120,7 @@ public class Menu extends JFrame {
                 Monitoreo ventanaMapa = new Monitoreo();
                 ventanaMapa.setVisible(true);
                 setVisible(false);
+                anim.detenerMensajes();
             }
             public void mouseEntered(MouseEvent e) {
                 indicador.setBounds(95, 68, 65, 2);
@@ -148,6 +151,7 @@ public class Menu extends JFrame {
                 Info ventanaInfo = new Info();
                 ventanaInfo.setVisible(true);
                 setVisible(false);
+                anim.detenerMensajes();
             }
             public void mouseEntered(MouseEvent e) {
                 indicador.setBounds(180, 68, 70, 2);
@@ -180,6 +184,7 @@ public class Menu extends JFrame {
                         Registrar ventanaRegistrar = new Registrar();
                         ventanaRegistrar.setVisible(true);
                         setVisible(false);
+                        anim.detenerMensajes();
                     }
                     public void mouseEntered(MouseEvent e) {
                         indicador.setBounds(270, 68, 65, 2);
@@ -413,6 +418,7 @@ public class Menu extends JFrame {
                 ventanaIngreso.ActualizarIngreso();
                 ventanaIngreso.setVisible(true);
                 setVisible(false);
+                anim.detenerMensajes();
             }
             public void mouseEntered(MouseEvent e) {
                 btnVolver.setBackground(Color.decode(colorBotonOscuro));
@@ -424,6 +430,11 @@ public class Menu extends JFrame {
         
         InfoPerfil();
         InfoNotifi();
+        
+        animFondo.setOpaque(false);
+        animFondo.setLayout(null);
+        animFondo.setBounds(0, 70, 985, 495);
+        fondo.add(animFondo);
     }
     
     private void InfoPerfil(){

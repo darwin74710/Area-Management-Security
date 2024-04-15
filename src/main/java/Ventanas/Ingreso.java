@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import static Logica.CameraManager.cargarCamaras;
 import Logica.botones;
 import static Logica.botones.activContra;
@@ -31,6 +32,8 @@ import javax.swing.border.Border;
 public class Ingreso extends JFrame {
 
     Menu menu = new Menu();
+    public AnimMenu anim = new AnimMenu();
+    
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
 
@@ -237,6 +240,7 @@ public class Ingreso extends JFrame {
                 Menu ventanaMenu = new Menu();
                 ventanaMenu.setVisible(true);
                 setVisible(false);
+                anim.standar();
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
                 textoUsuario.setText("Usuario");

@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import Logica.CameraManager;
 import Logica.SistemMonitoreo;
 import java.awt.Color;
@@ -20,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Monitoreo extends JFrame{
     Menu menu;
+    public AnimMenu anim = new AnimMenu();
     // Instanciamos la clase SistemAreas para utilizar sus metodos
     public SistemMonitoreo SistemAreas = new SistemMonitoreo();
     
@@ -95,6 +97,8 @@ public class Monitoreo extends JFrame{
                 ventanaMenu.RecargarColores();
                 ventanaMenu.notifiDetect();
                 ventanaMenu.setVisible(true);
+                anim.detenerMensajes();
+                anim.standar();
                 dispose();
             }
         };

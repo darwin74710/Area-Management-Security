@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Info extends JFrame{
     Menu menu;
+    public AnimMenu anim = new AnimMenu();
     
     public JPanel fondo = new JPanel();
     JScrollPane scrollArea = new JScrollPane();
@@ -71,6 +73,8 @@ public class Info extends JFrame{
                 ventanaMenu.RecargarColores();
                 ventanaMenu.notifiDetect();
                 ventanaMenu.setVisible(true);
+                anim.detenerMensajes();
+                anim.standar();
                 dispose();
             }
         };
