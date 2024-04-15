@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -79,12 +80,24 @@ public class AnimMenu{
         fondo.add(vargas);
         
         JLabel chat1 = new JLabel();
+        chat1.setLayout(null);
         chat1.setBounds(370, 230, 160, 100);
         fondo.add(chat1);
         
+        JLabel textDarwin = new JLabel();
+        textDarwin.setFont(new Font("Arial", 1, 10));
+        textDarwin.setBounds(10, 10, 140, 40);
+        chat1.add(textDarwin);
+        
         JLabel chat2 = new JLabel();
+        chat2.setLayout(null);
         chat2.setBounds(10, 230, 160, 100);
         fondo.add(chat2);
+        
+        JLabel textVargas = new JLabel();
+        textVargas.setFont(new Font("Arial", 1, 10));
+        textVargas.setBounds(10, 10, 140, 40);
+        chat2.add(textVargas);
         
         // TEMPORIZADOR DE ANIMACIÓN 1
         // Crear un temporizador para actualizar la posición del panel
@@ -101,7 +114,7 @@ public class AnimMenu{
                 // Detener la animación cuando el panel llegue a su destino
                 if (yDar <= 290 && yVar <= 300) {
                     animadorVD.stop();
-                    mensajesDV(darwin, vargas, chat1, chat2);
+                    mensajesDV(darwin, vargas, chat1, chat2, textDarwin, textVargas);
                 }
             }
         });
@@ -129,7 +142,7 @@ public class AnimMenu{
         animadorMensj.start();
     }
     
-    private void mensajesDV(JLabel darwin, JLabel vargas, JLabel chat1, JLabel chat2){
+    private void mensajesDV(JLabel darwin, JLabel vargas, JLabel chat1, JLabel chat2, JLabel textDarwin, JLabel textVargas){
         // Crear un temporizador Swing
         ImageIcon darwin1 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-1.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH));
         ImageIcon darwin2 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-2.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH));
@@ -141,6 +154,9 @@ public class AnimMenu{
         mensajesTemp = new Timer(25000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                 Random rand = new Random();
+                 int numeroAleatorio = rand.nextInt(3);
+                 
                 hablarTemp = new Timer(100, new ActionListener() {
                     int contador = 0;
 
@@ -153,6 +169,7 @@ public class AnimMenu{
                                 vargas.setIcon(vargas2);
                                 chat1.setIcon(imgchat1);
                                 chat2.setIcon(imgchat2);
+                                mensajeAleatorio(textDarwin, textVargas, numeroAleatorio);
                                 fondo.revalidate();
                                 fondo.repaint();
                                 cambiador1 = true;
@@ -161,6 +178,7 @@ public class AnimMenu{
                                 vargas.setIcon(vargas1);
                                 chat1.setIcon(imgchat1);
                                 chat2.setIcon(imgchat2);
+                                mensajeAleatorio(textDarwin, textVargas, numeroAleatorio);
                                 fondo.revalidate();
                                 fondo.repaint();
                                 cambiador1 = false;
@@ -172,6 +190,8 @@ public class AnimMenu{
                             vargas.setIcon(vargas1);
                             chat1.setIcon(null);
                             chat2.setIcon(null);
+                            textDarwin.setText("");
+                            textVargas.setText("");
                             fondo.revalidate();
                             fondo.repaint();
                             ((Timer) e.getSource()).stop();
@@ -195,6 +215,22 @@ public class AnimMenu{
         }
         if (hablarTemp != null && hablarTemp.isRunning()) {
             hablarTemp.stop();
+        }
+    }
+    
+    private void mensajeAleatorio(JLabel textDarwin, JLabel textVargas, int Numero){
+        if (Numero == 0){
+            textDarwin.setText("<html><p>NT</p></html>");
+            textVargas.setText("<html><p>Jelou guorld.</p></html>");
+        }else if (Numero == 1){
+            textDarwin.setText("<html><p>Espero que disfrutes de nuestra aplicación.</p></html>");
+            textVargas.setText("<html><p>Pasala bien dentro de nuestro aplicativo.</p></html>");
+        }else if (Numero == 2){
+            textDarwin.setText("<html><p>Sopas.</p></html>");
+            textVargas.setText("<html><p>Buenas vibras.</p></html>");
+        }else if (Numero == 3){
+            textDarwin.setText("<html><p>Te juraron falso amor y lo creiste.</p></html>");
+            textVargas.setText("<html><p>Te pintaron pajaritos en el aire.</p></html>");
         }
     }
 }
