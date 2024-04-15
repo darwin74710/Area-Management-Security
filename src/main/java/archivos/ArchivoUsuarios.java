@@ -37,8 +37,8 @@ public class ArchivoUsuarios {
 
     public void escribirArchivo(String usuario, String nombre, String apellido,
             String cedula, String email, String password1, String password2,
-            String genero, String telefono, String rutaFoto, String primeraPreg,
-            String primeraResp, String segundaPreg, String segundaResp, String terceraPreg, String terceraResp, String tUsuario) {
+            String genero, String telefono, String rutaFoto, String preg1,
+            String primeraResp, String preg2, String segundaResp, String preg3, String terceraResp, String tUsuario) {
 
         try {
             FileWriter escribir = new FileWriter(archivo, true);
@@ -52,11 +52,11 @@ public class ArchivoUsuarios {
                     + genero + "|"
                     + telefono + "|"
                     + rutaFoto + "|"
-                    + primeraPreg + "|"
+                    + preg1 + "|"
                     + primeraResp + "|"
-                    + segundaPreg + "|"
+                    + preg2 + "|"
                     + segundaResp + "|"
-                    + terceraPreg + "|"
+                    + preg3 + "|"
                     + terceraResp + "|"
                     + tUsuario + "|"
                     + "\r\n");
