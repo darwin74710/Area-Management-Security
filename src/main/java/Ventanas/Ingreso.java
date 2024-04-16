@@ -334,7 +334,7 @@ public class Ingreso extends JFrame {
         ArchivoUsuarios archivoU = new ArchivoUsuarios();
         String[] dato = archivoU.RecuperarContra(cedula);
         if (dato != null) {
-            if (dato[3].equals(cedula)) {
+        if (dato[3].equals(cedula)) {
                 ventRecuperar.dispose();
 
                 JDialog ventPreg = new JDialog(this, "Preguntas de validación", true);
@@ -407,7 +407,7 @@ public class Ingreso extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(dato[11].equals(txtR1.getText()) && dato[13].equals(txtR2.getText()) && dato[15].equals(txtR3.getText())){
-                            JOptionPane.showMessageDialog(null, "Su Usuario es " + dato[0] + " y su contraseña es " + dato[3]);
+                            JOptionPane.showMessageDialog(null, "Su usuario es " + dato[0] + " y la contraseña es " + dato[3]);
                             ventPreg.dispose();
                         }else{
                             JOptionPane.showMessageDialog(null, "Respuestas incorrectas");

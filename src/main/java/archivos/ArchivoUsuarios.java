@@ -112,4 +112,25 @@ public class ArchivoUsuarios {
         return null;
     }//fin metodo recuperarContra 
     
+    public String[] validaciones (String usuario){ 
+        
+        String rutaCarpeta = "Data/Usuarios/usuarios.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaCarpeta))) {
+            String cadena;
+            while ((cadena = br.readLine()) != null) {
+                String[] datosUsuario = cadena.split("\\|");
+                
+                if(datosUsuario.length > 0 && datosUsuario[0].trim().equals(usuario)){
+                    return datosUsuario;
+                }
+            }
+            } catch (FileNotFoundException ex) {
+            System.err.println("No se puede validar el archivo");
+        } catch (IOException ex) {
+            System.err.println("No se puede leer la validación");
+        }
+        return null;
+    }//fin metodo recuperarContra
+    
 }//fin classsssssss
