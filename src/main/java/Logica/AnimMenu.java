@@ -218,6 +218,11 @@ public class AnimMenu{
         textVargas.setBounds(10, 10, 140, 40);
         chat2.add(textVargas);
         
+        JPanel hormiguita = new JPanel();
+        hormiguita.setOpaque(true);
+        hormiguita.setBounds(600, 41, 320, 450);
+        fondo.add(hormiguita);
+        
         // TEMPORIZADOR DE ANIMACIÓN 1
         // Crear un temporizador para actualizar la posición del panel
         animadorVD = new Timer(10, new ActionListener() {
@@ -271,11 +276,12 @@ public class AnimMenu{
         ImageIcon imgchat1 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/chat.png")).getImage().getScaledInstance(160, 100, Image.SCALE_SMOOTH));
         ImageIcon imgchat2 = new ImageIcon((new ImageIcon("Imagenes/Animaciones/chat2.png")).getImage().getScaledInstance(160, 100, Image.SCALE_SMOOTH));
         
-        mensajesTemp = new Timer(25000, new ActionListener() {
+        mensajesTemp = new Timer(10000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                  Random rand = new Random();
-                 int numeroAleatorio = rand.nextInt(3);
+                 int numeroAleatorio = rand.nextInt(4);
+                 System.out.println(numeroAleatorio);
                  
                 hablarTemp = new Timer(100, new ActionListener() {
                     int contador = 0;
@@ -283,7 +289,7 @@ public class AnimMenu{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Cambiar los íconos cada 2 segundos durante 20 segundos
-                        if (contador < 20) {
+                        if (contador < 30) {
                             if (cambiador1 == false){
                                 darwin.setIcon(darwin2);
                                 vargas.setIcon(vargas2);
@@ -358,7 +364,7 @@ public class AnimMenu{
         // PANEL 1
         JPanel info1 = new JPanel();
         info1.setLayout(null);
-        info1.setBackground(Color.decode(Menu.colorPanelClaro));
+        info1.setBackground(Color.decode(Menu.colorBotonOscuro));
         info1.setBounds(10, 10, 480, 180);
         mensaje.add(info1);
         
@@ -391,23 +397,20 @@ public class AnimMenu{
         info1.add(textoIntro);
         
         // PANEL 2
-        JPanel info2 = new JPanel();
-        info2.setLayout(null);
-        info2.setBackground(Color.decode(Menu.colorPanelClaro));
+        JLabel info2 = new JLabel();
+        info2.setIcon(new ImageIcon("Imagenes/Info/infoMonitoreo.png"));
         info2.setBounds(510, 10, 480, 180);
         mensaje.add(info2);
         
         // PANEL 3
-        JPanel info3 = new JPanel();
-        info3.setLayout(null);
-        info3.setBackground(Color.decode(Menu.colorPanelClaro));
+        JLabel info3 = new JLabel();
+        info3.setIcon(new ImageIcon("Imagenes/Info/infoChatBot.png"));
         info3.setBounds(1010, 10, 480, 180);
         mensaje.add(info3);
         
         // PANEL 4
-        JPanel info4 = new JPanel();
-        info4.setLayout(null);
-        info4.setBackground(Color.decode(Menu.colorPanelClaro));
+        JLabel info4 = new JLabel();
+        info4.setIcon(new ImageIcon("Imagenes/Info/infoRegistrar.png"));
         info4.setBounds(1510, 10, 480, 180);
         mensaje.add(info4);
     }
