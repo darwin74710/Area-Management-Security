@@ -7,11 +7,20 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.Random;
 import java.util.TimerTask;
+import javax.swing.BoundedRangeModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
@@ -19,11 +28,13 @@ public class AnimMenu{
     
     JPanel fondo = Menu.animFondo;
     
+    Timer tiempoScroll;
     private Timer animadorVD;
     private Timer animadorMensj;
     public static Timer mensajesTemp;
     public static Timer hablarTemp;
     
+    int posicionBarra = 0;
     int yPanel1 = -500;
     int yDar = 500;
     int yVar = 510;
@@ -38,37 +49,145 @@ public class AnimMenu{
         panelStandar.setBounds(0, 0, 985, 495);
         fondo.add(panelStandar);
         
+        
+        // PANEL QUE MUESTRA INFORMACIÓN DESPLAZABLE
         JPanel mensaje = new JPanel();
-        mensaje.setOpaque(true);
+        mensaje.setLayout(null);
+        mensaje.setPreferredSize(new Dimension(2000, 200));
+        mensaje.setMaximumSize(new Dimension(2000, 200));
         mensaje.setBackground(Color.decode(Menu.colorPanelMedio));
-        mensaje.setBounds(yPanel1, 20, 500, 200);
-        panelStandar.add(mensaje);
         
-        JLabel titulo = new JLabel();
-        if (Menu.usuario != null){
-            if (Menu.usuario[7].equals("Masculino")){
-                titulo.setText("Bienvenido " + Menu.usuario[0]);
-            }else if(Menu.usuario[7].equals("Femenino")){
-                titulo.setText("Bienvenida " + Menu.usuario[0]);
-            }else if(Menu.usuario[7].equals("No especificado")){
-                titulo.setText("Bienvenide " + Menu.usuario[0]);
+        JPanel cambioMensajes = new JPanel();
+        cambioMensajes.setLayout(null);
+        cambioMensajes.setOpaque(false);
+        cambioMensajes.setBounds(-100, 190, 75, 15);
+        panelStandar.add(cambioMensajes);
+        
+        JLabel irPanel1 = new JLabel();
+        irPanel1.setIcon(new ImageIcon("Imagenes/Iconos/selectorActiv.png"));
+        irPanel1.setBounds(0, 0, 15, 15);
+        cambioMensajes.add(irPanel1);
+        
+        JLabel irPanel2 = new JLabel();
+        irPanel2.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+        irPanel2.setBounds(20, 0, 15, 15);
+        cambioMensajes.add(irPanel2);
+        
+        JLabel irPanel3 = new JLabel();
+        irPanel3.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+        irPanel3.setBounds(40, 0, 15, 15);
+        cambioMensajes.add(irPanel3);
+        
+        JLabel irPanel4 = new JLabel();
+        irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+        irPanel4.setBounds(60, 0, 15, 15);
+        cambioMensajes.add(irPanel4);
+
+        JScrollPane fondoMensajes = new JScrollPane(mensaje);
+        fondoMensajes.setBorder(null);
+        fondoMensajes.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        fondoMensajes.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        fondoMensajes.setBounds(50, 20, 500, 200);
+        panelStandar.add(fondoMensajes);
+        
+        JScrollBar horizontalScrollBar = fondoMensajes.getHorizontalScrollBar();
+        
+        tiempoScroll = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (horizontalScrollBar.getValue() < posicionBarra) {
+                    horizontalScrollBar.setValue(horizontalScrollBar.getValue() + 10);
+                } else if (horizontalScrollBar.getValue() > posicionBarra) {
+                    horizontalScrollBar.setValue(horizontalScrollBar.getValue() - 10);
+                } else {
+                    // Detenemos el Timer cuando alcanzamos la posición deseada
+                    tiempoScroll.stop();
+                    cambioMensajes.setVisible(true);
+                    panelStandar.revalidate();
+                    panelStandar.repaint();
+                }
             }
-        }
-            
-        titulo.setForeground(Color.white);
-        titulo.setFont(new Font("Arial", 1, 30));
-        mensaje.add(titulo);
+        });
+
+        //FUNCIONES DE BOTONES
+        // Modifica los listeners de tus botones para que inicien la animación en lugar de setear el valor directamente
+        irPanel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                posicionBarra = 0;
+                cambioMensajes.setVisible(false);
+                
+                irPanel1.setIcon(new ImageIcon("Imagenes/Iconos/selectorActiv.png"));
+                irPanel2.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel3.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                
+                panelStandar.revalidate();
+                panelStandar.repaint();
+                
+                tiempoScroll.start();
+            }
+        });
+
+        irPanel2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                posicionBarra = 500;
+                cambioMensajes.setVisible(false);
+                
+                irPanel1.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel2.setIcon(new ImageIcon("Imagenes/Iconos/selectorActiv.png"));
+                irPanel3.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                
+                panelStandar.revalidate();
+                panelStandar.repaint();
+                
+                tiempoScroll.start();
+            }
+        });
+
+        irPanel3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                posicionBarra = 1000;
+                cambioMensajes.setVisible(false);
+                
+                irPanel1.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel2.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel3.setIcon(new ImageIcon("Imagenes/Iconos/selectorActiv.png"));
+                irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                
+                
+                panelStandar.revalidate();
+                panelStandar.repaint();
+                
+                tiempoScroll.start();
+            }
+        });
+
+        irPanel4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                posicionBarra = 1500;
+                cambioMensajes.setVisible(false);
+                
+                irPanel1.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel2.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel3.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
+                irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorActiv.png"));
+                
+                panelStandar.revalidate();
+                panelStandar.repaint();
+                
+                tiempoScroll.start();
+            }
+        });
         
-        JLabel textoIntro = new JLabel();
-        textoIntro.setBorder(new EmptyBorder(10,10,10,10));
-        textoIntro.setText("<html><p>Area Management Security es una aplicación para escritorio enfocada"
-                + " en reducir los hurtos y anomalías generados en las diferentes zonas de trabajo.</p></html>");
-        textoIntro.setForeground(Color.white);
-        textoIntro.setPreferredSize(new Dimension(500, 150));
-        textoIntro.setMaximumSize(new Dimension(500, 150));
-        textoIntro.setFont(new Font("Arial", 1, 20));
-        mensaje.add(textoIntro);
+
+        PanelesInfo(mensaje);
         
+        // PERONAJES CON CHAT INTERACTUABLE
         JLabel darwin = new JLabel();
         darwin.setIcon(new ImageIcon((new ImageIcon("Imagenes/Animaciones/darwin1-1.png")).getImage().getScaledInstance(131, 205, Image.SCALE_SMOOTH)));
         darwin.setBounds(300, yDar, 131, 205);
@@ -124,7 +243,8 @@ public class AnimMenu{
             public void actionPerformed(ActionEvent e) {
                 // Actualizar la posición del panel
                 yPanel1 += 10; // Cambia la velocidad del desplazamiento ajustando este valor
-                mensaje.setLocation(yPanel1, 20);
+                fondoMensajes.setLocation(yPanel1, 20);
+                cambioMensajes.setLocation(yPanel1 + 230, 190);
                 fondo.repaint();
 
                 // Detener la animación cuando el panel llegue a su destino
@@ -232,5 +352,63 @@ public class AnimMenu{
             textDarwin.setText("<html><p>Te juraron falso amor y lo creiste.</p></html>");
             textVargas.setText("<html><p>Te pintaron pajaritos en el aire.</p></html>");
         }
+    }
+    
+    private void PanelesInfo(JPanel mensaje){
+        // PANEL 1
+        JPanel info1 = new JPanel();
+        info1.setLayout(null);
+        info1.setBackground(Color.decode(Menu.colorPanelClaro));
+        info1.setBounds(10, 10, 480, 180);
+        mensaje.add(info1);
+        
+        JLabel titulo = new JLabel();
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        titulo.setBounds(0, 10, 480, 30);
+        if (Menu.usuario != null){
+            if (Menu.usuario[7].equals("Masculino")){
+                titulo.setText("Bienvenido " + Menu.usuario[0]);
+            }else if(Menu.usuario[7].equals("Femenino")){
+                titulo.setText("Bienvenida " + Menu.usuario[0]);
+            }else if(Menu.usuario[7].equals("No especificado")){
+                titulo.setText("Bienvenide " + Menu.usuario[0]);
+            }
+        }
+            
+        titulo.setForeground(Color.white);
+        titulo.setFont(new Font("Arial", 1, 30));
+        info1.add(titulo);
+        
+        JLabel textoIntro = new JLabel();
+        textoIntro.setBounds(0, 50, 480, 120);
+        textoIntro.setBorder(new EmptyBorder(10,10,10,10));
+        textoIntro.setText("<html><p>Area Management Security es una aplicación para escritorio enfocada"
+                + " en reducir los hurtos y anomalías generados en las diferentes zonas de trabajo.</p></html>");
+        textoIntro.setForeground(Color.white);
+        textoIntro.setPreferredSize(new Dimension(500, 150));
+        textoIntro.setMaximumSize(new Dimension(500, 150));
+        textoIntro.setFont(new Font("Arial", 1, 20));
+        info1.add(textoIntro);
+        
+        // PANEL 2
+        JPanel info2 = new JPanel();
+        info2.setLayout(null);
+        info2.setBackground(Color.decode(Menu.colorPanelClaro));
+        info2.setBounds(510, 10, 480, 180);
+        mensaje.add(info2);
+        
+        // PANEL 3
+        JPanel info3 = new JPanel();
+        info3.setLayout(null);
+        info3.setBackground(Color.decode(Menu.colorPanelClaro));
+        info3.setBounds(1010, 10, 480, 180);
+        mensaje.add(info3);
+        
+        // PANEL 4
+        JPanel info4 = new JPanel();
+        info4.setLayout(null);
+        info4.setBackground(Color.decode(Menu.colorPanelClaro));
+        info4.setBounds(1510, 10, 480, 180);
+        mensaje.add(info4);
     }
 }
