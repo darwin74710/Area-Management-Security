@@ -48,7 +48,6 @@ public class Ingreso extends JFrame {
         PanelFondo();
         ActualizarIngreso();
         Distribucion();
-        cargarCamaras();
     }
 
     private void PanelFondo() {
@@ -237,6 +236,7 @@ public class Ingreso extends JFrame {
         if (dato != null) {
             if (dato[5].equals(contraseña)) {
                 menu.usuario = dato;
+                cargarCamaras();
                 Menu ventanaMenu = new Menu();
                 ventanaMenu.setVisible(true);
                 setVisible(false);

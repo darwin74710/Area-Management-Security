@@ -12,10 +12,7 @@ import java.io.IOException;
 
 public class ArchivoUsuarios {
 
-    Registrar registro = new Registrar();
     File archivo;
-
-    Ingreso ingreso = new Ingreso();
 
     public void crearArchivo() {
 
@@ -116,9 +113,9 @@ public class ArchivoUsuarios {
         
         String rutaCarpeta = "Data/Usuarios/usuarios.txt";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaCarpeta))) {
+        try (BufferedReader brUsers = new BufferedReader(new FileReader(rutaCarpeta))) {
             String cadena;
-            while ((cadena = br.readLine()) != null) {
+            while ((cadena = brUsers.readLine()) != null) {
                 String[] datosUsuario = cadena.split("\\|");
                 
                 if(datosUsuario.length > 0 && datosUsuario[0].trim().equals(usuario)){

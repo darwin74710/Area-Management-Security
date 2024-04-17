@@ -483,61 +483,71 @@ public class Registrar extends JFrame {
         String terceraResp = terceraRespT.getText();
         String tUsuario = (String) tipoUsuario.getSelectedItem();
 
+        if (usuario.isEmpty() || usuario == null
+                || nombre.isEmpty() || nombre == null
+                || apellido.isEmpty() || apellido == null
+                || cedula.isEmpty() || cedula == null
+                || email.isEmpty() || email == null
+                || password1.isEmpty() || password1 == null
+                || password2.isEmpty() || password2 == null
+                || genero.isEmpty() || genero == null
+                || telefono.isEmpty() || telefono == null
+                || preg1.isEmpty() || preg1 == null
+                || primeraResp.isEmpty() || primeraResp == null
+                || preg2.isEmpty() || preg2 == null
+                || segundaResp.isEmpty() || segundaResp == null
+                || preg3.isEmpty() || preg3 == null
+                || terceraResp.isEmpty() || terceraResp == null
+                || tUsuario.isEmpty() || tUsuario == null) {
+
+            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos de texto solicitados");
+            return;
+        }
+        
+        /*
+        crear un metodo que me recorra el archivo linea por linea y me busque 
+        usuario, correo y cedula para hacer las validaciones de creacion de usuario
+        de los respectivos campos de texto
+        */
         ArchivoUsuarios validarU = new ArchivoUsuarios();
         String[] dato = validarU.validaciones(usuario);
-        if (dato != null) {
-            if (usuario.isEmpty()
-                    && nombre.isEmpty() || nombre == null
-                    && apellido.isEmpty() || apellido == null
-                    && cedula.isEmpty() || cedula == null
-                    && email.isEmpty() || email == null
-                    && password1.isEmpty() || password1 == null
-                    && password2.isEmpty() || password2 == null
-                    && genero.isEmpty() || genero == null
-                    && telefono.isEmpty() || telefono == null
-                    && preg1.isEmpty() || preg1 == null
-                    && primeraResp.isEmpty() || primeraResp == null
-                    && preg2.isEmpty() || preg2 == null
-                    && segundaResp.isEmpty() || segundaResp == null
-                    && preg3.isEmpty() || preg3 == null
-                    && terceraResp.isEmpty() || terceraResp == null
-                    && tUsuario.isEmpty() || tUsuario == null) {
 
-                JOptionPane.showMessageDialog(this, "Debe llenar todos los campos de texto solicitados");
-            } else if (dato[0].equals(usuario)) {
-                JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya existe");
-                return;
-            } else if (dato[4].equals(email)) {
-                JOptionPane.showMessageDialog(this, email + "ya se encuentra registrado");
-                return;
-            } else if (password1 != password2) {
-                JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales");
-                return;
-            } else {
-                ArchivoUsuarios archivoU = new ArchivoUsuarios();
-                archivoU.crearArchivo();
-
-                archivoU.escribirArchivo(usuario, nombre, apellido,
-                        cedula, email, password1, password2,
-                        genero, telefono, ruta, preg1,
-                        primeraResp, preg2, segundaResp, preg3, terceraResp, tUsuario);
-
-                JOptionPane.showMessageDialog(null, "El usuario se creo exitosamente");
-                usuarioT.setText("");
-                nombreT.setText("");
-                apellidoT.setText("");
-                cedulaT.setText("");
-                emailT.setText("");
-                password1T.setText("");
-                password2T.setText("");
-                telefonoT.setText("");
-                primeraRespT.setText("");
-                segundaRespT.setText("");
-                terceraRespT.setText("");
-                fotoPerfilT.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
-                        .getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH)));
-            }
+        if (dato[0].equals(usuario)) {
+            JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya existe");
+            return;
         }
+        if (dato[4].equals(email)) {
+            JOptionPane.showMessageDialog(this, email + "ya se encuentra registrado");
+            return;
+        }
+        if (password1 != password2) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales");
+            return;
+        } else {
+            ArchivoUsuarios archivoU = new ArchivoUsuarios();
+            archivoU.crearArchivo();
+
+            archivoU.escribirArchivo(usuario, nombre, apellido,
+                    cedula, email, password1, password2,
+                    genero, telefono, ruta, preg1,
+                    primeraResp, preg2, segundaResp, preg3, terceraResp, tUsuario);
+
+            JOptionPane.showMessageDialog(null, "El usuario se creo exitosamente");
+            usuarioT.setText("");
+            nombreT.setText("");
+            apellidoT.setText("");
+            cedulaT.setText("");
+            emailT.setText("");
+            password1T.setText("");
+            password2T.setText("");
+            telefonoT.setText("");
+            primeraRespT.setText("");
+            segundaRespT.setText("");
+            terceraRespT.setText("");
+            fotoPerfilT.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
+                    .getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH)));
+        }
+
     }//Fin btnRegistrarUsuario
 
 }//FIN CLASS
