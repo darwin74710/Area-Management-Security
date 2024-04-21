@@ -198,12 +198,26 @@ public class Ingreso extends JFrame {
         recuperarContra.setForeground(Color.white);
         recuperarContra.setBounds(610, 460, 330, 30);
         fondo.add(recuperarContra);
+        
+        JPanel indicador = new JPanel();
+        indicador.setVisible(true);
+        indicador.setBounds(605, 490, 220, 2);
 
         // ----- Funcionalidad btnRecuperar -----
         recuperarContra.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 btnRecuperarContra();
+            }
+            public void mouseEntered(MouseEvent e) {
+                fondo.add(indicador);
+                indicador.revalidate();
+                indicador.repaint();
+            }
+            public void mouseExited(MouseEvent e) {
+                fondo.remove(indicador);
+                fondo.revalidate();
+                fondo.repaint();
             }
         });
         

@@ -24,9 +24,11 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
+
 public class AnimMenu{
     
     JPanel fondo = Menu.animFondo;
+    public static JLabel hormiguita = new JLabel();
     
     Timer tiempoScroll;
     private Timer animadorVD;
@@ -49,12 +51,20 @@ public class AnimMenu{
         panelStandar.setBounds(0, 0, 985, 495);
         fondo.add(panelStandar);
         
-        
+        hormiguita.setOpaque(false);
+        hormiguita.setBounds(550, 90, 400, 400);
+        panelStandar.add(hormiguita);
+
         // PANEL QUE MUESTRA INFORMACIÓN DESPLAZABLE
         JPanel mensaje = new JPanel();
         mensaje.setLayout(null);
-        mensaje.setPreferredSize(new Dimension(2000, 200));
-        mensaje.setMaximumSize(new Dimension(2000, 200));
+        
+        if (Menu.usuario[16].equals("Administrador")){
+            mensaje.setPreferredSize(new Dimension(2000, 200));
+        }else if(Menu.usuario[16].equals("Usuario")){
+            mensaje.setPreferredSize(new Dimension(1500, 200));
+        }
+
         mensaje.setBackground(Color.decode(Menu.colorPanelMedio));
         
         JPanel cambioMensajes = new JPanel();
@@ -81,7 +91,11 @@ public class AnimMenu{
         JLabel irPanel4 = new JLabel();
         irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
         irPanel4.setBounds(60, 0, 15, 15);
-        cambioMensajes.add(irPanel4);
+            
+        if (Menu.usuario[16].equals("Administrador")){
+            
+            cambioMensajes.add(irPanel4);
+        }
 
         JScrollPane fondoMensajes = new JScrollPane(mensaje);
         fondoMensajes.setBorder(null);
@@ -217,12 +231,7 @@ public class AnimMenu{
         textVargas.setFont(new Font("Arial", 1, 10));
         textVargas.setBounds(10, 10, 140, 40);
         chat2.add(textVargas);
-        
-        JPanel hormiguita = new JPanel();
-        hormiguita.setOpaque(true);
-        hormiguita.setBounds(600, 41, 320, 450);
-        fondo.add(hormiguita);
-        
+
         // TEMPORIZADOR DE ANIMACIÓN 1
         // Crear un temporizador para actualizar la posición del panel
         animadorVD = new Timer(10, new ActionListener() {
@@ -397,20 +406,35 @@ public class AnimMenu{
         info1.add(textoIntro);
         
         // PANEL 2
-        JLabel info2 = new JLabel();
-        info2.setIcon(new ImageIcon("Imagenes/Info/infoMonitoreo.png"));
+        JPanel info2 = new JPanel();
+        info2.setBackground(Color.decode(Menu.colorBotonOscuro));
+        
+        JLabel imgInfo2 = new JLabel();
+        imgInfo2.setIcon(new ImageIcon("Imagenes/Info/infoMonitoreo.png"));
+        info2.add(imgInfo2);
+        
         info2.setBounds(510, 10, 480, 180);
         mensaje.add(info2);
         
         // PANEL 3
-        JLabel info3 = new JLabel();
-        info3.setIcon(new ImageIcon("Imagenes/Info/infoChatBot.png"));
+        JPanel info3 = new JPanel();
+        info3.setBackground(Color.decode(Menu.colorBotonOscuro));
+        
+        JLabel imgInfo3 = new JLabel();
+        imgInfo3.setIcon(new ImageIcon("Imagenes/Info/infoChatBot.png"));
+        info3.add(imgInfo3);
+        
         info3.setBounds(1010, 10, 480, 180);
         mensaje.add(info3);
         
         // PANEL 4
-        JLabel info4 = new JLabel();
-        info4.setIcon(new ImageIcon("Imagenes/Info/infoRegistrar.png"));
+        JPanel info4 = new JPanel();
+        info4.setBackground(Color.decode(Menu.colorBotonOscuro));
+        
+        JLabel imgInfo4 = new JLabel();
+        imgInfo4.setIcon(new ImageIcon("Imagenes/Info/infoRegistrar.png"));
+        info4.add(imgInfo4);
+        
         info4.setBounds(1510, 10, 480, 180);
         mensaje.add(info4);
     }

@@ -1,5 +1,6 @@
 package Ventanas;
 
+import Logica.AnimMenu;
 import Logica.CameraManager;
 import Logica.SaveConfiguraciones;
 import java.awt.Color;
@@ -29,6 +30,7 @@ import javax.swing.event.ChangeListener;
 
 public class Configuraciones extends JFrame{
     Menu menu = new Menu();
+    public AnimMenu anim = new AnimMenu();
     
     public JPanel fondo = new JPanel();
     JPanel elementos = new JPanel();
@@ -72,6 +74,8 @@ public class Configuraciones extends JFrame{
                 ventanaMenu.RecargarColores();
                 ventanaMenu.notifiDetect();
                 ventanaMenu.setVisible(true);
+                anim.detenerMensajes();
+                anim.standar();
                 dispose();
             }
         };
@@ -92,14 +96,24 @@ public class Configuraciones extends JFrame{
         scrollFondo.setBorder(null);
         fondo.add(scrollFondo);
         
-        JLabel tituloUsuario = new JLabel("CONFIGURACIÓN USUARIO");
+        String tipoUsuario = "";
+        if (menu.usuario[16].equals("Administrador")){
+            tipoUsuario = "ADMINISTRADOR";
+        }else if(menu.usuario[16].equals("Usuario")){
+            tipoUsuario = "USUARIO";
+        }
+        
+        JLabel tituloUsuario = new JLabel("CONFIGURACIÓN " + tipoUsuario);
         tituloUsuario.setForeground(Color.white);
         tituloUsuario.setFont(new Font("Arial",1,40));
-        tituloUsuario.setBounds(10, 15, 600, 50);
+        tituloUsuario.setBounds(10, 15, 800, 50);
         fondo.add(tituloUsuario);
         
         ConfigUsuario();
-        ConfigAdmin();
+        if (menu.usuario[16].equals("Administrador")){
+            ConfigAdmin();
+        }
+        
     }
     
     private void ConfigUsuario(){
@@ -273,7 +287,7 @@ public class Configuraciones extends JFrame{
     
     private void ElementosModificarPerfil(JPanel modificarPerfil){
         JLabel imagenUsuario = new JLabel();
-        imagenUsuario.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+        imagenUsuario.setIcon(new ImageIcon((new ImageIcon(menu.usuario[9])).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
         imagenUsuario.setBounds(20, 50, 180, 180);
         modificarPerfil.add(imagenUsuario);
         

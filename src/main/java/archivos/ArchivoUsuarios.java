@@ -74,6 +74,12 @@ public class ArchivoUsuarios {
                 String[] datosUsuario = cadena.split("\\|");
                 
                 if (datosUsuario.length > 0 && datosUsuario[0].trim().equals(nombre)){
+                    // Miramos si la imagen existe.
+                    File imagen = new File(datosUsuario[9]);
+                    if (!imagen.exists()) {
+                        datosUsuario[9] = "Imagenes/Iconos/perfilEstandar.png";
+                    }
+                    
                     return datosUsuario;
                 }
 

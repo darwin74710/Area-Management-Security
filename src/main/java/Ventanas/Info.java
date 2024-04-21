@@ -50,6 +50,7 @@ public class Info extends JFrame{
         setResizable(false);
         
         fondo = new JPanel();
+        fondo.setLayout(null);
         fondo.setBackground(Color.decode(menu.colorPanelClaro));
         this.add(fondo);
     }

@@ -95,6 +95,15 @@ public class Menu extends JFrame {
     }
 
     private void elementos() {
+        //Cargamos los gif de la hormiguita
+        ImageIcon entrarGif = new ImageIcon("Imagenes/Animaciones/EntrarHorm.gif");
+        
+        
+        //Establecemos el gif principal
+        entrarGif.getImage().flush(); // Limpiamos la imagen para que se repita el gif
+        anim.hormiguita.repaint();
+        anim.hormiguita.setIcon(entrarGif);
+        
         JPanel barraSuperior = new JPanel();
         barraSuperior.setBackground(Color.decode(colorPanelMedio));
         barraSuperior.setOpaque(true);
@@ -119,7 +128,7 @@ public class Menu extends JFrame {
                 RecargarColores();
                 Monitoreo ventanaMapa = new Monitoreo();
                 ventanaMapa.setVisible(true);
-                setVisible(false);
+                dispose();
                 anim.detenerMensajes();
             }
             public void mouseEntered(MouseEvent e) {
@@ -150,7 +159,7 @@ public class Menu extends JFrame {
                 RecargarColores();
                 Info ventanaInfo = new Info();
                 ventanaInfo.setVisible(true);
-                setVisible(false);
+                dispose();
                 anim.detenerMensajes();
             }
             public void mouseEntered(MouseEvent e) {
@@ -183,7 +192,7 @@ public class Menu extends JFrame {
                         RecargarColores();
                         Registrar ventanaRegistrar = new Registrar();
                         ventanaRegistrar.setVisible(true);
-                        setVisible(false);
+                        dispose();
                         anim.detenerMensajes();
                     }
                     public void mouseEntered(MouseEvent e) {
@@ -380,7 +389,7 @@ public class Menu extends JFrame {
                 RecargarColores();
                 Configuraciones ventanaConfig = new Configuraciones();
                 ventanaConfig.setVisible(true);
-                setVisible(false);
+                dispose();
             }
             public void mouseEntered(MouseEvent e) {
                 botonConfig.setBackground(Color.decode(colorBotonOscuro));
