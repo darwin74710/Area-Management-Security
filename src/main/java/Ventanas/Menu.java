@@ -96,13 +96,18 @@ public class Menu extends JFrame {
 
     private void elementos() {
         //Cargamos los gif de la hormiguita
-        ImageIcon entrarGif = new ImageIcon("Imagenes/Animaciones/EntrarHorm.gif");
-        
+        ImageIcon entrarHormig = new ImageIcon("Imagenes/Animaciones/EntrarHorm.gif");
+        ImageIcon idleHormig = new ImageIcon("Imagenes/Animaciones/IdleHorm.png");
+        ImageIcon notifiHormig = new ImageIcon("Imagenes/Animaciones/NotifiHorm.gif");
+        ImageIcon perfilHormig = new ImageIcon("Imagenes/Animaciones/PerfilHormig.png");
+        ImageIcon infoHormig = new ImageIcon("Imagenes/Animaciones/InfoHormig.png");
+        ImageIcon monitHormig = new ImageIcon("Imagenes/Animaciones/MonitoreoHormig.png");
+        ImageIcon registroHormig = new ImageIcon("Imagenes/Animaciones/RegistroHormig.png");
         
         //Establecemos el gif principal
-        entrarGif.getImage().flush(); // Limpiamos la imagen para que se repita el gif
+        entrarHormig.getImage().flush(); // Limpiamos la imagen para que se repita el gif
         anim.hormiguita.repaint();
-        anim.hormiguita.setIcon(entrarGif);
+        anim.hormiguita.setIcon(entrarHormig);
         
         JPanel barraSuperior = new JPanel();
         barraSuperior.setBackground(Color.decode(colorPanelMedio));
@@ -136,11 +141,19 @@ public class Menu extends JFrame {
                 barraSuperior.add(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
+                
+                monitHormig.getImage().flush();
+                anim.hormiguita.repaint();
+                anim.hormiguita.setIcon(monitHormig);
             }
             public void mouseExited(MouseEvent e) {
                 barraSuperior.remove(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
+                
+                idleHormig.getImage().flush();
+                anim.hormiguita.repaint();
+                anim.hormiguita.setIcon(idleHormig);
             }
         });
         
@@ -167,11 +180,19 @@ public class Menu extends JFrame {
                 barraSuperior.add(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
+                
+                infoHormig.getImage().flush();
+                anim.hormiguita.repaint();
+                anim.hormiguita.setIcon(infoHormig);
             }
             public void mouseExited(MouseEvent e) {
                 barraSuperior.remove(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
+                
+                idleHormig.getImage().flush();
+                anim.hormiguita.repaint();
+                anim.hormiguita.setIcon(idleHormig);
             }
         });
         
@@ -200,11 +221,19 @@ public class Menu extends JFrame {
                         barraSuperior.add(indicador);
                         barraSuperior.revalidate();
                         barraSuperior.repaint();
+                        
+                        registroHormig.getImage().flush();
+                        anim.hormiguita.repaint();
+                        anim.hormiguita.setIcon(registroHormig);
                     }
                     public void mouseExited(MouseEvent e) {
                         barraSuperior.remove(indicador);
                         barraSuperior.revalidate();
                         barraSuperior.repaint();
+                        
+                        idleHormig.getImage().flush();
+                        anim.hormiguita.repaint();
+                        anim.hormiguita.setIcon(idleHormig);
                     }
                 });
             }
@@ -225,6 +254,11 @@ public class Menu extends JFrame {
                     fondo.revalidate();
                     verNotifi = false;
                     opcionesPerfil = false;
+                    
+                    //Anim Idle
+                    idleHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(idleHormig);
                 }else{
                     fondo.add(fondoNotifi);
                     fondo.remove(pnlOpcionesPerfil);
@@ -234,6 +268,11 @@ public class Menu extends JFrame {
 
                     opcionesPerfil = false;
                     verNotifi = true;
+                    
+                    //Anim notificaciones
+                    notifiHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(notifiHormig);
                 }
             }
             public void mouseEntered(MouseEvent e) {
@@ -302,6 +341,11 @@ public class Menu extends JFrame {
                     
                     opcionesPerfil = false;
                     verNotifi = false;
+                    
+                    //Anim Idle
+                    idleHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(idleHormig);
                 }else{
                     fondo.remove(fondoNotifi);
                     fondo.add(pnlOpcionesPerfil);
@@ -310,6 +354,11 @@ public class Menu extends JFrame {
                     
                     opcionesPerfil = true;
                     verNotifi = false;
+                    
+                    //Anim Idle
+                    idleHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(idleHormig);
                 }
             }
             public void mouseEntered(MouseEvent e) {
@@ -357,6 +406,11 @@ public class Menu extends JFrame {
                 fondo.revalidate();
                 
                 verNotifi = false;
+                
+                //Anim perfil
+                perfilHormig.getImage().flush();
+                anim.hormiguita.repaint();
+                anim.hormiguita.setIcon(perfilHormig);
             }
             public void mouseEntered(MouseEvent e) {
                 botonPerfil.setBackground(Color.decode(colorBotonOscuro));
