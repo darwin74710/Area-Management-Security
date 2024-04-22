@@ -60,7 +60,6 @@ public class SistemMonitoreo extends JFrame {
         JButton botonAbrir = new JButton("ABRIR");
         botonAbrir.setBackground(Color.decode(menu.colorBotonClaro));
         botonAbrir.setFocusPainted(false);
-        botonAbrir.setBounds(10,510,75,20);
         botonAbrir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (botonSeleccionado != null){
@@ -85,9 +84,7 @@ public class SistemMonitoreo extends JFrame {
         botonAgregar.setFocusPainted(false);
         botonAgregar.setBounds(90,510,75,20);
         
-        botonAgregar.addActionListener(e -> añadirNuevaArea());
-        configArea.add(botonAgregar);
-        
+        botonAgregar.addActionListener(e -> añadirNuevaArea());      
         
         JButton botonEditar = new JButton("EDITAR");
         botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
@@ -98,8 +95,7 @@ public class SistemMonitoreo extends JFrame {
                 editar();
             }
         });
-        configArea.add(botonEditar); 
-        
+                
         // Agregar botón para eliminar el botón seleccionado
         JButton botonBorrar = new JButton("ELIMINAR");
         botonBorrar.setBackground(Color.decode(menu.colorBotonClaro));
@@ -110,7 +106,16 @@ public class SistemMonitoreo extends JFrame {
                 eliminarArea();
             }
         });
-        configArea.add(botonBorrar);
+        
+        if (menu.usuario[16].equals("Administrador")){
+            botonAbrir.setBounds(10,510,75,20);
+            
+            configArea.add(botonAgregar);
+            configArea.add(botonEditar); 
+            configArea.add(botonBorrar);
+        }else if(menu.usuario[16].equals("Usuario")){
+            botonAbrir.setBounds(140,510,75,20);
+        }
     }
 
     public void AreasPanel() {
@@ -151,13 +156,16 @@ public class SistemMonitoreo extends JFrame {
         mapaGuardar.setBackground(Color.decode(menu.colorBotonClaro));
         mapaGuardar.setFocusPainted(false); //Quitamos las lineas de focus.
         mapaGuardar.setBounds(410,5,90,20);
-        panelMapas.add(mapaGuardar);
         
         JButton mapaEliminar = new JButton("ELIMINAR");
         mapaEliminar.setBackground(Color.decode(menu.colorBotonClaro));
         mapaEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
         mapaEliminar.setBounds(510,5,90,20);
-        panelMapas.add(mapaEliminar);
+        
+        if (menu.usuario[16].equals("Administrador")){
+             panelMapas.add(mapaGuardar);
+            panelMapas.add(mapaEliminar);
+        }
         
         mapaGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

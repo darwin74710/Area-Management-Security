@@ -223,7 +223,6 @@ public class Registros extends JFrame{
                 ventanaAgregar.setVisible(true);
             }
         });
-        panelRegistros.add(editarDescript);
         
         // BOTON EDITAR IMAGEN
         JButton editarImagen = new JButton("EDITAR");
@@ -252,6 +251,10 @@ public class Registros extends JFrame{
                 }
             }
         });
-        panelRegistros.add(editarImagen);
+        
+        if (menu.usuario[16].equals("Administrador")){
+            panelRegistros.add(editarDescript);
+            panelRegistros.add(editarImagen);
+        }
     }
 }

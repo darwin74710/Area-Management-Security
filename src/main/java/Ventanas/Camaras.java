@@ -143,14 +143,12 @@ public class Camaras extends JFrame{
         JButton abrirRegistro = new JButton("ABRIR");
         abrirRegistro.setBackground(Color.decode(menu.colorBotonClaro));
         abrirRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
-        abrirRegistro.setBounds(10,485,80,20);
         abrirRegistro.addActionListener(e-> Abrir());
         fondoReg.add(abrirRegistro);
         
         JButton crearRegistro = new JButton("CREAR");
         crearRegistro.setBackground(Color.decode(menu.colorBotonClaro));
         crearRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
-        crearRegistro.setBounds(100,485,80,20);
         crearRegistro.addActionListener(e-> Crear());
         fondoReg.add(crearRegistro);
         
@@ -159,8 +157,17 @@ public class Camaras extends JFrame{
         eliminarRegistro.setFocusPainted(false); //Quitamos las lineas de focus.
         eliminarRegistro.setBounds(190,485,90,20);
         eliminarRegistro.addActionListener(e-> Eliminar());
-  
-        fondoReg.add(eliminarRegistro);
+        
+        
+        if (menu.usuario[16].equals("Administrador")){
+            abrirRegistro.setBounds(10,485,80,20);
+            crearRegistro.setBounds(100,485,80,20);
+            
+            fondoReg.add(eliminarRegistro);
+        }else if(menu.usuario[16].equals("Usuario")){
+            abrirRegistro.setBounds(55,485,80,20);
+            crearRegistro.setBounds(145,485,80,20);
+        }
     }
     
     private void Camaras(){
