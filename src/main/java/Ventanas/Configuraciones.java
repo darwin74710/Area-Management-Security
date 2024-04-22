@@ -10,15 +10,20 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -27,6 +32,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Configuraciones extends JFrame{
     Menu menu = new Menu();
@@ -36,9 +42,12 @@ public class Configuraciones extends JFrame{
     JPanel elementos = new JPanel();
     
     public String datoTema = "1";
+    boolean activContra = false;
     
     public SaveConfiguraciones guardado = new SaveConfiguraciones();
     CameraManager camaras = new CameraManager();
+    
+    String Ruta;
     
     public Configuraciones(){
         PanelFondo();
@@ -298,6 +307,7 @@ public class Configuraciones extends JFrame{
         
         JTextField textoNombre = new JTextField();
         textoNombre.setBounds(210, 80, 200, 20);
+        textoNombre.setText(menu.usuario[0]);
         modificarPerfil.add(textoNombre);
         
         JLabel tituloContrasena = new JLabel("CONTRASEÑA:");
@@ -305,9 +315,33 @@ public class Configuraciones extends JFrame{
         tituloContrasena.setBounds(210, 120, 100, 20);
         modificarPerfil.add(tituloContrasena);
         
-        JTextField textoContrasena = new JTextField();
-        textoContrasena.setBounds(210, 150, 200, 20);
+        JPasswordField textoContrasena = new JPasswordField();
+        textoContrasena.setBounds(210, 150, 170, 20);
         modificarPerfil.add(textoContrasena);
+        
+        ImageIcon logoVer = new ImageIcon("Imagenes/Iconos/ver.png");
+        ImageIcon logoNoVer = new ImageIcon("Imagenes/Iconos/nover.png");
+        
+        JLabel botonVerContra = new JLabel();
+        botonVerContra.setBounds(390, 150, 20, 20);
+        botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        modificarPerfil.add(botonVerContra);
+
+        botonVerContra.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (activContra == false){
+                    textoContrasena.setEchoChar((char) 0);
+                    botonVerContra.setIcon(new ImageIcon(logoVer.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+                    activContra = true;
+                }else{
+                    textoContrasena.setEchoChar('*');
+                    botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+                    activContra = false;
+                }
+            }
+            
+        });
         
         JButton cambioImagen = new JButton("CAMBIAR IMAGEN");
         cambioImagen.setBackground(Color.decode(menu.colorBotonClaro));
@@ -315,13 +349,47 @@ public class Configuraciones extends JFrame{
         cambioImagen.setBounds(210, 200, 200, 30);
         modificarPerfil.add(cambioImagen);
         
+        Ruta = menu.usuario[9];
+        
+        cambioImagen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jFileChooser = new JFileChooser();
+                FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG", "jpg", "png");
+                jFileChooser.setFileFilter(filtrado);
+                
+                int respuesta = jFileChooser.showOpenDialog(Configuraciones.this);
+                
+                if (respuesta == JFileChooser.APPROVE_OPTION){
+                    Ruta = jFileChooser.getSelectedFile().getPath();
+                    imagenUsuario.setIcon(new ImageIcon((new ImageIcon(Ruta)).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+                    imagenUsuario.repaint();
+                }else{
+                    Ruta = menu.usuario[9];
+                }
+            }
+        });
+        
         JButton botonGuardar = new JButton("GUARDAR");
         botonGuardar.setBackground(Color.decode(menu.colorBotonClaro));
         botonGuardar.setFocusPainted(false);
         botonGuardar.setBounds(310,370,90,20);
         botonGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aquí se guarda la información para editar el perfil actual.
+                // VALIDACIONES
+                if (textoNombre.getText().trim().equals("") || String.valueOf(textoContrasena.getPassword()).trim().equals("")){
+                    JOptionPane.showMessageDialog(Configuraciones.this, "Por favor ingrese todos los datos.", "Ingresar Datos", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (textoNombre.getText().trim().length() > 20){
+                    JOptionPane.showMessageDialog(Configuraciones.this, "Ingrese menos de 20 caracteres en el usuario.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (textoNombre.getText().trim().contains("|") || String.valueOf(textoContrasena.getPassword()).trim().contains("|")){
+                    JOptionPane.showMessageDialog(Configuraciones.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                System.out.println("SE EDITÓ EL USUARIO CORRECATMENTE PERO FALTA EL METODO PARA PODER HACERLO");
             }
         });
         modificarPerfil.add(botonGuardar);

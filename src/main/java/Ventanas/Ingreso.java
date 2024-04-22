@@ -2,8 +2,6 @@ package Ventanas;
 
 import Logica.AnimMenu;
 import static Logica.CameraManager.cargarCamaras;
-import Logica.botones;
-import static Logica.botones.activContra;
 import archivos.ArchivoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -42,6 +40,8 @@ public class Ingreso extends JFrame {
     JLabel botonVerContra = new JLabel();
     JButton ingreso = new JButton("INGRESAR");
     JLabel recuperarContra = new JLabel("¿Se te olvidó tu contraseña?");
+    
+    boolean activContra = false;
 
     public Ingreso() {
         menu.RecargarColores();
@@ -172,12 +172,25 @@ public class Ingreso extends JFrame {
 
         //Creamos boton para ver y no ver contraseña.
         botonVerContra.setBounds(890, 330, 30, 30);
-        
         botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         fondo.add(botonVerContra);
-
+        
         //Agregamos la logica al botón.
-        botones.verContra(textoContraseña, botonVerContra, logoVer, logoNoVer);
+        botonVerContra.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (activContra == false){
+                    textoContraseña.setEchoChar((char) 0);
+                    botonVerContra.setIcon(new ImageIcon(logoVer.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+                    activContra = true;
+                }else{
+                    textoContraseña.setEchoChar('*');
+                    botonVerContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+                    activContra = false;
+                }
+            }
+            
+        });
 
         //Creamos los botones.
         ingreso.setBackground(Color.decode(menu.colorBotonOscuro));

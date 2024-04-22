@@ -3,7 +3,6 @@ package Ventanas;
 import Logica.AnimMenu;
 import Logica.SaveConfiguraciones;
 import Logica.SistemNotificaciones;
-import Logica.botones;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,7 +40,6 @@ public class Menu extends JFrame {
     public static String[] usuario;
 
     SaveConfiguraciones configVents = new SaveConfiguraciones();
-    botones VerContra = new botones();
     public AnimMenu anim = new AnimMenu();
     public SistemNotificaciones notifi = new SistemNotificaciones();
 
@@ -506,7 +504,6 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 RecargarColores();
-                VerContra.activContra = false;
                 Ingreso ventanaIngreso = new Ingreso();
                 ventanaIngreso.ActualizarIngreso();
                 ventanaIngreso.setVisible(true);

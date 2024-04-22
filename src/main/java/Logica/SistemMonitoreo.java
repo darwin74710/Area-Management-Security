@@ -1,6 +1,5 @@
 package Logica;
 
-import static Logica.botones.sistemaMapas;
 import Ventanas.Camaras;
 import Ventanas.Monitoreo;
 import Ventanas.Menu;
@@ -171,7 +170,7 @@ public class SistemMonitoreo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(mapa.getSelectedIndex() == 0) {
                     // Crear un diálogo personalizado
-                    JDialog ventanaCrearMapa = new JDialog(sistemaMapas, "Guardar Mapa", true);
+                    JDialog ventanaCrearMapa = new JDialog(SistemMonitoreo.this, "Guardar Mapa", true);
                     ventanaCrearMapa.setSize(255, 150);
                     ventanaCrearMapa.setLocationRelativeTo(null);
                     ventanaCrearMapa.setResizable(false);
