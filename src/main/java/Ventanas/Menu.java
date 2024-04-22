@@ -2,6 +2,7 @@ package Ventanas;
 
 import Logica.AnimMenu;
 import Logica.SaveConfiguraciones;
+import Logica.SistemNotificaciones;
 import Logica.botones;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -25,32 +26,33 @@ import java.io.IOException;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Menu extends JFrame {
-
-    public static boolean deteccionManager = false;
-
     public static String[] usuario;
-
-    public JPanel fondo = new JPanel();
-    public static JPanel animFondo = new JPanel();
 
     SaveConfiguraciones configVents = new SaveConfiguraciones();
     botones VerContra = new botones();
     public AnimMenu anim = new AnimMenu();
+    public SistemNotificaciones notifi = new SistemNotificaciones();
 
+    public JPanel fondo = new JPanel();
+    public static JPanel animFondo = new JPanel();
+    
     JPanel elementosSuperiores = new JPanel();
     JPanel botonesPanel = new JPanel();
     JPanel fondoPerfil = new JPanel();
     JPanel fondoNotifi = new JPanel();
+    public JPanel panelNotifi = new JPanel();
     JPanel pnlOpcionesPerfil = new JPanel();
     JPanel indicador = new JPanel();
     
@@ -58,7 +60,10 @@ public class Menu extends JFrame {
     ImageIcon imagenOscura;
     
     public JLabel btnNotifi = new JLabel();
-
+    
+    public static boolean deteccionManager = false;
+    boolean inNotifi = false;
+    boolean inPerfil = false;
     boolean opcionesPerfil = false;
     boolean verNotifi = false;
 
@@ -142,18 +147,22 @@ public class Menu extends JFrame {
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
                 
-                monitHormig.getImage().flush();
-                anim.hormiguita.repaint();
-                anim.hormiguita.setIcon(monitHormig);
+                if (inNotifi == false && inPerfil == false){
+                    monitHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(monitHormig);
+                }
             }
             public void mouseExited(MouseEvent e) {
                 barraSuperior.remove(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
                 
-                idleHormig.getImage().flush();
-                anim.hormiguita.repaint();
-                anim.hormiguita.setIcon(idleHormig);
+                if (inNotifi == false && inPerfil == false){
+                    idleHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(idleHormig);
+                }
             }
         });
         
@@ -181,18 +190,22 @@ public class Menu extends JFrame {
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
                 
-                infoHormig.getImage().flush();
-                anim.hormiguita.repaint();
-                anim.hormiguita.setIcon(infoHormig);
+                if (inNotifi == false && inPerfil == false){
+                    infoHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(infoHormig);
+                }
             }
             public void mouseExited(MouseEvent e) {
                 barraSuperior.remove(indicador);
                 barraSuperior.revalidate();
                 barraSuperior.repaint();
                 
-                idleHormig.getImage().flush();
-                anim.hormiguita.repaint();
-                anim.hormiguita.setIcon(idleHormig);
+                if (inNotifi == false && inPerfil == false){
+                    idleHormig.getImage().flush();
+                    anim.hormiguita.repaint();
+                    anim.hormiguita.setIcon(idleHormig);
+                }
             }
         });
         
@@ -222,18 +235,22 @@ public class Menu extends JFrame {
                         barraSuperior.revalidate();
                         barraSuperior.repaint();
                         
-                        registroHormig.getImage().flush();
-                        anim.hormiguita.repaint();
-                        anim.hormiguita.setIcon(registroHormig);
+                        if (inNotifi == false && inPerfil == false){
+                            registroHormig.getImage().flush();
+                            anim.hormiguita.repaint();
+                            anim.hormiguita.setIcon(registroHormig);
+                        }
                     }
                     public void mouseExited(MouseEvent e) {
                         barraSuperior.remove(indicador);
                         barraSuperior.revalidate();
                         barraSuperior.repaint();
                         
-                        idleHormig.getImage().flush();
-                        anim.hormiguita.repaint();
-                        anim.hormiguita.setIcon(idleHormig);
+                        if (inNotifi == false && inPerfil == false){
+                            idleHormig.getImage().flush();
+                            anim.hormiguita.repaint();
+                            anim.hormiguita.setIcon(idleHormig);
+                        }
                     }
                 });
             }
@@ -252,13 +269,18 @@ public class Menu extends JFrame {
                     fondo.remove(fondoNotifi);
                     fondo.repaint();
                     fondo.revalidate();
+                    
                     verNotifi = false;
                     opcionesPerfil = false;
+                    inNotifi = false;
+                    inPerfil = false;
                     
                     //Anim Idle
                     idleHormig.getImage().flush();
                     anim.hormiguita.repaint();
                     anim.hormiguita.setIcon(idleHormig);
+                    
+                   
                 }else{
                     fondo.add(fondoNotifi);
                     fondo.remove(pnlOpcionesPerfil);
@@ -268,6 +290,8 @@ public class Menu extends JFrame {
 
                     opcionesPerfil = false;
                     verNotifi = true;
+                    inNotifi = true;
+                    inPerfil = false;
                     
                     //Anim notificaciones
                     notifiHormig.getImage().flush();
@@ -341,6 +365,8 @@ public class Menu extends JFrame {
                     
                     opcionesPerfil = false;
                     verNotifi = false;
+                    inNotifi = false;
+                    inPerfil = false;
                     
                     //Anim Idle
                     idleHormig.getImage().flush();
@@ -354,6 +380,8 @@ public class Menu extends JFrame {
                     
                     opcionesPerfil = true;
                     verNotifi = false;
+                    inNotifi = false;
+                    inPerfil = false;
                     
                     //Anim Idle
                     idleHormig.getImage().flush();
@@ -406,6 +434,8 @@ public class Menu extends JFrame {
                 fondo.revalidate();
                 
                 verNotifi = false;
+                inNotifi = false;
+                inPerfil = true;
                 
                 //Anim perfil
                 perfilHormig.getImage().flush();
@@ -610,6 +640,29 @@ public class Menu extends JFrame {
         fondoNotifi.setBackground(Color.decode(colorPanelMedio));
         fondoNotifi.setBounds(740, 70, 240, 370);
         fondoNotifi.setLayout(null);
+        
+        panelNotifi.setBackground(Color.decode(colorBotonOscuro));
+        panelNotifi.setLayout(new BoxLayout(panelNotifi, BoxLayout.Y_AXIS));
+        notifi.SeleccionarPanel(panelNotifi);
+        notifi.notifiDetect();
+        
+        JButton botonEliminar = new JButton();
+        botonEliminar.setBackground(Color.decode(colorBotonOscuro));
+        botonEliminar.setFocusPainted(false);
+        botonEliminar.addActionListener(e-> notifi.EliminarNotificaciones());
+        botonEliminar.setBounds(200, 10, 30, 30);
+        
+        ImageIcon logoBasura = new ImageIcon("Imagenes/Iconos/basura.png");
+        botonEliminar.setIcon(new ImageIcon(logoBasura.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
+        fondoNotifi.add(botonEliminar);
+        
+        JScrollPane scrollNotifi = new JScrollPane(panelNotifi);
+        scrollNotifi.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollNotifi.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollNotifi.setOpaque(true);
+        scrollNotifi.setBorder(null);
+        scrollNotifi.setBounds(10, 50, 220, 310);
+        fondoNotifi.add(scrollNotifi);
     }
 
     public static void Deteccion() {

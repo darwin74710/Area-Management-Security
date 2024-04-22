@@ -268,7 +268,7 @@ public class AnimMenu{
             }
         });
         
-        anim1();    
+        anim1();
     }
     
     private void anim1(){
@@ -290,7 +290,6 @@ public class AnimMenu{
             public void actionPerformed(ActionEvent e) {
                  Random rand = new Random();
                  int numeroAleatorio = rand.nextInt(4);
-                 System.out.println(numeroAleatorio);
                  
                 hablarTemp = new Timer(100, new ActionListener() {
                     int contador = 0;

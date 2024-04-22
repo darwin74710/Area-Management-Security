@@ -39,6 +39,25 @@ public class SaveRegistros {
                         while ((linea = br.readLine()) != null) {
                             // Dividir la línea en partes utilizando el punto y coma como separador
                             String[] partes = linea.split("\\|");
+                            
+                            // Miramos si las imagenes existen
+                            File imagen1 = new File(partes[2]);
+                            if (!imagen1.exists()) {
+                                partes[2] = "Imagenes/Iconos/registros.png";
+                            }
+                            
+                            // Miramos si la imagen existe.
+                            File imagen2 = new File(partes[3]);
+                            if (!imagen2.exists()) {
+                                partes[3] = "Imagenes/Iconos/registros.png";
+                            }
+                            
+                            // Miramos si la imagen existe.
+                            File imagen3 = new File(partes[4]);
+                            if (!imagen3.exists()) {
+                                partes[4] = "Imagenes/Iconos/registros.png";
+                            }
+                            
                             // Agregar cada parte al array de datos del archivo
                             for (String parte : partes) {
                                 datosArchivo.add(parte);

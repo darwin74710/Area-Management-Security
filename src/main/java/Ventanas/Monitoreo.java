@@ -8,11 +8,16 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -37,6 +42,8 @@ public class Monitoreo extends JFrame{
         SistemAreas.AreasPanel();
         PanelFondo();
     }
+    
+    boolean hayCamaras = false;
     
     private void PanelFondo(){
         // Creamos la ventana
@@ -110,6 +117,7 @@ public class Monitoreo extends JFrame{
         botonDeteccion.setFocusPainted(false);
         
         botonDeteccion.setBackground(Color.decode(menu.colorBotonOscuro));
+        
         if (Menu.deteccionManager == false){
             botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         }else{
@@ -117,20 +125,27 @@ public class Monitoreo extends JFrame{
         }
         botonDeteccion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (Menu.deteccionManager == false){
-                    Menu.deteccionManager = true;
-                    Menu.Deteccion();
-                    CameraManager.cerrarCamaras();
-                    CameraManager.cargarCamaras();
-                    CameraManager.detectarMovimiento(true, "Videos");
-                    botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/ver.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                buscarCamaras();
+                
+                if (hayCamaras == true){
+                    if (Menu.deteccionManager == false){
+                        Menu.deteccionManager = true;
+                        Menu.Deteccion();
+                        CameraManager.cerrarCamaras();
+                        CameraManager.cargarCamaras();
+                        CameraManager.detectarMovimiento(true, "Videos");
+                        botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/ver.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                    }else{
+                        Menu.deteccionManager = false;
+                        Menu.Deteccion();
+                        CameraManager.cerrarCamaras();
+                        CameraManager.detectarMovimiento(false, "Videos");
+                        botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                    }
                 }else{
-                    Menu.deteccionManager = false;
-                    Menu.Deteccion();
-                    CameraManager.cerrarCamaras();
-                    CameraManager.detectarMovimiento(false, "Videos");
-                    botonDeteccion.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/nover.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+                    JOptionPane.showMessageDialog(Monitoreo.this, "Por favor asignele una cámara a un Area.", "Asignar Cámara", JOptionPane.WARNING_MESSAGE);
                 }
+                
             }
         });
         configArea.add(botonDeteccion);
@@ -207,5 +222,39 @@ public class Monitoreo extends JFrame{
         
         // Ejecutamos el metodo para enviar los campos de texto y el label de la imagen
         SistemAreas.extraerElementos(titulo, descripcion, imagen);
+    }
+    
+    /**
+     * Este método funciona para buscar cámaras en las Areas, si se encuentra alguna
+     * el booleano HayCamaras se establecera en true, de lo contrario en false.
+     */
+    private void buscarCamaras(){
+        String carpeta = "Data/Areas";
+        
+        File[] archivos = new File(carpeta).listFiles();
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                if (archivo.isFile()) { // Verificar si es un archivo
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(archivo));
+                        String primeraLinea = br.readLine(); // Leer la primera línea
+                        br.close();
+                        if (primeraLinea != null) {
+                            String[] datos = primeraLinea.split("\\|"); // Dividir la línea en partes
+                            if (datos.length > 0) {
+                                if (datos[4].trim().equals("desActive")){
+                                    hayCamaras = false;
+                                }else{
+                                    hayCamaras = true;
+                                    return;
+                                }
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }

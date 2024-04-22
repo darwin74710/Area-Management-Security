@@ -49,6 +49,11 @@ public class SaveAreas{
                         while ((linea = br.readLine()) != null) {
                             // Dividir la línea en partes utilizando el punto y coma como separador
                             String[] partes = linea.split("\\|");
+                            // Miramos si la imagen existe.
+                            File imagen = new File(partes[3]);
+                            if (!imagen.exists()) {
+                                partes[3] = "Imagenes/Iconos/areaEstandar.png";
+                            }
                             // Agregar cada parte al array de datos del archivo
                             for (String parte : partes) {
                                 datosArchivo.add(parte);
