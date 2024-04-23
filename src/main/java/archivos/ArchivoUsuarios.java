@@ -9,7 +9,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 public class ArchivoUsuarios {
 
     File archivo;
@@ -72,14 +71,14 @@ public class ArchivoUsuarios {
             String cadena;
             while ((cadena = br.readLine()) != null) {
                 String[] datosUsuario = cadena.split("\\|");
-                
-                if (datosUsuario.length > 0 && datosUsuario[0].trim().equals(nombre)){
+
+                if (datosUsuario.length > 0 && datosUsuario[0].trim().equals(nombre)) {
                     // Miramos si la imagen existe.
                     File imagen = new File(datosUsuario[9]);
                     if (!imagen.exists()) {
                         datosUsuario[9] = "Imagenes/Iconos/perfilEstandar.png";
                     }
-                    
+
                     return datosUsuario;
                 }
 
@@ -93,47 +92,71 @@ public class ArchivoUsuarios {
         return null;
 
     }//Fin metodo leerArchivo
-    
-    public String[] RecuperarContra(String cedula){
-        
+
+    public String[] RecuperarContra(String cedula) {
+
         String rutaCarpeta = "Data/Usuarios/usuarios.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(rutaCarpeta))) {
             String cadena;
             while ((cadena = br.readLine()) != null) {
                 String[] datosUsuario = cadena.split("\\|");
-                
-                if(datosUsuario.length > 0 && datosUsuario[3].trim().equals(cedula)){
+
+                if (datosUsuario.length > 0 && datosUsuario[3].trim().equals(cedula)) {
                     return datosUsuario;
                 }
             }
-            } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.err.println("No se puede recuperar la contraseña");
         } catch (IOException ex) {
             System.err.println("No se puede leer la cadena de texto");
         }
         return null;
     }//fin metodo recuperarContra 
-    
-    public String[] validaciones (String usuario){ 
-        
+
+    public String validaciones(String usuario, String cedula, String email) {
+        boolean existUsuario = false;
+        boolean existCedula = false;
+        boolean existEmail = false;
+        String validacion = "OK|";
+
         String rutaCarpeta = "Data/Usuarios/usuarios.txt";
 
         try (BufferedReader brUsers = new BufferedReader(new FileReader(rutaCarpeta))) {
             String cadena;
             while ((cadena = brUsers.readLine()) != null) {
                 String[] datosUsuario = cadena.split("\\|");
-                
-                if(datosUsuario.length > 0 && datosUsuario[0].trim().equals(usuario)){
-                    return datosUsuario;
+
+                if (datosUsuario.length > 0) {
+                    if (datosUsuario[0].equals(usuario)) {
+                        existUsuario = true;
+                    }
+                    if (datosUsuario[3].equals(cedula)) {
+                        existCedula = true;
+                    }
+                    if (datosUsuario[4].equals(email)) {
+                        existEmail = true;
+                    }
                 }
             }
-            } catch (FileNotFoundException ex) {
+            
+            if (existUsuario == true){
+                validacion = "Usua";
+                return validacion;                
+            }else if (existCedula == true){
+                validacion = "Cc";
+                return validacion;
+            }else if (existEmail == true){
+                validacion = "Emai";
+                return validacion;
+            }
+            
+        } catch (FileNotFoundException ex) {
             System.err.println("No se puede validar el archivo");
         } catch (IOException ex) {
             System.err.println("No se puede leer la validación");
         }
-        return null;
+        return validacion;
     }//fin metodo recuperarContra
-    
+
 }//fin classsssssss

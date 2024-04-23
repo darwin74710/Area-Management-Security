@@ -510,17 +510,24 @@ public class Registrar extends JFrame {
         de los respectivos campos de texto
         */
         ArchivoUsuarios validarU = new ArchivoUsuarios();
-        String[] dato = validarU.validaciones(usuario);
+        String dato = validarU.validaciones(usuario, cedula, email);
 
-        if (dato[0].equals(usuario)) {
+        if (dato.equals("Usua")) {
             JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya existe");
             return;
         }
-        if (dato[4].equals(email)) {
-            JOptionPane.showMessageDialog(this, email + "ya se encuentra registrado");
+        
+        if (dato.equals("Cc")) {
+            JOptionPane.showMessageDialog(this, "La cédula " + cedula + " ya existe");
             return;
         }
-        if (password1 != password2) {
+        
+        if (dato.equals("Emai")) {
+            JOptionPane.showMessageDialog(this, email + " ya se encuentra registrado");
+            return;
+        }
+        
+        if (!password1.equals(password2)) {
             JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales");
             return;
         } else {
