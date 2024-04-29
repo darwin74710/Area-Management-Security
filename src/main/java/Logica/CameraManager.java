@@ -1,5 +1,7 @@
 package Logica;
 
+import Guardado.SaveConfiguraciones;
+import Guardado.SaveAreas;
 import Ventanas.Menu;
 import org.opencv.core.Core;
 import org.opencv.videoio.VideoCapture;

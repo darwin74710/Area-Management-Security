@@ -1,6 +1,6 @@
 package Ventanas;
 
-import Logica.SaveRegistros;
+import Guardado.SaveRegistros;
 import static Ventanas.Camaras.nombreRegistro;
 import java.awt.Color;
 import java.awt.Font;
@@ -252,7 +252,7 @@ public class Registros extends JFrame{
             }
         });
         
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
             panelRegistros.add(editarDescript);
             panelRegistros.add(editarImagen);
         }

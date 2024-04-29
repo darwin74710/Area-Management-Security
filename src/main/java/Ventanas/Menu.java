@@ -1,7 +1,7 @@
 package Ventanas;
 
 import Logica.AnimMenu;
-import Logica.SaveConfiguraciones;
+import Guardado.SaveConfiguraciones;
 import Logica.SistemNotificaciones;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -37,7 +37,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 
 public class Menu extends JFrame {
-    public static String[] usuario;
+    public static List<String> usuario;
 
     SaveConfiguraciones configVents = new SaveConfiguraciones();
     public AnimMenu anim = new AnimMenu();
@@ -208,7 +208,7 @@ public class Menu extends JFrame {
         });
         
         if (usuario != null){
-            if (usuario[16].equals("Administrador")){
+            if (usuario.get(16).equals("Administrador")){
                 JPanel separador2 = new JPanel();
                 separador2.setBounds(260, 10, 2, 50);
                 barraSuperior.add(separador2);
@@ -340,7 +340,7 @@ public class Menu extends JFrame {
         
         JLabel btnPerfil = new JLabel();
         if (usuario != null) {
-            imagenNormal = new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+            imagenNormal = new ImageIcon((new ImageIcon(usuario.get(9))).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
             imagenOscura = oscurecerImagen(imagenNormal);
         } else {
             imagenNormal = new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
@@ -536,7 +536,7 @@ public class Menu extends JFrame {
         JLabel imagenPerfil = new JLabel();
         //Le establecemos una imagen de perfil con un tamaño preestablecido.d
         if (usuario != null) {
-            imagenPerfil.setIcon(new ImageIcon((new ImageIcon(usuario[9])).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+            imagenPerfil.setIcon(new ImageIcon((new ImageIcon(usuario.get(9))).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         } else {
             imagenPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
         }
@@ -623,12 +623,12 @@ public class Menu extends JFrame {
         fondoPerfil.add(txtGenero);
         
         if (usuario != null) {
-            txtUsuario.setText(usuario[0]);
-            txtNombre.setText(usuario[1] + " " + usuario[2]);
-            txtCedula.setText(usuario[3]);
-            txtEmail.setText(usuario[4]);
-            txtTelefono.setText(usuario[8]);
-            txtGenero.setText(usuario[7]);
+            txtUsuario.setText(usuario.get(0));
+            txtNombre.setText(usuario.get(1) + " " + usuario.get(2));
+            txtCedula.setText(usuario.get(3));
+            txtEmail.setText(usuario.get(4));
+            txtTelefono.setText(usuario.get(8));
+            txtGenero.setText(usuario.get(7));
         }
     }
     

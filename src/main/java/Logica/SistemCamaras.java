@@ -1,5 +1,6 @@
 package Logica;
 
+import Guardado.SaveCamara;
 import static Logica.CameraManager.cargarCamaras;
 import static Logica.CameraManager.cerrarCamaras;
 import Ventanas.Menu;

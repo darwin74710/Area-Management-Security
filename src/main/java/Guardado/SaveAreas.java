@@ -1,5 +1,6 @@
-package Logica;
+package Guardado;
 
+import Logica.SistemMonitoreo;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;

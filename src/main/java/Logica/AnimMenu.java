@@ -59,9 +59,9 @@ public class AnimMenu{
         JPanel mensaje = new JPanel();
         mensaje.setLayout(null);
         
-        if (Menu.usuario[16].equals("Administrador")){
+        if (Menu.usuario.get(16).equals("Administrador")){
             mensaje.setPreferredSize(new Dimension(2000, 200));
-        }else if(Menu.usuario[16].equals("Usuario")){
+        }else if(Menu.usuario.get(16).equals("Usuario")){
             mensaje.setPreferredSize(new Dimension(1500, 200));
         }
 
@@ -92,7 +92,7 @@ public class AnimMenu{
         irPanel4.setIcon(new ImageIcon("Imagenes/Iconos/selectorDesActiv.png"));
         irPanel4.setBounds(60, 0, 15, 15);
             
-        if (Menu.usuario[16].equals("Administrador")){
+        if (Menu.usuario.get(16).equals("Administrador")){
             
             cambioMensajes.add(irPanel4);
         }
@@ -380,12 +380,12 @@ public class AnimMenu{
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setBounds(0, 10, 480, 30);
         if (Menu.usuario != null){
-            if (Menu.usuario[7].equals("Masculino")){
-                titulo.setText("Bienvenido " + Menu.usuario[0]);
-            }else if(Menu.usuario[7].equals("Femenino")){
-                titulo.setText("Bienvenida " + Menu.usuario[0]);
-            }else if(Menu.usuario[7].equals("No especificado")){
-                titulo.setText("Bienvenide " + Menu.usuario[0]);
+            if (Menu.usuario.get(7).equals("Masculino")){
+                titulo.setText("Bienvenido " + Menu.usuario.get(0));
+            }else if(Menu.usuario.get(7).equals("Femenino")){
+                titulo.setText("Bienvenida " + Menu.usuario.get(0));
+            }else if(Menu.usuario.get(7).equals("No especificado")){
+                titulo.setText("Bienvenide " + Menu.usuario.get(0));
             }
         }
             

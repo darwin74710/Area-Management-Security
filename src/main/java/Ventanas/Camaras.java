@@ -3,8 +3,8 @@ package Ventanas;
 import Logica.CameraManager;
 import static Logica.CameraManager.cargarCamaras;
 import static Logica.CameraManager.cerrarCamaras;
-import Logica.SaveAreas;
-import Logica.SaveRegistros;
+import Guardado.SaveAreas;
+import Guardado.SaveRegistros;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -159,12 +159,12 @@ public class Camaras extends JFrame{
         eliminarRegistro.addActionListener(e-> Eliminar());
         
         
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
             abrirRegistro.setBounds(10,485,80,20);
             crearRegistro.setBounds(100,485,80,20);
             
             fondoReg.add(eliminarRegistro);
-        }else if(menu.usuario[16].equals("Usuario")){
+        }else if(menu.usuario.get(16).equals("Usuario")){
             abrirRegistro.setBounds(55,485,80,20);
             crearRegistro.setBounds(145,485,80,20);
         }
@@ -418,14 +418,11 @@ public class Camaras extends JFrame{
             panelEliminar.setLayout(null);
             panelEliminar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
 
-
             JLabel texto = new JLabel("Desea eliminar el Registro " + registroSeleccionado.getText() + "?");
             texto.setBounds(10,10,300,20);
             texto.setForeground(Color.white);
             panelEliminar.add(texto);
 
-            
-        
             JButton botonEliminar = new JButton("ELIMINAR");
             botonEliminar.setBounds(10,50,100,20);
             botonEliminar.setBackground(Color.decode(menu.colorBotonClaro));

@@ -1,5 +1,7 @@
 package Logica;
 
+import Guardado.SaveRegistros;
+import Guardado.SaveAreas;
 import Ventanas.Camaras;
 import Ventanas.Monitoreo;
 import Ventanas.Menu;
@@ -106,13 +108,13 @@ public class SistemMonitoreo extends JFrame {
             }
         });
         
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
             botonAbrir.setBounds(10,510,75,20);
             
             configArea.add(botonAgregar);
             configArea.add(botonEditar); 
             configArea.add(botonBorrar);
-        }else if(menu.usuario[16].equals("Usuario")){
+        }else if(menu.usuario.get(16).equals("Usuario")){
             botonAbrir.setBounds(140,510,75,20);
         }
     }
@@ -161,7 +163,7 @@ public class SistemMonitoreo extends JFrame {
         mapaEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
         mapaEliminar.setBounds(510,5,90,20);
         
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
              panelMapas.add(mapaGuardar);
             panelMapas.add(mapaEliminar);
         }

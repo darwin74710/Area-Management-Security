@@ -1,8 +1,8 @@
 package Ventanas;
 
+import Guardado.SaveUsuarios;
 import Logica.AnimMenu;
 import static Logica.CameraManager.cargarCamaras;
-import archivos.ArchivoUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -14,6 +14,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ public class Ingreso extends JFrame {
 
     Menu menu = new Menu();
     public AnimMenu anim = new AnimMenu();
+    SaveUsuarios guardado = new SaveUsuarios();
     
     public JTextField textoUsuario;
     public JPasswordField textoContraseña;
@@ -243,8 +245,7 @@ public class Ingreso extends JFrame {
     }
 
     public void btnIngresarActionPerformed(ActionEvent e) {
-
-        String usuario = null, contraseña = null;
+        String usuario, contraseña;
 
         usuario = textoUsuario.getText();
         contraseña = String.valueOf(textoContraseña.getPassword());
@@ -257,36 +258,33 @@ public class Ingreso extends JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese una contraseña valida");
             return;
         }
-
-        ArchivoUsuarios archivoU = new ArchivoUsuarios();
-        String[] dato = archivoU.leerArchivo(usuario);
-        if (dato != null) {
-            if (dato[5].equals(contraseña)) {
-                menu.usuario = dato;
-                cargarCamaras();
-                Menu ventanaMenu = new Menu();
-                ventanaMenu.setVisible(true);
-                setVisible(false);
-                anim.standar();
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
-                textoUsuario.setText("Usuario");
-                textoUsuario.setForeground(Color.gray);
-                textoContraseña.setText("Contraseña");
-                textoContraseña.setForeground(Color.gray);
-                textoContraseña.setEchoChar((char) 0);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario y contraseña no validos");
-            textoUsuario.setText("Usuario");
-            textoUsuario.setForeground(Color.gray);
-            textoContraseña.setText("Contraseña");
-            textoContraseña.setForeground(Color.gray);
-            textoContraseña.setEchoChar((char) 0);
+        
+        //CONDICIÓN PARA BUSCAR USUARIOS
+        List<String> datos = guardado.CargarDatos(usuario);
+        
+        if (datos == null){
+            JOptionPane.showMessageDialog(this, "Usuario incorrecto");
+            return;
         }
-
-//       
+        
+        if(!datos.get(5).equals(contraseña)){
+            JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+            return;
+        }
+        
+        textoUsuario.setText("Usuario");
+        textoUsuario.setForeground(Color.gray);
+        textoContraseña.setText("Contraseña");
+        textoContraseña.setForeground(Color.gray);
+        textoContraseña.setEchoChar((char) 0);
+        
+        menu.usuario = datos;
+        cargarCamaras();
+        Menu ventanaMenu = new Menu();
+        ventanaMenu.setVisible(true);
+        setVisible(false);
+        anim.standar();
+        
     }//Fin metodo btnIngresar
 
     public void btnRecuperarContra() {
@@ -358,8 +356,7 @@ public class Ingreso extends JFrame {
             return;
         }
 
-        ArchivoUsuarios archivoU = new ArchivoUsuarios();
-        String[] dato = archivoU.RecuperarContra(cedula);
+        String[] dato = guardado.RecuperarContra(cedula);
         if (dato != null) {
         if (dato[3].equals(cedula)) {
                 ventRecuperar.dispose();
@@ -434,10 +431,10 @@ public class Ingreso extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(dato[11].equals(txtR1.getText()) && dato[13].equals(txtR2.getText()) && dato[15].equals(txtR3.getText())){
-                            JOptionPane.showMessageDialog(null, "Su usuario es " + dato[0] + " y la contraseña es " + dato[3]);
+                            JOptionPane.showMessageDialog(null, "Su usuario es " + dato[0] + " y la contraseña es " + dato[5]);
                             ventPreg.dispose();
                         }else{
-                            JOptionPane.showMessageDialog(null, "Respuestas incorrectas");
+                            JOptionPane.showMessageDialog(null, "Respuestas incorrectas.");
                         }
                     }
                 };
@@ -449,7 +446,7 @@ public class Ingreso extends JFrame {
             }
         } else {
             System.out.println("algo");
-            JOptionPane.showMessageDialog(null, "La Cédula no esta en la base de datos");
+            JOptionPane.showMessageDialog(null, "La Cédula no se encuentra registrada.");
         }
 
 

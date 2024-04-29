@@ -1,8 +1,8 @@
 package Ventanas;
 
+import Guardado.SaveUsuarios;
 import Logica.AnimMenu;
-import archivos.ArchivoUsuarios;
-import archivos.TextPrompt;
+import Extra.TextPrompt;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -33,29 +33,8 @@ public class Registrar extends JFrame {
 
     Menu menu;
     public AnimMenu anim = new AnimMenu();
-
-    /* -- variables para los campos de texto de la informacion
-    que se esta solicitando -- */
-    JComboBox tipoUsuario;
-    JComboBox jcbPreg1;
-    JComboBox jcbPreg2;
-    JComboBox jcbPreg3;
-    JTextField usuarioT;
-    JTextField nombreT;
-    JTextField apellidoT;
-    JTextField cedulaT;
-    JTextField emailT;
-    JPasswordField password1T;
-    JPasswordField password2T;
-    JComboBox generoT;
-    JTextField telefonoT;
-    JButton fotoPerfilT;
-    JLabel fotoPerfil;
-    JButton verContra;
-    JTextField primeraRespT;
-    JTextField segundaRespT;
-    JTextField terceraRespT;
-
+    SaveUsuarios guardado = new SaveUsuarios();
+    
     TextPrompt textoCaja;
 
     public static String ruta;
@@ -94,7 +73,6 @@ public class Registrar extends JFrame {
         Titulo();
         Formulario();
         fondo.add(Box.createRigidArea(new Dimension(0, 15)));
-        Botones();
     }//FIN METODO
 
     private void Titulo() {
@@ -168,12 +146,12 @@ public class Registrar extends JFrame {
 
         //se crea el JComboBox
         //Para ingresar tipo de usuario
-        tipoUsuario = new JComboBox(tipUsuario);
+        JComboBox tipoUsuario = new JComboBox(tipUsuario);
         tipoUsuario.setBounds(20, 10, 160, 30);
         panForm.add(tipoUsuario);
 
         // Se crea caja de texto para introducir usuario
-        usuarioT = new JTextField();
+        JTextField usuarioT = new JTextField();
         usuarioT.setBounds(20, 100, 220, 40);
         usuarioT.setBorder(bordeTexto);
         usuarioT.setOpaque(true);
@@ -184,7 +162,7 @@ public class Registrar extends JFrame {
         panForm.add(usuarioT);
 
         // 2.1 -- Se crea caja de texto para introducir el campo solicitado
-        nombreT = new JTextField();
+        JTextField nombreT = new JTextField();
         nombreT.setBounds(20, 200, 220, 40);
         nombreT.setBorder(bordeTexto);
         nombreT.setOpaque(true);
@@ -195,7 +173,7 @@ public class Registrar extends JFrame {
         panForm.add(nombreT);
 
         //2.3
-        apellidoT = new JTextField();
+        JTextField apellidoT = new JTextField();
         apellidoT.setBounds(20, 300, 220, 40);
         apellidoT.setBorder(bordeTexto);
         apellidoT.setOpaque(true);
@@ -206,7 +184,7 @@ public class Registrar extends JFrame {
         panForm.add(apellidoT);
 
         //2.5
-        cedulaT = new JTextField();
+        JTextField cedulaT = new JTextField();
         cedulaT.setBounds(20, 400, 220, 40);
         cedulaT.setBorder(bordeTexto);
         cedulaT.setOpaque(true);
@@ -217,7 +195,7 @@ public class Registrar extends JFrame {
         panForm.add(cedulaT);
 
         //2.6
-        emailT = new JTextField();
+        JTextField emailT = new JTextField();
         emailT.setBounds(20, 500, 220, 40);
         emailT.setBorder(bordeTexto);
         emailT.setOpaque(true);
@@ -228,7 +206,7 @@ public class Registrar extends JFrame {
         panForm.add(emailT);
 
         //2.7
-        password1T = new JPasswordField();
+        JPasswordField password1T = new JPasswordField();
         password1T.setBounds(20, 600, 220, 40);
         password1T.setBorder(bordeTexto);
         password1T.setOpaque(true);
@@ -241,7 +219,7 @@ public class Registrar extends JFrame {
         panForm.add(password1T);
 
         //boton para activar la contraseña visible
-        verContra = new JButton();
+        JButton verContra = new JButton();
         verContra.setBounds(260, 600, 40, 40);
         verContra.setOpaque(false);
         verContra.setFocusPainted(false);
@@ -252,6 +230,19 @@ public class Registrar extends JFrame {
         verContra.setBackground(Color.decode(menu.colorBotonOscuro));
         verContra.setIcon(new ImageIcon(logoNoVer.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH))); //Redimencionamos la imagen para darle tamaño al boton.
         panForm.add(verContra);
+        
+        //2.8
+        JPasswordField password2T = new JPasswordField();
+        password2T.setBounds(20, 700, 220, 40);
+        password2T.setBorder(bordeTexto);
+        password2T.setOpaque(true);
+        password2T.setBackground(Color.decode(menu.colorPanelClaro));
+        textoCaja = new TextPrompt("Confirmar contraseña(*)", password2T);
+        textoCaja.setForeground(Color.white);
+        password2T.setForeground(Color.white);
+        password2T.setEchoChar((char) 0);
+        password2T.setEchoChar('*');
+        panForm.add(password2T);
 
         activar = new ActionListener() {
             @Override
@@ -272,30 +263,17 @@ public class Registrar extends JFrame {
         };
         verContra.addActionListener(activar);
 
-        //2.8
-        password2T = new JPasswordField();
-        password2T.setBounds(20, 700, 220, 40);
-        password2T.setBorder(bordeTexto);
-        password2T.setOpaque(true);
-        password2T.setBackground(Color.decode(menu.colorPanelClaro));
-        textoCaja = new TextPrompt("Confirmar contraseña(*)", password2T);
-        textoCaja.setForeground(Color.white);
-        password2T.setForeground(Color.white);
-        password2T.setEchoChar((char) 0);
-        password2T.setEchoChar('*');
-        panForm.add(password2T);
-
         //2.9
         //arreglo de objetos tipo String para asisgnarle al JComboBox
         String[] genero = {"Masculino", "Femenino", "No especificado"};
 
         //se crea el JComboBox
-        generoT = new JComboBox(genero);
+        JComboBox generoT = new JComboBox(genero);
         generoT.setBounds(20, 800, 220, 40);
         panForm.add(generoT);
 
         //2.10
-        telefonoT = new JTextField();
+        JTextField telefonoT = new JTextField();
         telefonoT.setBounds(20, 900, 220, 40);
         telefonoT.setBorder(bordeTexto);
         telefonoT.setOpaque(true);
@@ -306,22 +284,22 @@ public class Registrar extends JFrame {
         panForm.add(telefonoT);
 
         //2.11
-        fotoPerfilT = new JButton("Cargar Imagen");
+        JButton fotoPerfilT = new JButton("Cargar Imagen");
         fotoPerfilT.setBackground(Color.decode(menu.colorBotonClaro));
         fotoPerfilT.setBounds(20, 1000, 140, 50);
         panForm.add(fotoPerfilT);
-
-        //funcionalidad del boton cargar imagen
-        fotoPerfilT.addActionListener((ActionEvent e) -> {
-            btnCargarImagenActionPerformed(e);
-        });
-
+        
         //Label para cargar la imagen 
-        fotoPerfil = new JLabel();
+        JLabel fotoPerfil = new JLabel();
         fotoPerfil.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
                 .getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH)));
         fotoPerfil.setBounds(20, 1070, 140, 140);
         panForm.add(fotoPerfil);
+        
+        //funcionalidad del boton cargar imagen
+        fotoPerfilT.addActionListener((ActionEvent e) -> {
+            CargarImagen(fotoPerfil);
+        });
 
         //linea que divide el panel
         JPanel panDiv = new JPanel();
@@ -342,12 +320,12 @@ public class Registrar extends JFrame {
         titPanel2.add(textRePs);
 
         String[] preg1 = {"¿Como se llama tu mascota?"};
-        jcbPreg1 = new JComboBox(preg1);
+        JComboBox jcbPreg1 = new JComboBox(preg1);
         jcbPreg1.setBounds(410, 70, 220, 40);
         panForm.add(jcbPreg1);
 
         // 4.1 campo texto para respuesta
-        primeraRespT = new JTextField();
+        JTextField primeraRespT = new JTextField();
         primeraRespT.setBounds(410, 130, 300, 40);
         primeraRespT.setBorder(bordeTexto);
         primeraRespT.setOpaque(true);
@@ -358,12 +336,12 @@ public class Registrar extends JFrame {
         panForm.add(primeraRespT);
 
         String[] preg2 = {"¿Dondé Naciste?"};
-        jcbPreg2 = new JComboBox(preg2);
+        JComboBox jcbPreg2 = new JComboBox(preg2);
         jcbPreg2.setBounds(410, 230, 220, 40);
         panForm.add(jcbPreg2);
 
         //2.2
-        segundaRespT = new JTextField();
+        JTextField segundaRespT = new JTextField();
         segundaRespT.setBounds(410, 290, 300, 40);
         segundaRespT.setBorder(bordeTexto);
         segundaRespT.setOpaque(true);
@@ -374,12 +352,12 @@ public class Registrar extends JFrame {
         panForm.add(segundaRespT);
 
         String[] preg3 = {"¿Cúal sería tu trabajo ideal?"};
-        jcbPreg3 = new JComboBox(preg3);
+        JComboBox jcbPreg3 = new JComboBox(preg3);
         jcbPreg3.setBounds(410, 390, 220, 40);
         panForm.add(jcbPreg3);
 
         //4.3
-        terceraRespT = new JTextField();
+        JTextField terceraRespT = new JTextField();
         terceraRespT.setBounds(410, 450, 300, 40);
         terceraRespT.setBorder(bordeTexto);
         terceraRespT.setOpaque(true);
@@ -388,11 +366,9 @@ public class Registrar extends JFrame {
         textoCaja.setForeground(Color.white);
         terceraRespT.setForeground(Color.white);
         panForm.add(terceraRespT);
-
-    }//FIN METODO
-
-    private void Botones() {
-
+        
+        
+        //PANEL DE BOTONES
         JPanel buttPanel = new JPanel();
         buttPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         buttPanel.setLayout(new BoxLayout(buttPanel, BoxLayout.X_AXIS));
@@ -409,7 +385,14 @@ public class Registrar extends JFrame {
 
         //funcionalidad del boton registrar
         botonAgregar.addActionListener((ActionEvent e) -> {
-            btnRegistrarUsuarioActionPerformed(e);
+            String[] usuario = {usuarioT.getText().trim(), nombreT.getText().trim(), apellidoT.getText().trim(),
+            cedulaT.getText().trim(), emailT.getText().trim(), String.valueOf(password1T.getPassword()).trim(),
+            String.valueOf(password2T.getPassword()).trim(), (String)generoT.getSelectedItem(), telefonoT.getText().trim(),
+            fotoPerfilT.getText().trim(), (String)jcbPreg1.getSelectedItem(), primeraRespT.getText(),
+            (String)jcbPreg2.getSelectedItem(), segundaRespT.getText(), (String)jcbPreg3.getSelectedItem(),
+            terceraRespT.getText(), (String)tipoUsuario.getSelectedItem()};
+            
+            CrearUsuario(usuario);
         });
 
         buttPanel.add(Box.createRigidArea(new Dimension(10, 0)));//generamos espacio entre los botones         
@@ -441,10 +424,9 @@ public class Registrar extends JFrame {
             }
         };
         botonLimpiar.addActionListener(obtenerInfo);
-
     }//FIN METODO
 
-    public void btnCargarImagenActionPerformed(ActionEvent e) {
+    public void CargarImagen(JLabel fotoPerfil) {
 
         JFileChooser cargarImagen = new JFileChooser();
         FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG", "PNG", "GIF", "jpg", "png", "gif");
@@ -463,89 +445,82 @@ public class Registrar extends JFrame {
         }
     }// Fin btnCargarImagen
 
-    public void btnRegistrarUsuarioActionPerformed(ActionEvent e) {
-
-        String usuario = usuarioT.getText().trim();
-        String nombre = nombreT.getText().trim();
-        String apellido = apellidoT.getText().trim();
-        String cedula = cedulaT.getText().trim();
-        String email = emailT.getText().trim();
-        String password1 = String.valueOf(password1T.getPassword()).trim();
-        String password2 = String.valueOf(password2T.getPassword()).trim();
-        String genero = (String) generoT.getSelectedItem();
-        String telefono = telefonoT.getText().trim();
-        String fotoPerfil = fotoPerfilT.getText().trim();
-        String preg1 = (String) jcbPreg1.getSelectedItem();
-        String primeraResp = primeraRespT.getText();
-        String preg2 = (String) jcbPreg2.getSelectedItem();
-        String segundaResp = segundaRespT.getText();
-        String preg3 = (String) jcbPreg3.getSelectedItem();
-        String terceraResp = terceraRespT.getText();
-        String tUsuario = (String) tipoUsuario.getSelectedItem();
-
-        if (usuario.isEmpty() || usuario == null
-                || nombre.isEmpty() || nombre == null
-                || apellido.isEmpty() || apellido == null
-                || cedula.isEmpty() || cedula == null
-                || email.isEmpty() || email == null
-                || password1.isEmpty() || password1 == null
-                || password2.isEmpty() || password2 == null
-                || genero.isEmpty() || genero == null
-                || telefono.isEmpty() || telefono == null
-                || preg1.isEmpty() || preg1 == null
-                || primeraResp.isEmpty() || primeraResp == null
-                || preg2.isEmpty() || preg2 == null
-                || segundaResp.isEmpty() || segundaResp == null
-                || preg3.isEmpty() || preg3 == null
-                || terceraResp.isEmpty() || terceraResp == null
-                || tUsuario.isEmpty() || tUsuario == null) {
+    public void CrearUsuario(String[] Usuario) {
+        if (Usuario[0].isEmpty() || Usuario[0] == null
+                || Usuario[1].isEmpty() || Usuario[1] == null
+                || Usuario[2].isEmpty() || Usuario[2] == null
+                || Usuario[3].isEmpty() || Usuario[3] == null
+                || Usuario[4].isEmpty() || Usuario[4] == null
+                || Usuario[5].isEmpty() || Usuario[5] == null
+                || Usuario[6].isEmpty() || Usuario[6] == null
+                || Usuario[7].isEmpty() || Usuario[7] == null
+                || Usuario[8].isEmpty() || Usuario[8] == null
+                || Usuario[10].isEmpty() || Usuario[10] == null
+                || Usuario[11].isEmpty() || Usuario[11] == null
+                || Usuario[12].isEmpty() || Usuario[12] == null
+                || Usuario[13].isEmpty() || Usuario[13] == null
+                || Usuario[14].isEmpty() || Usuario[14] == null
+                || Usuario[15].isEmpty() || Usuario[15] == null
+                || Usuario[16].isEmpty() || Usuario[16] == null) {
 
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos de texto solicitados");
             return;
         }
         
-        /*
-        crear un metodo que me recorra el archivo linea por linea y me busque 
-        usuario, correo y cedula para hacer las validaciones de creacion de usuario
-        de los respectivos campos de texto
-        */
-        ArchivoUsuarios validarU = new ArchivoUsuarios();
-        String[] dato = validarU.validaciones(usuario);
+        if (Usuario[0].trim().contains("|")
+            || Usuario[1].trim().contains("|")
+            || Usuario[2].trim().contains("|")
+            || Usuario[3].trim().contains("|")
+            || Usuario[4].trim().contains("|")
+            || Usuario[5].trim().contains("|")
+            || Usuario[6].trim().contains("|")
+            || Usuario[7].trim().contains("|")
+            || Usuario[8].trim().contains("|")
+            || Usuario[10].trim().contains("|")
+            || Usuario[11].trim().contains("|")
+            || Usuario[12].trim().contains("|")
+            || Usuario[13].trim().contains("|")
+            || Usuario[14].trim().contains("|")
+            || Usuario[15].trim().contains("|")
+            || Usuario[16].trim().contains("|")) {
 
-        if (dato[0].equals(usuario)) {
-            JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya existe");
+            JOptionPane.showMessageDialog(this, "No puedes ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (dato[4].equals(email)) {
-            JOptionPane.showMessageDialog(this, email + "ya se encuentra registrado");
+        
+        String dato = guardado.validaciones(Usuario[0], Usuario[3], Usuario[4]);
+
+        if (dato.equals("Usuario")) {
+            JOptionPane.showMessageDialog(this, "El usuario " + Usuario[0] + " ya existe.");
             return;
         }
-        if (password1 != password2) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales");
+        if (dato.equals("Cc")) {
+            JOptionPane.showMessageDialog(this, "La cédula " + Usuario[3] + " ya existe.");
+            return;
+        }
+        if (dato.equals("Correo")) {
+            JOptionPane.showMessageDialog(this, Usuario[4] + " ya se encuentra registrado.");
+            return;
+        }
+        if (!Usuario[5].equals(Usuario[6])) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas deben ser iguales.");
             return;
         } else {
-            ArchivoUsuarios archivoU = new ArchivoUsuarios();
-            archivoU.crearArchivo();
-
-            archivoU.escribirArchivo(usuario, nombre, apellido,
-                    cedula, email, password1, password2,
-                    genero, telefono, ruta, preg1,
-                    primeraResp, preg2, segundaResp, preg3, terceraResp, tUsuario);
-
+            guardado.CrearUsu(Usuario);
             JOptionPane.showMessageDialog(null, "El usuario se creo exitosamente");
-            usuarioT.setText("");
-            nombreT.setText("");
-            apellidoT.setText("");
-            cedulaT.setText("");
-            emailT.setText("");
-            password1T.setText("");
-            password2T.setText("");
-            telefonoT.setText("");
-            primeraRespT.setText("");
-            segundaRespT.setText("");
-            terceraRespT.setText("");
-            fotoPerfilT.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
-                    .getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH)));
+//            usuarioT.setText("");
+//            nombreT.setText("");
+//            apellidoT.setText("");
+//            cedulaT.setText("");
+//            emailT.setText("");
+//            password1T.setText("");
+//            password2T.setText("");
+//            telefonoT.setText("");
+//            primeraRespT.setText("");
+//            segundaRespT.setText("");
+//            terceraRespT.setText("");
+//            fotoPerfilT.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/perfilEstandar.png"))
+//                    .getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH)));
         }
 
     }//Fin btnRegistrarUsuario

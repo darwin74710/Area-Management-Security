@@ -2,7 +2,9 @@ package Ventanas;
 
 import Logica.AnimMenu;
 import Logica.CameraManager;
-import Logica.SaveConfiguraciones;
+import Guardado.SaveConfiguraciones;
+import Guardado.SaveUsuarios;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,12 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,11 +41,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Configuraciones extends JFrame{
     Menu menu = new Menu();
     public AnimMenu anim = new AnimMenu();
+    SaveUsuarios guardadoUsu = new SaveUsuarios();
     
     public JPanel fondo = new JPanel();
+    JPanel panelUsuarios = new JPanel();
     JPanel elementos = new JPanel();
     
+    JLabel imagenUsu = new JLabel();
+    
+    public JButton usuarioSeleccionado;
+    
     public String datoTema = "1";
+    public String nombreUsuario;
+    
+    JTextField textoNombreUsu = new JTextField();
+    
     boolean activContra = false;
     
     public SaveConfiguraciones guardado = new SaveConfiguraciones();
@@ -106,9 +120,9 @@ public class Configuraciones extends JFrame{
         fondo.add(scrollFondo);
         
         String tipoUsuario = "";
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
             tipoUsuario = "ADMINISTRADOR";
-        }else if(menu.usuario[16].equals("Usuario")){
+        }else if(menu.usuario.get(16).equals("Usuario")){
             tipoUsuario = "USUARIO";
         }
         
@@ -119,7 +133,7 @@ public class Configuraciones extends JFrame{
         fondo.add(tituloUsuario);
         
         ConfigUsuario();
-        if (menu.usuario[16].equals("Administrador")){
+        if (menu.usuario.get(16).equals("Administrador")){
             ConfigAdmin();
         }
         
@@ -295,20 +309,18 @@ public class Configuraciones extends JFrame{
     }
     
     private void ElementosModificarPerfil(JPanel modificarPerfil){
-        JLabel imagenUsuario = new JLabel();
-        imagenUsuario.setIcon(new ImageIcon((new ImageIcon(menu.usuario[9])).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
-        imagenUsuario.setBounds(20, 50, 180, 180);
-        modificarPerfil.add(imagenUsuario);
+        imagenUsu.setIcon(new ImageIcon((new ImageIcon(menu.usuario.get(9))).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+        imagenUsu.setBounds(20, 50, 180, 180);
+        modificarPerfil.add(imagenUsu);
         
         JLabel tituloNombre = new JLabel("USUARIO:");
         tituloNombre.setForeground(Color.white);
         tituloNombre.setBounds(210, 50, 70, 20);
         modificarPerfil.add(tituloNombre);
         
-        JTextField textoNombre = new JTextField();
-        textoNombre.setBounds(210, 80, 200, 20);
-        textoNombre.setText(menu.usuario[0]);
-        modificarPerfil.add(textoNombre);
+        textoNombreUsu.setBounds(210, 80, 200, 20);
+        textoNombreUsu.setText(menu.usuario.get(0));
+        modificarPerfil.add(textoNombreUsu);
         
         JLabel tituloContrasena = new JLabel("CONTRASEÑA:");
         tituloContrasena.setForeground(Color.white);
@@ -349,7 +361,7 @@ public class Configuraciones extends JFrame{
         cambioImagen.setBounds(210, 200, 200, 30);
         modificarPerfil.add(cambioImagen);
         
-        Ruta = menu.usuario[9];
+        Ruta = menu.usuario.get(9);
         
         cambioImagen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -361,10 +373,10 @@ public class Configuraciones extends JFrame{
                 
                 if (respuesta == JFileChooser.APPROVE_OPTION){
                     Ruta = jFileChooser.getSelectedFile().getPath();
-                    imagenUsuario.setIcon(new ImageIcon((new ImageIcon(Ruta)).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
-                    imagenUsuario.repaint();
+                    imagenUsu.setIcon(new ImageIcon((new ImageIcon(Ruta)).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+                    imagenUsu.repaint();
                 }else{
-                    Ruta = menu.usuario[9];
+                    Ruta = menu.usuario.get(9);
                 }
             }
         });
@@ -376,20 +388,39 @@ public class Configuraciones extends JFrame{
         botonGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // VALIDACIONES
-                if (textoNombre.getText().trim().equals("") || String.valueOf(textoContrasena.getPassword()).trim().equals("")){
+                if (textoNombreUsu.getText().trim().equals("") || String.valueOf(textoContrasena.getPassword()).trim().equals("")){
                     JOptionPane.showMessageDialog(Configuraciones.this, "Por favor ingrese todos los datos.", "Ingresar Datos", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (textoNombre.getText().trim().length() > 20){
+                if (textoNombreUsu.getText().trim().length() > 20){
                     JOptionPane.showMessageDialog(Configuraciones.this, "Ingrese menos de 20 caracteres en el usuario.", "Mucho texto.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (textoNombre.getText().trim().contains("|") || String.valueOf(textoContrasena.getPassword()).trim().contains("|")){
+                if (textoNombreUsu.getText().trim().contains("|") || String.valueOf(textoContrasena.getPassword()).trim().contains("|")){
                     JOptionPane.showMessageDialog(Configuraciones.this, "No puede ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 
-                System.out.println("SE EDITÓ EL USUARIO CORRECATMENTE PERO FALTA EL METODO PARA PODER HACERLO");
+                String carpeta = "Data/Usuarios";
+                File[] archivos = new File(carpeta).listFiles();
+                
+                if (archivos != null) {
+                    for (File archivo : archivos) {
+                        if (archivo.getName().equals(textoNombreUsu.getText() + ".txt") && !archivo.getName().equals(menu.usuario.get(0) + ".txt")){
+                            JOptionPane.showMessageDialog(Configuraciones.this, "El usuario " + textoNombreUsu.getText() + " ya existe.", "Usuario existente.", JOptionPane.WARNING_MESSAGE);
+                            return;
+                        }
+                    }
+                }
+                // Editar Usuario
+                guardadoUsu.editarUsuario(menu.usuario.get(0), textoNombreUsu.getText().trim(), String.valueOf(textoContrasena.getPassword()).trim(), Ruta);
+                
+                // Modificar Usuario guardado del menú
+                menu.usuario = guardadoUsu.CargarDatos(textoNombreUsu.getText().trim());
+                cargarBotones();
+                
+                //usuarios.editarUsuarioStandar(menu.usuario.get(0), textoNombre.getText().trim(), String.valueOf(textoContrasena.getPassword()).trim(), Ruta);
+                System.out.println("SE EDITÓ EL USUARIO CORRECATMENTE.");
             }
         });
         modificarPerfil.add(botonGuardar);
@@ -520,7 +551,7 @@ public class Configuraciones extends JFrame{
         }
     
     private void ElementosUsuarios(JPanel editarUsuarios){
-        JPanel panelUsuarios = new JPanel();
+        panelUsuarios.setLayout(new BoxLayout(panelUsuarios, BoxLayout.Y_AXIS));
         panelUsuarios.setBackground(Color.decode(menu.colorPanelClaro));
         
         JScrollPane scrollUsuarios = new JScrollPane(panelUsuarios);
@@ -536,6 +567,12 @@ public class Configuraciones extends JFrame{
         botonEditar.setFocusPainted(false);
         botonEditar.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/editar.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         botonEditar.setBounds(350, 50, 70, 70);
+        botonEditar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EditarUsuarios();
+            }
+        });
         editarUsuarios.add(botonEditar);
         
         JButton botonEliminar = new JButton();
@@ -543,6 +580,359 @@ public class Configuraciones extends JFrame{
         botonEliminar.setFocusPainted(false);
         botonEliminar.setIcon(new ImageIcon((new ImageIcon("Imagenes/Iconos/basura.png")).getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         botonEliminar.setBounds(350, 140, 70, 70);
+        botonEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EliminarUsu();
+            }
+        });
         editarUsuarios.add(botonEliminar);
+        
+        cargarBotones();
+    }
+    
+    private void cargarBotones() {
+        String carpeta = "Data/Usuarios";
+        File[] archivos = new File(carpeta).listFiles();
+
+        // Limpiar el panel antes de agregar nuevos botones
+        panelUsuarios.removeAll();
+        
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                String nombreArchivo = archivo.getName();
+                JButton boton = new JButton(nombreArchivo.substring(0, nombreArchivo.lastIndexOf(".")));
+                boton.setBackground(Color.decode(menu.colorBotonClaro));
+                boton.setFocusPainted(false);
+                boton.setPreferredSize(new Dimension(303, 50));
+                boton.setMaximumSize(new Dimension(303, 50));
+                boton.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        // Metodo para darle un color de selección
+                        if (usuarioSeleccionado != null){
+                            usuarioSeleccionado.setBackground(Color.decode(menu.colorBotonClaro));
+                        }
+                        usuarioSeleccionado = boton;
+                        usuarioSeleccionado.setBackground(Color.decode(menu.colorBotonClaroSeleccion));
+
+                        nombreUsuario = usuarioSeleccionado.getText();
+                }
+                });
+                panelUsuarios.add(boton);
+            }
+        } else {
+            // Si no hay archivos .txt en la carpeta, mostrar un mensaje o realizar alguna acción
+        }
+        
+        // Volver a validar y repintar el panel para que los cambios sean visibles
+        panelUsuarios.revalidate();
+        panelUsuarios.repaint();
+    }
+    
+    private void EditarUsuarios(){
+        if (nombreUsuario == null || nombreUsuario == ""){
+            JOptionPane.showMessageDialog(Configuraciones.this, "Por favor seleccione un usuario.", "Seleccionar Usuario", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        JDialog ventanaEditar = new JDialog(this, "Editar Usuario", true);
+        ventanaEditar.setSize(435, 575);
+        ventanaEditar.setLocationRelativeTo(this);
+        
+        JPanel panelEditar = new JPanel();
+        panelEditar.setLayout(null);
+        panelEditar.setBackground(Color.decode(menu.colorPanelMedio));
+        
+        
+        List<String> datos = guardadoUsu.CargarDatos(nombreUsuario);
+        
+        // ELEMENTOS EDITAR
+        // IZQUIERDA
+        JLabel titulo1 = new JLabel("Usuario:");
+        titulo1.setForeground(Color.white);
+        titulo1.setBounds(10, 10, 100, 20);
+        panelEditar.add(titulo1);
+        
+        JTextField usuarioT = new JTextField(datos.get(0));
+        usuarioT.setBounds(10, 35, 190, 20);
+        panelEditar.add(usuarioT);
+        
+        JLabel titulo2 = new JLabel("Nombre:");
+        titulo2.setForeground(Color.white);
+        titulo2.setBounds(10, 65, 100, 20);
+        panelEditar.add(titulo2);
+        
+        JTextField nombreT = new JTextField(datos.get(1));
+        nombreT.setBounds(10, 90, 190, 20);
+        panelEditar.add(nombreT);
+        
+        JLabel titulo3 = new JLabel("Apellido:");
+        titulo3.setForeground(Color.white);
+        titulo3.setBounds(10, 120, 100, 20);
+        panelEditar.add(titulo3);
+        
+        JTextField apellidoT = new JTextField(datos.get(2));
+        apellidoT.setBounds(10, 145, 190, 20);
+        panelEditar.add(apellidoT);
+        
+        JLabel titulo4 = new JLabel("Cedula:");
+        titulo4.setForeground(Color.white);
+        titulo4.setBounds(10, 175, 100, 20);
+        panelEditar.add(titulo4);
+        
+        JTextField cedulaT = new JTextField(datos.get(3));
+        cedulaT.setBounds(10, 200, 190, 20);
+        panelEditar.add(cedulaT);
+        
+        JLabel titulo5 = new JLabel("Email:");
+        titulo5.setForeground(Color.white);
+        titulo5.setBounds(10, 230, 100, 20);
+        panelEditar.add(titulo5);
+        
+        JTextField EmailT = new JTextField(datos.get(4));
+        EmailT.setBounds(10, 255, 190, 20);
+        panelEditar.add(EmailT);
+        
+        JLabel titulo6 = new JLabel("Telefono:");
+        titulo6.setForeground(Color.white);
+        titulo6.setBounds(10, 285, 150, 20);
+        panelEditar.add(titulo6);
+        
+        JTextField telefonoT = new JTextField(datos.get(8));
+        telefonoT.setBounds(10, 310, 190, 20);
+        panelEditar.add(telefonoT);
+        
+        JLabel titulo7 = new JLabel("Contraseña:");
+        titulo7.setForeground(Color.white);
+        titulo7.setBounds(10, 340, 100, 20);
+        panelEditar.add(titulo7);
+        
+        JPasswordField contraseña1T = new JPasswordField();
+        contraseña1T.setBounds(10, 365, 190, 20);
+        panelEditar.add(contraseña1T);
+        
+        JLabel titulo8 = new JLabel("Repita Contraseña:");
+        titulo8.setForeground(Color.white);
+        titulo8.setBounds(10, 395, 150, 20);
+        panelEditar.add(titulo8);
+        
+        JPasswordField contraseña2T = new JPasswordField();
+        contraseña2T.setBounds(10, 420, 190, 20);
+        panelEditar.add(contraseña2T);
+        
+        // DERECHA
+        JLabel titulo9 = new JLabel("Tipo Usuario:");
+        titulo9.setForeground(Color.white);
+        titulo9.setBounds(220, 10, 150, 20);
+        panelEditar.add(titulo9);
+        
+        String[] tipoUArr = {"Administrador", "Usuario"};
+        JComboBox tipoUsu = new JComboBox(tipoUArr);
+        tipoUsu.setSelectedItem(datos.get(16));
+        tipoUsu.setBounds(220, 35, 190, 20);
+        panelEditar.add(tipoUsu);
+        
+        JLabel titulo10 = new JLabel("Genero:");
+        titulo10.setForeground(Color.white);
+        titulo10.setBounds(220, 65, 100, 20);
+        panelEditar.add(titulo10);
+        
+        String[] generoArr = {"Masculino", "Femenino", "No especificado"};
+        JComboBox generoT = new JComboBox(generoArr);
+        generoT.setSelectedItem(datos.get(7));
+        generoT.setBounds(220, 90, 190, 20);
+        panelEditar.add(generoT);
+        
+        JLabel titulo11 = new JLabel(datos.get(10));
+        titulo11.setForeground(Color.white);
+        titulo11.setBounds(220, 120, 190, 20);
+        panelEditar.add(titulo11);
+        
+        JTextField resp1T = new JTextField(datos.get(11));
+        resp1T.setBounds(220, 145, 190, 20);
+        panelEditar.add(resp1T);
+        
+        JLabel titulo12 = new JLabel(datos.get(12));
+        titulo12.setForeground(Color.white);
+        titulo12.setBounds(220, 175, 190, 20);
+        panelEditar.add(titulo12);
+        
+        JTextField resp2T = new JTextField(datos.get(13));
+        resp2T.setBounds(220, 200, 190, 20);
+        panelEditar.add(resp2T);
+        
+        JLabel titulo13 = new JLabel(datos.get(14));
+        titulo13.setForeground(Color.white);
+        titulo13.setBounds(220, 230, 190, 20);
+        panelEditar.add(titulo13);
+        
+        JTextField resp3T = new JTextField(datos.get(15));
+        resp3T.setBounds(220, 255, 190, 20);
+        panelEditar.add(resp3T);
+        
+        JButton imagenT = new JButton("IMAGEN");
+        imagenT.setBounds(220, 310, 190, 20);
+        imagenT.setBackground(Color.decode(menu.colorBotonClaro));
+        imagenT.setFocusPainted(false);
+        Ruta = datos.get(9);
+        panelEditar.add(imagenT);
+        
+        JLabel lblimagen = new JLabel();
+        lblimagen.setIcon(new ImageIcon((new ImageIcon(datos.get(9))).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        lblimagen.setBounds(240, 340, 150, 150);
+        panelEditar.add(lblimagen);
+        
+        imagenT.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jFileChooser = new JFileChooser();
+                FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG", "jpg", "png");
+                jFileChooser.setFileFilter(filtrado);
+
+                int respuesta = jFileChooser.showOpenDialog(Configuraciones.this);
+
+                if (respuesta == JFileChooser.APPROVE_OPTION){
+                    Ruta = jFileChooser.getSelectedFile().getPath();
+                    lblimagen.setIcon(new ImageIcon((new ImageIcon(Ruta)).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+                    
+                    panelEditar.revalidate();
+                    panelEditar.repaint();
+                }else{
+                    Ruta = datos.get(9);
+                }
+            }
+        });
+
+        JButton botonEditar = new JButton("EDITAR");
+        botonEditar.setBounds(200,505,100,20);
+        botonEditar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonEditar.setFocusPainted(false);
+        panelEditar.add(botonEditar);
+        botonEditar.addActionListener(e -> {
+                if (usuarioT.getText().trim().equals("") 
+                || nombreT.getText().trim().equals("") 
+                || apellidoT.getText().trim().equals("")
+                || cedulaT.getText().trim().equals("") 
+                || EmailT.getText().trim().equals("") 
+                || String.valueOf(contraseña1T.getPassword()).trim().equals("")
+                || String.valueOf(contraseña2T.getPassword()).trim().equals("")
+                || telefonoT.getText().trim().equals("")
+                || resp1T.getText().trim().equals("")
+                || resp2T.getText().trim().equals("")
+                || resp3T.getText().trim().equals("")){
+                    
+                    JOptionPane.showMessageDialog(this, "Ingrese datos en los campos de texto.", "Poco texto", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if(!contraseña1T.getText().trim().equals(contraseña2T.getText().trim())){
+                    JOptionPane.showMessageDialog(this, "Ingrese la misma contraseña.", "Diferentes contraseñas.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (usuarioT.getText().trim().contains("|")
+                || nombreT.getText().trim().contains("|")
+                || apellidoT.getText().trim().contains("|")
+                || cedulaT.getText().trim().contains("|")
+                || EmailT.getText().trim().contains("|")
+                || String.valueOf(contraseña1T.getPassword()).trim().contains("|")
+                || String.valueOf(contraseña2T.getPassword()).trim().contains("|")
+                || telefonoT.getText().trim().contains("|")
+                || resp1T.getText().trim().contains("|")
+                || resp2T.getText().trim().contains("|")
+                || resp3T.getText().trim().contains("|")){
+
+                    JOptionPane.showMessageDialog(this, "No puedes ingresar el caracter \" | \"", "Caracter Invalido.", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                guardadoUsu.editarAdmin(nombreUsuario, usuarioT.getText().trim(), nombreT.getText().trim(), apellidoT.getText().trim(),
+                                        cedulaT.getText().trim(), EmailT.getText().trim(), String.valueOf(contraseña1T.getPassword()).trim(),
+                                        (String)generoT.getSelectedItem(), telefonoT.getText().trim(), Ruta, resp1T.getText().trim(),
+                                        resp2T.getText().trim(), resp3T.getText().trim(), (String)tipoUsu.getSelectedItem());
+                
+                if (nombreUsuario.equals(menu.usuario.get(0))){
+                    List<String> datosNuv = guardadoUsu.CargarDatos(usuarioT.getText().trim());
+                    
+                    textoNombreUsu.setText(datosNuv.get(0));
+                    imagenUsu.setIcon(new ImageIcon((new ImageIcon(datosNuv.get(9))).getImage().getScaledInstance(180, 180, Image.SCALE_SMOOTH)));
+                    imagenUsu.revalidate();
+                    imagenUsu.repaint();
+                    
+                    menu.usuario = datosNuv;
+                }
+                
+                nombreUsuario = "";
+                cargarBotones();
+                JOptionPane.showMessageDialog(this, "Usuario editado correctamente.");
+                ventanaEditar.dispose();
+            });
+
+        JButton botonCerrar = new JButton("CANCELAR");
+        botonCerrar.setBounds(310,505,100,20);
+        botonCerrar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonCerrar.setFocusPainted(false);
+        botonCerrar.addActionListener(e -> ventanaEditar.dispose());
+        panelEditar.add(botonCerrar);
+
+        ventanaEditar.add(panelEditar);
+        ventanaEditar.setVisible(true);
+    }
+    
+    private void EliminarUsu(){
+        if (nombreUsuario == null || nombreUsuario == ""){
+            JOptionPane.showMessageDialog(Configuraciones.this, "Por favor seleccione un usuario.", "Seleccionar Usuario", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (nombreUsuario.equals(menu.usuario.get(0))){
+            JOptionPane.showMessageDialog(Configuraciones.this, "No puedes eliminar el usuario con el que ingresaste.", "Seleccionar otro Usuario", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        JDialog ventanaEliminar = new JDialog(this, "Eliminar Usuario", true);
+        ventanaEliminar.setSize(300, 120);
+        ventanaEliminar.setLocationRelativeTo(null);
+        ventanaEliminar.setResizable(false);
+        
+        JPanel panelEliminar = new JPanel();
+        panelEliminar.setLayout(null);
+        panelEliminar.setBackground(Color.decode(menu.colorPanelMedio)); // Establecer el color de fondo del panel
+
+        JLabel texto = new JLabel("Desea eliminar el usuario " + nombreUsuario + "?");
+        texto.setBounds(10,10,300,20);
+        texto.setForeground(Color.white);
+        panelEliminar.add(texto);
+        
+        JButton botonEliminar = new JButton("ELIMINAR");
+        botonEliminar.setBounds(10,50,100,20);
+        botonEliminar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonEliminar.setFocusPainted(false); //Quitamos las lineas de focus.
+        botonEliminar.addActionListener(e -> {
+            try {
+                guardadoUsu.EliminarUsu(nombreUsuario);
+                cargarBotones();
+                
+                nombreUsuario = null;
+                ventanaEliminar.dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        panelEliminar.add(botonEliminar);
+
+        JButton botonCancelar = new JButton("CANCELAR");
+        botonCancelar.setBounds(170,50,100,20);
+        botonCancelar.setBackground(Color.decode(menu.colorBotonClaro));
+        botonCancelar.setFocusPainted(false); //Quitamos las lineas de focus.
+        ActionListener cancelar = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaEliminar.dispose();
+            }
+        };
+        botonCancelar.addActionListener(cancelar);
+        panelEliminar.add(botonCancelar);
+
+        ventanaEliminar.add(panelEliminar, BorderLayout.CENTER);
+        ventanaEliminar.setLocationRelativeTo(this);
+        ventanaEliminar.setVisible(true);
     }
 }

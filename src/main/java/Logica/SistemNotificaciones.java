@@ -1,5 +1,6 @@
 package Logica;
 
+import Guardado.SaveAreas;
 import Ventanas.Menu;
 import java.awt.BorderLayout;
 import java.awt.Color;

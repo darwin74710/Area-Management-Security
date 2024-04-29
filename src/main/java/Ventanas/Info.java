@@ -191,7 +191,7 @@ public class Info extends JFrame{
         mensaje.add(info);
         
         JLabel imagenHormig = new JLabel();
-        imagenHormig.setIcon(new ImageIcon((new ImageIcon(menu.usuario[9])).getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH)));
+        imagenHormig.setIcon(new ImageIcon((new ImageIcon(menu.usuario.get(9))).getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH)));
         imagenHormig.setPreferredSize(new Dimension(130, 130));
         imagenHormig.setMaximumSize(new Dimension(130, 130));
         mensaje.add(imagenHormig);

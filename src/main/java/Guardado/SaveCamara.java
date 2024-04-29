@@ -1,5 +1,6 @@
-package Logica;
+package Guardado;
 
+import Logica.SistemCamaras;
 import static Logica.SistemMonitoreo.botonSeleccionado;
 import java.io.BufferedWriter;
 import java.io.File;
