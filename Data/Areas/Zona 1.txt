@@ -1,1 +1,1 @@
-Zona 1|Zona de monitoreo importante para el area de trabajo.\n\n- Seguridad alta.\n- Mantenimiento de alto rendimiento.|#ff3333|D:\Imágenes\sukuna.jpg|desActive
+Zona 1|Zona de monitoreo importante para el area de trabajo.\n\n- Seguridad alta.\n- Mantenimiento de alto rendimiento.|#ff3333|D:\Imágenes\sukuna.jpg|0

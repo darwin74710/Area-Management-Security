@@ -157,7 +157,11 @@ public class Info extends JFrame{
         imagenHormig.setMaximumSize(new Dimension(130, 130));
         introduccion.add(imagenHormig);
         
-        JTextArea info = new JTextArea("Hola, este es el manual, aquí podras encontrar informacion que te sea de utilidad.");
+        JTextArea info = new JTextArea("Hola, este es el manual, aquí podras encontrar informacion que te sea de utilidad mediante las siguientes opciones:\n\n"
+                                      +"1- Manual de uso.\n"
+                                      +"2- Seguridad de monitoreo.\n"
+                                      +"3- Seguridad en el trabajo.\n"
+                                      +"4- Buen control de áreas.\n");
         info.setEditable(false);
         info.setLineWrap(true);
         info.setWrapStyleWord(true);
@@ -235,7 +239,7 @@ public class Info extends JFrame{
         info.setBorder(new EmptyBorder(10, 10, 10, 10));
         mensaje.add(info);
 
-        IAmensajes(info);
+        IAmensajes(info, mensaje);
         chat.setText("");
         
         panelMensajes.revalidate();
@@ -262,40 +266,336 @@ public class Info extends JFrame{
     private void personalMensajes(JTextArea mensaje){
         //------------ PRIMERA OPCIÓN ---------------
         if (numeroChat == 0 && chat.getText().equals("1")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 1 PERSONAL");
-            System.out.println("1");
+            mensaje.setText("MANUAL DE USO");
         }else if (numeroChat == 0 && chat.getText().equals("2")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 2 PERSONAL");
+            mensaje.setText("SEGURIDAD DE MONITOREO");
         }else if (numeroChat == 0 && chat.getText().equals("3")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 3 PERSONAL");
+            mensaje.setText("SEGURIDAD EN EL TRABAJO");
         }else if (numeroChat == 0 && chat.getText().equals("4")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 4 PERSONAL");
-        }else if (numeroChat == 0 && chat.getText().equals("5")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 5 PERSONAL");
-        }else if (numeroChat == 0){
+            mensaje.setText("BUEN CONTROL DE ÁREAS");
+        }
+        
+        //---------- MANUAL DE USO -------------------
+        else if (numeroChat == 01 && chat.getText().equals("1")){
+            mensaje.setText("SISTEMA DE ÁREAS");
+        }else if (numeroChat == 01 && chat.getText().equals("2")){
+            mensaje.setText("SISTEMA DE MONITOREO");
+        }else if (numeroChat == 01 && chat.getText().equals("3")){
+            mensaje.setText("SISTEMA DE INFORMES");
+        }else if (numeroChat == 02 && chat.getText().equals("1")){
+            mensaje.setText("VOLVER");
+        }
+        
+        //---------- SEGURIDAD DE MONITOREO -------------------
+        else if (numeroChat == 11 && chat.getText().equals("1")){
+            mensaje.setText("¿QUÉ ES UN SISTEMA DE SEGURIDAD DE MONITOREO PERMANENTE?");
+        }else if (numeroChat == 11 && chat.getText().equals("2")){
+            mensaje.setText("¿CÓMO FUNCIONA UN SISTEMA DE SEGURIDAD DE MONITOREO?");
+        }else if (numeroChat == 11 && chat.getText().equals("3")){
+            mensaje.setText("¿CUÁLES SON LOS BENEFICIOS DE UN SISTEMA DE SEGURIDAD DE MONITOREO PERMANENTE?");
+        }else if (numeroChat == 12 && chat.getText().equals("1")){
+            mensaje.setText("VOLVER");
+        }
+        
+        //---------- SEGURIDAD EN EL TRABAJO -------------------
+        else if (numeroChat == 21 && chat.getText().equals("1")){
+            mensaje.setText("¿QUÉ ES LA SEGURIDAD EN EL TRABAJO?");
+        }else if (numeroChat == 21 && chat.getText().equals("2")){
+            mensaje.setText("¿CÓMO PUEDO APLICAR LA SEGURIDAD EN MI TRABAJO?");
+        }else if (numeroChat == 21 && chat.getText().equals("3")){
+            mensaje.setText("¿CUÁLES SON LOS BENEFICIOS DE APLICAR LA SEGURIDAD EN MI TRABAJO?");
+        }else if (numeroChat == 22 && chat.getText().equals("1")){
+            mensaje.setText("VOLVER");
+        }
+        
+        //---------- BUEN CONTROL DE AREAS -------------------
+        else if (numeroChat == 31 && chat.getText().equals("1")){
+            mensaje.setText("¿QUÉ ES EL CONTROL DE ÁREAS?");
+        }else if (numeroChat == 31 && chat.getText().equals("2")){
+            mensaje.setText("¿CÓMO PUEDO MANTENER UN BUEN CONTROL DE ÁREAS?");
+        }else if (numeroChat == 31 && chat.getText().equals("3")){
+            mensaje.setText("¿CUÁLES LOS BENEFICIOS DE MANTENER UN BUEN CONTROL DE ÁREAS?");
+        }else if (numeroChat == 32 && chat.getText().equals("1")){
+            mensaje.setText("VOLVER");
+        }
+        
+        else if ((numeroChat == 01 || numeroChat == 11 || numeroChat == 21 || numeroChat == 31 )  && chat.getText().equals("4")){
+            mensaje.setText("VOLVER");
+        }else{
             mensaje.setText(chat.getText());
         }
     }
     
-    private void IAmensajes(JTextArea mensaje){
+    private void IAmensajes(JTextArea mensaje, JPanel cuadroMensaje){
         //------------ PRIMERA OPCIÓN ---------------
         if (numeroChat == 0 && chat.getText().equals("1")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 1 IA");
-            numeroChat = 1;
+            mensaje.setText("¿Qué deseas saber acerca del manual de uso?\n\n"
+                    + "1- Sistema de áreas.\n"
+                    + "2- Sistema de monitoreo.\n"
+                    + "3- Sistema de informes.\n"
+                    + "4- Volver.");
+            numeroChat = 01;
+            
         }else if (numeroChat == 0 && chat.getText().equals("2")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 2 IA");
-            numeroChat = 2;
+            mensaje.setText("¿Qué deseas saber acerca de la seguridad de monitoreo?\n\n"
+                    + "1- ¿Qué es un sistema de seguridad de monitoreo permanente?\n"
+                    + "2- ¿Cómo funciona un sistema de seguridad monitoreado?\n"
+                    + "3- ¿Cuáles son los beneficios de un sistema de seguridad de monitoreo permanente?\n"
+                    + "4- Volver.");
+            numeroChat = 11;
+            
         }else if (numeroChat == 0 && chat.getText().equals("3")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 3 IA");
-            numeroChat = 3;
+            mensaje.setText("¿Qué deseas saber acerca de la seguridad en el trabajo?\n\n"
+                    + "1- ¿Qué es la seguridad en el trabajo?\n"
+                    + "2- ¿Cómo puedo aplicar la seguridad en mi trabajo?\n"
+                    + "3- ¿Cuáles son los beneficios de aplicar la seguridad en mi trabajo?\n"
+                    + "4- Volver.");
+            numeroChat = 21;
+            
         }else if (numeroChat == 0 && chat.getText().equals("4")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 4 IA");
-            numeroChat = 4;
-        }else if (numeroChat == 0 && chat.getText().equals("5")){
-            mensaje.setText("SE ESCOGIO LO OPCIÓN 5 IA");
-            numeroChat = 5;
-        }else if (numeroChat == 0){
-            mensaje.setText("Debes escoger una de las opciones.");
+            mensaje.setText("¿Qué deseas saber acerca del buen control de áreas?\n\n"
+                    + "1- ¿Qué es el control de áreas?\n"
+                    + "2- ¿Cómo puedo mantener un buen control de áreas?\n"
+                    + "3- ¿Cuáles son los beneficios de mantener un buen control de áreas?\n"
+                    + "4- Volver.");
+            numeroChat = 31;
+        }
+        
+        
+        //---------- MANUAL DE USO -------------------
+        else if (numeroChat == 01 && chat.getText().equals("1")){
+            mensaje.setText("Nuestro sistema de áreas cuenta con un mapa en el cual podrás diseñar "
+                    + "tu propio esquema con figuras geométricas (cuadrados y rectángulos), cada "
+                    + "elemento del mapa tendrá asignado un nombre, descripción, imagen, una cámara "
+                    + "y un historial de informes.\n\n"
+                    + "Solo el administrador puede guardar y eliminar los mapas, también puede crear, "
+                    + "editar y eliminar áreas.\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 160));
+            mensaje.setPreferredSize(new Dimension(455, 160));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 180));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 180));
+            numeroChat = 02;
+        }else if (numeroChat == 01 && chat.getText().equals("2")){
+            mensaje.setText("Nuestro sistema de monitoreo está diseñado para utilizar las cámaras conectadas "
+                    + "a la computadora, junto a estas realiza el proceso para detectar si hay movimiento en "
+                    + "las cámaras asignadas a las áreas, puedes activar este sistema con un botón de un ojo "
+                    + "que encuentras en la ventana de las áreas, debajo de este hay otro botón para acceder "
+                    + "a las grabaciones guardadas para cada cámara.\n\n"
+                    + "Es importante aclarar que solo se graba un video por detección, al finalizar el "
+                    + "trabajo hay un tiempo de espera de 10 segundos para poder detectar el siguiente "
+                    + "movimiento.\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 210));
+            mensaje.setPreferredSize(new Dimension(455, 210));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 230));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 230));
+            numeroChat = 02;
+        }else if (numeroChat == 01 && chat.getText().equals("3")){
+            mensaje.setText("Dentro de cada área se pueden crear informes según lo ocurrido en las grabaciones, "
+                    + "de esto se encargan cualquiera de los dos usuarios, solamente el administrador puede "
+                    + "editarlos y eliminarlos.\n\n"
+                    + "1- Volver.");
+            numeroChat = 02;
+        }else if (numeroChat == 02 && chat.getText().equals("1")){
+            mensaje.setText("¿Qué deseas saber acerca del manual de uso?\n\n"
+                    + "1- Sistema de areas.\n"
+                    + "2- Sistema de monitoreo.\n"
+                    + "3- Sistema de informes.\n"
+                    + "4- Volver.");
+            numeroChat = 01;
+        }
+        
+        //---------- SEGURIDAD DE MONITOREO -------------------
+        else if (numeroChat == 11 && chat.getText().equals("1")){
+            mensaje.setText("Un sistema de seguridad de monitoreo permanente está integrado por "
+                    + "un conjunto de profesionales trabajando 24/7 que emplean tecnología de punta "
+                    + "y en algunos casos inteligencia artificial, para proteger nuestro edificio o "
+                    + "propiedad.\n\n"
+                    + "Este sistema funciona mediante la conexión y supervisión constante "
+                    + "de los dispositivos de seguridad, como cámaras de seguridad con detección de "
+                    + "movimiento, alarmas de seguridad perimetral, alarmas de procesos de "
+                    + "producción, alarmas del sistema de aire acondicionado, alarmas de incendio, "
+                    + "etc. También se incluyen los controles de acceso y los sistemas de vigilancia "
+                    + "en las porterías, entre otros.\n\n"
+                    + "Extraido de: https://porteroseguro.com/que-es-un-sistema-de-seguridad-de-monitoreo-permanente-y-como-funciona/"
+                    + "\n\n"
+                    + "1- Volver.");
+            
+            mensaje.setPreferredSize(new Dimension(455, 290));
+            mensaje.setPreferredSize(new Dimension(455, 290));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 310));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 310));
+            numeroChat = 12;
+            
+        }else if (numeroChat == 11 && chat.getText().equals("2")){
+            mensaje.setText("Un sistema de seguridad de monitoreo permanente funciona mediante la"
+                    + " integración de diversos componentes que se encargan de proteger y"
+                    + " supervisar nuestro edificio o propiedad. Por ejemplo, cuando una cámara"
+                    + " detecta una actividad sospechosa, como una persona que cubre su rostro y"
+                    + " que está observando mucho tiempo el edificio, se envía una señal a la central"
+                    + " de monitoreo.\n\n"
+                    + "Los operadores de la central reciben la alerta y visualizan las imágenes de "
+                    + "las cámaras en tiempo real para evaluar la situación. Los operadores pueden "
+                    + "tomar acciones inmediatas de manera preventiva, como dar un mensaje disuasivo "
+                    + "por un altavoz, contactar a los propietarios, notificar a la policía o activar "
+                    + "una alarma sonora para disuadir al intruso.\n\n"
+                    + "Extraido de: https://porteroseguro.com/que-es-un-sistema-de-seguridad-de-monitoreo-permanente-y-como-funciona/"
+                    + "\n\n"
+                    + "1- Volver.");
+            
+            mensaje.setPreferredSize(new Dimension(455, 310));
+            mensaje.setPreferredSize(new Dimension(455, 310));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 330));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 330));
+            numeroChat = 12;
+        }else if (numeroChat == 11 && chat.getText().equals("3")){
+            mensaje.setText("Un sistema de seguridad de monitoreo permanente ofrece una serie de "
+                    + "beneficios importantes para protegernos. A continuación, enumeramos algunos:\n\n"
+                    + "- Respuesta rápida ante emergencias\n"
+                    + "- Mayor nivel de protección\n"
+                    + "- Tranquilidad y confianza\n"
+                    + "- Supervisión continua\n"
+                    + "- Integración con otros sistemas\n\n"
+                    + "Extraido de: https://porteroseguro.com/que-es-un-sistema-de-seguridad-de-monitoreo-permanente-y-como-funciona/"
+                    + "\n\n"
+                    + "1- Volver.");
+            
+            mensaje.setPreferredSize(new Dimension(455, 260));
+            mensaje.setPreferredSize(new Dimension(455, 260));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 280));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 280));
+            numeroChat = 12;
+            
+        }else if (numeroChat == 12 && chat.getText().equals("1")){
+            mensaje.setText("¿Qué deseas saber acerca de la seguridad de monitoreo?\n\n"
+                    + "1- ¿Qué es un sistema de seguridad de monitoreo permanente?\n"
+                    + "2- ¿Cómo funciona un sistema de seguridad monitoreado?\n"
+                    + "3- ¿Cuáles son los beneficios de un sistema de seguridad de monitoreo permanente?\n"
+                    + "4- Volver.");
+            numeroChat = 11;
+        }
+        
+        //---------- SEGURIDAD EN EL TRABAJO -------------------
+        else if (numeroChat == 21 && chat.getText().equals("1")){
+            mensaje.setText("La seguridad en el trabajo es la disciplina encuadrada en la prevención "
+                    + "de riesgos laborales cuyo objetivo es la aplicación de medidas y el desarrollo "
+                    + "de las actividades necesarias para la prevención de riesgos derivados del "
+                    + "trabajo. Se trata de un conjunto de técnicas y procedimientos que tienen como "
+                    + "resultado eliminar o disminuir el riesgo de que se produzcan accidentes.\n\n"
+                    + "Fuente: https://www.quironprevencion.com/blogs/es/prevenidos/seguridad-trabajo"
+                    + "\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 200));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 200));
+            numeroChat = 22;
+        }else if (numeroChat == 21 && chat.getText().equals("2")){
+            mensaje.setText("Puedes aplicarla siguiendo unos cuantos consejos:\n\n" +
+                    "- Sé consciente de lo que te rodea.\n" +
+                    "- Mantén la postura correcta para proteger tu espalda.\n" +
+                    "- Toma descansos regulares.\n" +
+                    "- Utiliza herramientas y máquinas correctamente.\n" +
+                    "- Mantén libres las salidas de emergencia.\n" +
+                    "- Informa a tu supervisor si detectas una situación insegura.\n" +
+                    "- Usa ayudas mecánicas siempre que sea posible.\n" +
+                    "- No trabajes ebrio.\n" +
+                    "- Reduce el estrés laboral.\n" +
+                    "- Usa el equipo de seguridad correcto.\n\n"
+                    + "Fuente: https://www.vivosano.org/10-consejos-de-seguridad-en-el-trabajo/"
+                    + "\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 280));
+            mensaje.setPreferredSize(new Dimension(455, 280));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 300));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 300));
+            numeroChat = 22;
+        }else if (numeroChat == 21 && chat.getText().equals("3")){
+            mensaje.setText("Algunos de los beneficios al aplicar la seguridad y salud en mi trabajo son:\n\n" +
+                    "- Aumentar la productividad laboral y la confianza de los trabajadores hacia la empresa.\n" +
+                    "- Reducir la rotación y el absentismo laboral.\n" +
+                    "- Potenciar de manera favorable el clima laboral y la motivación.\n" +
+                    "- Mejorar la reputación y la imagen de la organización.\n" +
+                    "- Disminuir las pérdidas y costos que conllevan los accidentes y enfermedades que merman las actividades de los empleados.\n" +
+                    "- Un beneficio general para la sociedad en temas de seguridad social, costos sanitarios, indemnizaciones y más.\n\n" +
+                    "Fuente: https://www.esan.edu.pe/conexion-esan/salud-ocupacional-que-es-y-cuales-son-los-beneficios-que-aporta-a-la-empresa"
+                    + "\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 290));
+            mensaje.setPreferredSize(new Dimension(455, 290));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 310));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 310));
+            numeroChat = 22;
+        }else if (numeroChat == 22 && chat.getText().equals("1")){
+            mensaje.setText("¿Qué deseas saber acerca de la seguridad en el trabajo?\n\n"
+                    + "1- ¿Qué es la seguridad en el trabajo?\n"
+                    + "2- ¿Cómo puedo aplicar la seguridad en mi trabajo?\n"
+                    + "3- ¿Cuáles son los beneficios de aplicar la seguridad en mi trabajo?\n"
+                    + "4- Volver.");
+            numeroChat = 21;
+        }
+        
+        //---------- BUEN CONTROL DE AREAS -------------------
+        else if (numeroChat == 31 && chat.getText().equals("1")){
+            mensaje.setText("El control de áreas se refiere a la gestión y supervisión de diversas "
+                    + "zonas o espacios dentro de una organización, proyecto o territorio, con el "
+                    + "fin de asegurar que se cumplan los objetivos específicos, normas y "
+                    + "estándares establecidos. Este concepto puede aplicarse en diferentes "
+                    + "contextos y sectores, como la industria, la seguridad, la gestión ambiental, "
+                    + "la construcción, y otros.\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 150));
+            mensaje.setPreferredSize(new Dimension(455, 150));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 170));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 170));
+            numeroChat = 32;
+        }else if (numeroChat == 31 && chat.getText().equals("2")){
+            mensaje.setText("Puedes mantener un buen control de áreas siguiendo los siguientes consejos:\n\n" +
+                    "- Evalúa y planifica inicialmente.\n" +
+                    "- Implementa tecnología para mejorar la gestión de las áreas.\n" +
+                    "- Establece procedimientos y protocolos.\n" +
+                    "- Introduce formación y capacitación.\n" +
+                    "- Emplea monitoreo continuo.\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 200));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 200));
+            numeroChat = 32;
+        }else if (numeroChat == 31 && chat.getText().equals("3")){
+            mensaje.setText("Algunos de los beneficios de mantener un buen control de áreas son:\n\n" +
+                    "- Mayor productividad y eficiencia.\n" +
+                    "- Mejorar la seguridad.\n" +
+                    "- Ahorrar tiempo y dinero.\n" +
+                    "- Evitar accidentes.\n" +
+                    "- Mejorar la calidad de vida.\n" +
+                    "- Mejor toma de decisiones.\n\n"
+                    + "1- Volver.");
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            mensaje.setPreferredSize(new Dimension(455, 180));
+            cuadroMensaje.setPreferredSize(new Dimension(620, 200));
+            cuadroMensaje.setMaximumSize(new Dimension(620, 200));
+            numeroChat = 32;
+        }else if (numeroChat == 32 && chat.getText().equals("1")){
+            mensaje.setText("¿Qué deseas saber acerca del buen control de areas?\n\n"
+                    + "1- ¿Qué es el control de áreas?\n"
+                    + "2- ¿Cómo puedo mantener un buen control de áreas?\n"
+                    + "3- ¿Cuáles son los beneficios de mantener un buen control de áreas?\n"
+                    + "4- Volver.");
+            numeroChat = 31;
+        }
+        
+        else if ((numeroChat == 01 || numeroChat == 11 || numeroChat == 21 || numeroChat == 31 ) && chat.getText().equals("4")){
+            mensaje.setText("Hola, este es el manual, aquí podras encontrar informacion que te sea de "
+                    + "utilidad mediante las siguientes opciones:\n\n"
+                    + "1- Manual de uso.\n"
+                    + "2- Seguridad de monitoreo.\n"
+                    + "3- Seguridad en el trabajo.\n"
+                    + "4- Buen control de areas.\n");
+            numeroChat = 0;
+        }else{
+            mensaje.setText("Escoja una opción valida.");
         }
     }
 }
